@@ -4,7 +4,7 @@
 namespace App\Repositories\Interfaces;
 
 
-interface BaseRepositotyInterface
+interface BaseRepositoryInterface
 {
     public function get($id);
 
