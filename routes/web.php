@@ -14,7 +14,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+//Route::get('/getAll', [MovieController::class, 'getAll']);
+
+//start admin route
+
+//end admin route
+Route::prefix('admin')->group(function () {
+    Route::get('/users', function () {
+        // Matches The "/admin/users" URL
+    });
+    Route::get('/movies', function () {
+        // Matches The "/admin/users" URL
+    });
+    Route::get('/actors', function () {
+        // Matches The "/admin/users" URL
+    });
+    Route::get('/seasons', function () {
+        // Matches The "/admin/users" URL
+    });
+    Route::get('/actors', function () {
+        // Matches The "/admin/users" URL
+    });
+    Route::get('/roles', function () {
+        // Matches The "/admin/users" URL
+    });
+    Route::get('/dashboard', function() {
+
+    })->name("dashboard");
+
 });
-Route::get('/getAll', [MovieController::class, 'getAll']);
+//start Client route
+
+//end Client route
