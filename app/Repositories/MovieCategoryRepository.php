@@ -4,42 +4,24 @@
 namespace App\Repositories;
 
 
-use App\Repositories\Interfaces\ActorRepositoryInterface;
-
-class ActorRepository implements ActorRepositoryInterface
+class MovieCategoryRepository implements Interfaces\MovieCategoryInterface
 {
 
-    /**
-     * @param $id
-     * @return mixed
-     */
     public function get($id)
     {
         // TODO: Implement get() method.
     }
 
-    /**
-     * @return mixed
-     */
     public function all()
     {
         // TODO: Implement all() method.
     }
 
-    /**
-     * @param $id
-     * @param array $data
-     * @return mixed
-     */
     public function update($id, array $data)
     {
         // TODO: Implement update() method.
     }
 
-    /**
-     * @param $id
-     * @return mixed
-     */
     public function delete($id)
     {
         // TODO: Implement delete() method.
