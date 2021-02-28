@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\MovieController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,26 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard', function() {
 
     })->name("dashboard");
+
+//    Route::get('/category/add', function () {
+//        // Matches The "/admin/users" URL
+//        return view("admin.page.category.addCategory");
+//    });
+    Route::prefix('category')->group(function () {
+        Route::get('/add', function () {
+            // Matches The "/admin/users" URL
+            return view("admin.page.category.addCategory");
+        });
+        Route::post('/postAdd',[CategoryController::class , 'PostAddCategory'])->name("post_add_category");
+        Route::get('/listCategory', function () {
+            // Matches The "/admin/users" URL
+            return view("admin.page.category.addCategory");
+        });
+        Route::get('/', function () {
+            // Matches The "/admin/users" URL
+            return "<h1> hello </h1>";
+        });
+    });
 
 });
 //start Client route

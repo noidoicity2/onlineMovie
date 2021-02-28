@@ -26,4 +26,13 @@ class CountryRepository implements Interfaces\CountryRepositoryInterface
     {
         // TODO: Implement delete() method.
     }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function create($data)
+    {
+        // TODO: Implement create() method.
+    }
 }

@@ -32,4 +32,13 @@ class MovieRepository implements MovieRepositoryInterface
     {
         // TODO: Implement delete() method.
     }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function create($data)
+    {
+        // TODO: Implement create() method.
+    }
 }

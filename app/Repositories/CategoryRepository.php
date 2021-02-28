@@ -4,9 +4,10 @@
 namespace App\Repositories;
 
 
-use App\Repositories\Interfaces\ActorRepositoryInterface;
+use App\Models\Category;
+use App\Repositories\Interfaces\CategoryRepositoryInterface;
 
-class ActorRepository implements ActorRepositoryInterface
+class CategoryRepository implements CategoryRepositoryInterface
 {
 
     /**
@@ -51,6 +52,13 @@ class ActorRepository implements ActorRepositoryInterface
      */
     public function create($data)
     {
-        // TODO: Implement create() method.
+//        return typeOf($data) ;
+//        return $data->input('name');
+//        Category::create([
+//            'name'          =>  $data->name,
+//            'slug'          =>  $data->slug,
+//            'description'   =>  $data->description
+//        ]);
+        Category::create($data);
     }
 }
