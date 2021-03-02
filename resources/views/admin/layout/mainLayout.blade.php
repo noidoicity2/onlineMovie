@@ -16,7 +16,7 @@
 <div id="layoutSidenav">
 @include("admin.layout.sideBar")
 @section("content")
-{{--    @include("admin.layout.content")--}}
+    @include("admin.layout.content")
 @show
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>

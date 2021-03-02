@@ -56,10 +56,7 @@ Route::prefix('admin')->group(function () {
             return view("admin.page.category.addCategory");
         });
         Route::post('/postAdd',[CategoryController::class , 'PostAddCategory'])->name("post_add_category");
-        Route::get('/listCategory', function () {
-            // Matches The "/admin/users" URL
-            return view("admin.page.category.addCategory");
-        });
+        Route::get('/listCategory', [CategoryController::class , 'all']);
         Route::get('/', function () {
             // Matches The "/admin/users" URL
             return "<h1> hello </h1>";

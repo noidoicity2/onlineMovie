@@ -25,15 +25,18 @@ class AddCategoryRequest extends FormRequest
     {
         return [
             //
-            'name'          =>      'required|max:50|min:2',
+            'name'          =>      'required|max:50|min:2|unique:category',
             'slug'          =>      'max:50',
             'description'   =>      'max:1000|required'
 
         ];
     }
 
-//    public function messages()
-//    {
-//        return[]
-//    }
+    public function messages()
+    {
+        return[
+            'name.required' => 'name is required',
+            'description.required'  =>  'description required',
+        ];
+    }
 }

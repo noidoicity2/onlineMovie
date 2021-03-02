@@ -6,6 +6,8 @@ namespace App\Repositories;
 
 use App\Models\Category;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
+use Illuminate\Database\QueryException;
+
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
@@ -25,6 +27,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function all()
     {
         // TODO: Implement all() method.
+        return Category::all();
     }
 
     /**
@@ -52,13 +55,10 @@ class CategoryRepository implements CategoryRepositoryInterface
      */
     public function create($data)
     {
-//        return typeOf($data) ;
-//        return $data->input('name');
-//        Category::create([
-//            'name'          =>  $data->name,
-//            'slug'          =>  $data->slug,
-//            'description'   =>  $data->description
-//        ]);
-        Category::create($data);
+            Category::create($data);
+//        CATEGORY_VIEW_DIR
     }
+
+
+
 }
