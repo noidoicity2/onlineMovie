@@ -1,8 +1,10 @@
 $(document).ready(function (){
+
     $(".delete-btn").click(function () {
         if(!confirm("are you sure")) return false;
         var id = $(this).parent().parent().children().eq(0).text();
         var csrf =  $('#csrf_field').val();
+
         // console.log(csrf);
 
         $.ajax({
@@ -32,7 +34,13 @@ $(document).ready(function (){
             }
         });
 
-        console.log(id);
-    })
+        // console.log(id);
+    });
+
+    $(".update-btn").click(function (){
+        var id = $(this).parent().parent().children().eq(0).text();
+    });
+
+
 });
 

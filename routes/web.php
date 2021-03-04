@@ -52,16 +52,15 @@ Route::prefix('admin')->group(function () {
 //    });
     Route::prefix('category')->group(function () {
         Route::get('/add', function () {
-
             return view("admin.page.category.addCategory");
         });
+        Route::get('/edit/{id?}', [CategoryController::class , 'Edit'])->name("edit_category");
         Route::post('/postAdd',[CategoryController::class , 'PostAddCategory'])->name("post_add_category");
         Route::post('/postDelete',[CategoryController::class , 'PostDeleteCategory'])->name("post_delete_category");
-        Route::get('/listCategory', [CategoryController::class , 'all']);
-        Route::get('/', function () {
-            // Matches The "/admin/users" URL
-            return "<h1> hello </h1>";
-        });
+        Route::post('/postEdit',[CategoryController::class , 'PostEditCategory'])->name("post_edit_category");
+
+        Route::get('/listCategory', [CategoryController::class , 'all'])->name('list_category');
+        Route::get('/', [CategoryController::class , 'all']);
     });
 
 });

@@ -19,6 +19,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function get($id)
     {
         // TODO: Implement get() method.
+        return Category::find($id);
     }
 
     /**
@@ -38,6 +39,8 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function update($id, array $data)
     {
         // TODO: Implement update() method.
+
+        return Category::find($id)->update($data);
     }
 
     /**
