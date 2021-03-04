@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AddCategoryRequest;
+use App\Http\Requests\Category\AddCategoryRequest;
+use App\Http\Requests\Category\DeleteCategoryRequest;
 use App\Models\Category;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Psy\Util\Json;
 use  App\Constant;
 
@@ -55,5 +57,17 @@ class CategoryController extends Controller
             ]
 
         );
+    }
+
+    public function PostDeleteCategory(DeleteCategoryRequest $request) {
+
+        $row_affect  = $this->categoryRepository->delete($request->id);
+        if($row_affect>0) return json_encode([
+            'success' => true
+        ]);
+        else return json_encode([
+            'success' => false
+        ]);
+
     }
 }

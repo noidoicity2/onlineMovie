@@ -16,6 +16,13 @@
 {{--                        .--}}
 {{--                    </div>--}}
 {{--                </div>--}}
+{{--                <div class="row">--}}
+{{--                    <div class="col-12">--}}
+{{--                        <div class="alert alert-success success-action d-none">--}}
+{{--                            <strong>Success!</strong> You should <a href="#" class="alert-link">read this message</a>.--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
@@ -52,7 +59,7 @@
                                             <td>{{$category->description}}</td>
                                             <td>{{$category->slug}}</td>
                                             <td style="text-align: center">
-                                                <button class="btn btn-danger rounded-circle" ><i class="fa fa-trash"></i></button>
+                                                <button class="btn btn-danger rounded-circle delete-btn" ><i class="fa fa-trash"></i></button>
                                                 <button class="btn btn-info rounded-circle" ><i class="fa fa-pen"></i></button>
                                                 <button class="btn btn-primary rounded-circle" ><i class="fa fa-eye"></i></button>
                                                 <button class="btn btn-info rounded-circle" ><i class="fa fa-pen"></i></button>

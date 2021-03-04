@@ -46,7 +46,9 @@ class CategoryRepository implements CategoryRepositoryInterface
      */
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+//     Category::findOrFail($id);
+
+        return Category::destroy($id);
     }
 
     /**

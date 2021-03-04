@@ -52,10 +52,11 @@ Route::prefix('admin')->group(function () {
 //    });
     Route::prefix('category')->group(function () {
         Route::get('/add', function () {
-            // Matches The "/admin/users" URL
+
             return view("admin.page.category.addCategory");
         });
         Route::post('/postAdd',[CategoryController::class , 'PostAddCategory'])->name("post_add_category");
+        Route::post('/postDelete',[CategoryController::class , 'PostDeleteCategory'])->name("post_delete_category");
         Route::get('/listCategory', [CategoryController::class , 'all']);
         Route::get('/', function () {
             // Matches The "/admin/users" URL
