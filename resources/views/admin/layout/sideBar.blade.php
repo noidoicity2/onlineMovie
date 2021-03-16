@@ -7,21 +7,23 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
-                <div class="sb-sidenav-menu-heading">Interface</div>
+{{--                <div class="sb-sidenav-menu-heading">Interface</div>--}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                    Layouts
+                    <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                    Category
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
+{{--                category--}}
                 <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                        <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                        <a class="nav-link" href="{{route('add_category')}}">Add new</a>
+                        <a class="nav-link" href="{{route('list_category')}}">All categories</a>
                     </nav>
                 </div>
+{{--                end category--}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                     <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                    Pages
+                    Movies
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
@@ -50,20 +52,71 @@
                         </div>
                     </nav>
                 </div>
-                <div class="sb-sidenav-menu-heading">Addons</div>
-                <a class="nav-link" href="charts.html">
-                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                    Charts
+{{--                <div class="sb-sidenav-menu-heading">Addons</div>--}}
+
+                {{--                Movie--}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#movie-menu" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                    Movie
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <a class="nav-link" href="tables.html">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                    Tables
+                <div class="collapse" id="movie-menu" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{route('add_category')}}">Add new movie</a>
+                        <a class="nav-link" href="{{route('list_category')}}">All movie</a>
+                    </nav>
+                </div>
+                {{--                end Movie--}}
+
+
+                {{--                Country--}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#country-menu" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fas  fa-globe"></i></div>
+                    Country
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
+                <div class="collapse" id="country-menu" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{route('add_category')}}">Add new movie</a>
+                        <a class="nav-link" href="{{route('list_category')}}">All movie</a>
+                    </nav>
+                </div>
+                {{--                end Country--}}
+
+                {{--                Membership--}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#country-menu" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
+                    Membership
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="country-menu" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{route('add_category')}}">Add new movie</a>
+                        <a class="nav-link" href="{{route('list_category')}}">All movie</a>
+                    </nav>
+                </div>
+                {{--                end membership--}}
+
+                {{--                slider--}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#country-menu" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
+                    Slider
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="country-menu" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{route('add_category')}}">Add new movie</a>
+                        <a class="nav-link" href="{{route('list_category')}}">All movie</a>
+                    </nav>
+                </div>
+                {{--                end slider--}}
+
+
             </div>
         </div>
         <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
-            Start Bootstrap
+            MR Dat
         </div>
     </nav>
 </div>

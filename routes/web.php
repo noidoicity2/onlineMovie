@@ -53,7 +53,7 @@ Route::prefix('admin')->group(function () {
     Route::prefix('category')->group(function () {
         Route::get('/add', function () {
             return view("admin.page.category.addCategory");
-        });
+        })->name('add_category');
         Route::get('/edit/{id?}', [CategoryController::class , 'Edit'])->name("edit_category");
         Route::post('/postAdd',[CategoryController::class , 'PostAddCategory'])->name("post_add_category");
         Route::post('/postDelete',[CategoryController::class , 'PostDeleteCategory'])->name("post_delete_category");
