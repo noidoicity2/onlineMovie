@@ -4,27 +4,31 @@
 namespace App\Repositories;
 
 
+use App\Models\Movie;
+
 class MovieCategoryRepository implements Interfaces\MovieCategoryInterface
 {
 
     public function get($id)
     {
         // TODO: Implement get() method.
+        return Movie::find($id);
     }
 
     public function all()
     {
-        // TODO: Implement all() method.
+       return Movie::all();
     }
 
     public function update($id, array $data)
     {
         // TODO: Implement update() method.
+        return Movie::find($id)->update($data);
     }
 
-    public function delete($id)
+    public function delete($id): int
     {
-        // TODO: Implement delete() method.
+        return Movie::destroy($id);
     }
 
     /**
