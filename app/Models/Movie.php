@@ -11,4 +11,18 @@ use Illuminate\Database\Eloquent\Model;
 class Movie extends Model
 {
     use HasFactory;
+
+    protected $table = "movie";
+    public      $timestamps     =   false;
+
+    public function sluggable(): array
+    {
+        // TODO: Implement sluggable() method.
+        return [
+            'slug' => [
+                'source'=>'name'
+            ]
+        ];
+    }
+
 }

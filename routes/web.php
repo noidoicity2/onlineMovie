@@ -63,6 +63,14 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [CategoryController::class , 'all']);
     });
 
+
+    Route::prefix('movie')->group(function () {
+        Route::get('/add', function () {
+            return view("admin.page.movie.addMovie");
+        })->name('add_movie');
+    });
+
+
 });
 //start Client route
 
