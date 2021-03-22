@@ -23,7 +23,7 @@ Route::get('/', function () {
 //    return view('login');
 //})->name('login');
 Route::prefix('auth')->group(function () {
-    Route::get('login', function (){return view('login');})->name('login');
+    Route::get('login', [AuthController::class , 'Login'])->name('login');
     Route::get('logout', function (){return view('login');})->name('logout');
 
     Route::post('postlogin', [AuthController::class ,'PostLogin'] )->name('post_login');

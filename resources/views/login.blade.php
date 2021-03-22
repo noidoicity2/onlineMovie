@@ -12,9 +12,9 @@
 </head>
 <body>
 
-<div class="container">
-  <h2>Stacked form</h2>
-  <form method="post" action="{{route('post_login')}}">
+<div class="container bg-light mt-5 ">
+  <h2 class="text-center">Login form</h2>
+  <form class="" method="post" action="{{route('post_login')}}">
       @csrf
     <div class="form-group">
       <label for="email">Email:</label>
