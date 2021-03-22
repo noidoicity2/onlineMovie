@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\MovieController;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('admin.layout.mainLayout');
+});
+//Route::get('login' , function () {
+//    return view('login');
+//})->name('login');
+Route::prefix('auth')->group(function () {
+    Route::get('login', function (){return view('login');})->name('login');
+    Route::get('logout', function (){return view('login');})->name('logout');
+
+    Route::post('postlogin', [AuthController::class ,'PostLogin'] )->name('post_login');
 });
 //Route::get('/getAll', [MovieController::class, 'getAll']);
 
