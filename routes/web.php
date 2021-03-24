@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\MovieController;
+use App\Http\Middleware\CheckLogin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +34,7 @@ Route::prefix('auth')->group(function () {
 //start admin route
 
 //end admin route
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
     Route::get('/users', function () {
         // Matches The "/admin/users" URL
     });
