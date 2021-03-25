@@ -23,15 +23,15 @@ class MovieController extends Controller
         return $this->movieRepository->all();
 //        return "dasd";
     }
-    public function PostAddMovie(Request $request) {
-        $movie =  $request->all();
+    public function PostAddMovie(AddMovieRequest $request) {
+        $movie =  $request->validated();
 //        return $movie;
 
         $img = $request->file('img')->getClientOriginalName();
         $filePath = $request->file('img')->storeAs('uploads', $img, 'public');
-        $movie['img'] = $filePath;
-        $contents = Storage::temporaryUrl($filePath , now()->addMinutes(5));
-        return $contents;
+        $movie['img'] = Storage::url($filePath);
+//        $contents = Storage::url($filePath );
+//        return $contents;
 
 
 //        $paths = Storage::putFileAs('imag' , $request->file('img'))
