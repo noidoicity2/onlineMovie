@@ -30,7 +30,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-12 col-md-12">
-                        <form>
+                        <form action="{{route('post_add_movie')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="name">Movie Name</label>
@@ -42,7 +42,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="img">Choose image</label>
-                                <input type="file" class="form-control" name="img" id="img" placeholder="Enter real name">
+                                <input type="file" class="form-control" name="img" id="img">
                             </div>
                             <div class="form-group">
                                 <label for="country">Country</label>
@@ -75,7 +75,7 @@
 
                             <div class="form-group">
                                 <label for="info">Description</label>
-                                <textarea class="form-control" id="info" name="info" rows="3"></textarea>
+                                <textarea class="form-control" id="info" name="description" rows="3"></textarea>
                             </div>
                             <div class="form-group row">
                                 <div class="form-group col-md-3">

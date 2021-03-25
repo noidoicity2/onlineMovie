@@ -40,6 +40,7 @@ class MovieRepository implements MovieRepositoryInterface
      */
     public function create($data)
     {
+
         // TODO: Implement create() method.
         return Movie::create($data);
     }

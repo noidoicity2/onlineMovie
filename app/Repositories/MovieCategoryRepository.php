@@ -39,5 +39,6 @@ class MovieCategoryRepository implements Interfaces\MovieCategoryInterface
     public function create($data)
     {
         // TODO: Implement create() method.
+
     }
 }

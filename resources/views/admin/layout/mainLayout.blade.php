@@ -18,7 +18,7 @@
 <div id="layoutSidenav">
 @include("admin.layout.sideBar")
 @section("content")
-    @include("admin.layout.content")
+{{--    @include("admin.layout.content")--}}
 @show
     <input type="hidden" id="csrf_field" value="{{csrf_token()}}">
 </div>
