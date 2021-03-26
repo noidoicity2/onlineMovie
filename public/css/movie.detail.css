@@ -1,0 +1,63 @@
+.movie-title {
+    margin-top: 50px;
+    color: #e0a800;
+}
+
+.movie-content {
+    /*clear: both;*/
+    /*margin-top: 50px;*/
+}
+.img-area {
+    justify-content: center;
+    /*filter: blur(0);*/
+}
+.img-area > img {
+    display: block;
+}
+.film-img {
+    height: auto;
+    width: 80%;
+    max-width: 600px ;
+    /*height: 100%;*/
+    margin-top: 60px;
+    display: flex;
+
+    justify-content: center;
+}
+.group-btn {
+    justify-content: center;
+}
+.right-detail {
+    margin-top: 60px;
+}
+.detail-item {
+    color: #aaa;
+    font-size: 20px;
+    text-transform: capitalize;
+}
+
+.content-wrapper {
+    background-image: url("../images/avatar-3.jpg") ;
+
+    /*filter: blur(8px);*/
+    /*-webkit-filter: blur(8px);*/
+
+    /* Full height */
+    height: 100%;
+    /*opacity: 0.2;*/
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.content-overlay {
+    background-color: rgba(7,24,34,0.8);
+}
+.film-title {
+    color: #ffffff;
+}
+.en-title {
+    font-size: 25px;
+    color: #9fcdff;
+    margin-top: 0px;
+}

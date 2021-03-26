@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\CountryController;
+use App\Http\Controllers\admin\DirectorController;
 use App\Http\Controllers\admin\MovieController;
 use App\Http\Middleware\CheckLogin;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('admin.layout.mainLayout');
+    return view('client.layout.mainLayout');
 });
 //Route::get('login' , function () {
 //    return view('login');
@@ -33,7 +35,7 @@ Route::prefix('auth')->group(function () {
 
 //start admin route
 
-//end admin route
+
 Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
     Route::get('/users', function () {
         // Matches The "/admin/users" URL
@@ -85,8 +87,47 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
 
     });
 
+    Route::prefix('country')->group(function () {
+        Route::get('/add', function () {
+            return view("admin.page.country.addCountry");
+        })->name('add_country');
+        Route::get('listCountry' , [CountryController::class , 'all'])->name('list_country');
+        Route::get('/', [CountryController::class , 'all']);
+
+        Route::post('postAdd' , [CountryController::class, 'PostAddCountry'])->name('post_add_country');
+        Route::post('postDelete' , [CountryController::class, 'PostDeleteCountry'])->name('post_delete_country');
+        Route::post('postEdit' , [CountryController::class, 'PostEditCountry'])->name('post_edit_country');
+
+    });
+
+    Route::prefix('director')->group(function () {
+        Route::get('/add', function () {
+            return view("admin.page.Director.addDirector");
+        })->name('add_Director');
+        Route::get('listDirector' , [DirectorController::class , 'all'])->name('list_Director');
+        Route::get('/', [DirectorController::class , 'all']);
+
+        Route::post('postAdd' , [DirectorController::class, 'PostAddDirector'])->name('post_add_director');
+        Route::post('postDelete' , [DirectorController::class, 'PostDeleteDirector'])->name('post_delete_director');
+        Route::post('postEdit' , [DirectorController::class, 'PostEditDirector'])->name('post_edit_director');
+
+    });
+
 
 });
+//end admin route
 //start Client route
+Route::prefix('client')->group(function () {
+    Route::get('favorite', function () {});
+    Route::get('cart', function () {});
+    Route::get('wishlist', function () {});
+    Route::get('profile', function () {});
+    Route::get('payment', function () {});
+    Route::get('bookMark', function () {});
+    Route::get('profile', function () {});
 
+    Route::get('search', function () {});
+    Route::get('donate', function () {});
+
+});
 //end Client route
