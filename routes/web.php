@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CountryController;
 use App\Http\Controllers\admin\DirectorController;
 use App\Http\Controllers\admin\MovieController;
+use App\Http\Controllers\client\HomeController;
 use App\Http\Middleware\CheckLogin;
 use Illuminate\Support\Facades\Route;
 
@@ -128,6 +129,8 @@ Route::prefix('client')->group(function () {
 
     Route::get('search', function () {});
     Route::get('donate', function () {});
+    Route::get('home', [HomeController::class , 'home']);
 
 });
+
 //end Client route

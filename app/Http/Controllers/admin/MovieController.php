@@ -24,7 +24,8 @@ class MovieController extends Controller
 //        return "dasd";
     }
     public function PostAddMovie(AddMovieRequest $request) {
-        $movie =  $request->validated();
+        $movie =  $request->all();
+//        return $movie;
 //        return $movie;
 
         $img = $request->file('img')->getClientOriginalName();

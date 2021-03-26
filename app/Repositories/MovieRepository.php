@@ -42,6 +42,10 @@ class MovieRepository implements MovieRepositoryInterface
     {
 
         // TODO: Implement create() method.
+//        $data['is_movie18'] =   $data['is_movie18']=='on' ? 1 : 0;
+//        $data['is_finished'] =   $data['is_finished']=='on' ? 1 : 0;
+//        $data['is_movie_series'] =   $data['is_movie_series']=='on' ? 1 : 0;
+//        $data['is_on_cinema'] =   $data['is_on_cinema']=='on' ? 1 : 0;
         return Movie::create($data);
     }
 }

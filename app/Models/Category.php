@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static create($data)
+ * @method static OnLyName()
  */
 class Category extends Model
 {
@@ -18,6 +19,8 @@ class Category extends Model
     public      $timestamps     =   false;
 
     protected $fillable = ['name' , 'slug' , 'description'];
+
+
 
 
     /**
@@ -31,5 +34,16 @@ class Category extends Model
                 'source'=>'name'
             ]
         ];
+    }
+
+    public function movieCategories() {
+        return $this->hasMany(MovieCategory::class);
+    }
+
+    public function scopeOnlyName($query) {
+        return $query->select('name');
+    }
+    public function scopeMoreThan1($query) {
+        return $query->select('name');
     }
 }

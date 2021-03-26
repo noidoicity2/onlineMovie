@@ -28,8 +28,10 @@
 
 
 {{--main content--}}
+@section('content')
+{{--    @include('client.layout.mainContent')--}}
+@show
 
-@include('client.layout.mainContent')
 
 {{--end main content--}}
 

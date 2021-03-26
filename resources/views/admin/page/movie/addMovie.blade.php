@@ -47,7 +47,7 @@
                             <div class="form-group">
                                 <label for="country">Country</label>
                                 <select class="form-control" name="country" id="country">
-                                    <option>VN</option>
+                                    <option>12</option>
                                     <option>2</option>
                                     <option>3</option>
                                     <option>4</option>
@@ -57,7 +57,7 @@
                             <div class="form-group">
                                 <label for="country">Category</label>
                                 <select class="form-control" name="category_id" id="category_id">
-                                    <option>Honor</option>
+                                    <option>12</option>
                                     <option>2</option>
                                     <option>3</option>
                                     <option>4</option>
@@ -92,8 +92,8 @@
                                 </div>
 
                                 <div class="form-group col-md-3">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label text-danger" for="exampleCheck1">Being shown on cinema</label>
+                                    <input type="checkbox" class="form-check-input" id="is_on_cinema" name="is_on_cinema">
+                                    <label class="form-check-label text-danger" for="is_on_cinema">Being shown on cinema</label>
                                 </div>
 
 
