@@ -20,9 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('client.layout.mainLayout');
-});
+Route::get('/',  [HomeController::class , 'home']);
 //Route::get('login' , function () {
 //    return view('login');
 //})->name('login');

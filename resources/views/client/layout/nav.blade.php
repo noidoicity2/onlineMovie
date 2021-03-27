@@ -54,14 +54,17 @@
                 </li>
                 <li class="nav-item dropdown avatar-area">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img loading="lazy" class="avatar" src="images/avatar.JPG" alt=""> Mr Dat
+                        <img loading="lazy" class="avatar" src="images/avatar.JPG" alt="">
+                        @auth
+                            {{Auth::user()->name}}
+                        @endauth
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPages">
                         <a class="dropdown-item" href="full-width.html">Full Width Page</a>
                         <a class="dropdown-item" href="sidebar.html">Sidebar Page</a>
                         <a class="dropdown-item" href="faq.html">FAQ</a>
                         <a class="dropdown-item" href="404.html">404</a>
-                        <a class="dropdown-item" href="pricing.html">Pricing Table</a>
+                        <a class="dropdown-item" href="{{route('logout')}}">Log out</a>
                     </div>
                 </li>
             </ul>
