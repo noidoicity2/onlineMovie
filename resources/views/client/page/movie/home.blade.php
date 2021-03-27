@@ -13,21 +13,21 @@
                         </ul>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img loading="lazy" src="images/bg-3.jpg" alt="Los Angeles" width="1100" height="500">
+                                <img loading="lazy" src="/images/bg-3.jpg" alt="Los Angeles" width="1100" height="500">
                                 <div class="carousel-caption">
                                     <h3>Los Angeles</h3>
                                     <p>We had such a great time in LA!</p>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img loading="lazy" src="images/bg-2.jpg" alt="Chicago" width="1100" height="500">
+                                <img loading="lazy" src="/images/bg-2.jpg" alt="Chicago" width="1100" height="500">
                                 <div class="carousel-caption">
                                     <h3>Chicago</h3>
                                     <p>Thank you, Chicago!</p>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img loading="lazy" src="images/bg-1.jpg" alt="New York" width="1100" height="500">
+                                <img loading="lazy" src="/images/bg-1.jpg" alt="New York" width="1100" height="500">
                                 <div class="carousel-caption">
                                     <h3>New York</h3>
                                     <p>We love the Big Apple!</p>
@@ -42,102 +42,24 @@
                         </a>
                     </div>
                 </div>
-                <h2>Portfolio Heading</h2>
+                <h2>Newest Movie</h2>
                 <div class="row" >
+                    @foreach($new_movies as $movie )
+                        <div class="col-md-4 col-lg-3  col-sm-6">
 
-                    <div class="col-md-4 col-lg-3  col-sm-6">
+                            <a href="" class="film-item">
+                                <div class="ribbon">full HD</div>
+                                <div class="is-free">Free</div>
+                                <img loading="lazy" src="{{$movie->img}}" alt="">
 
-                        <a href="" class="film-item">
-                            <div class="ribbon">full HD</div>
-                            <div class="is-free">Free</div>
-                            <img loading="lazy" src="images/12.jpg" alt="">
-
-                            <p>Film name</p>
-                            <span>Real naem</span>
-                        </a>
-                    </div>
-
-                    <div class="col-md-4 col-lg-3 col-sm-6">
-
-                        <a href="" class="film-item">
-                            <div class="ribbon">full HD</div>
-                            <div class="is-free">Free</div>
-                            <img loading="lazy" src="images/5.jpg" alt="">
-
-                            <p>Film name</p>
-                            <span>Real naem</span>
-                        </a>
-                    </div>
-                    <div class="col-md-4 col-lg-3 col-sm-6">
-
-                        <a href="" class="film-item">
-                            <div class="ribbon">full HD</div>
-                            <div class="is-free">Free</div>
-                            <img loading="lazy" src="images/2.jpg" alt="">
-
-                            <p>Film name</p>
-                            <span>Real naem</span>
-                        </a>
-                    </div>
-                    <div class="col-md-4 col-lg-3 col-sm-6">
-
-                        <a href="" class="film-item">
-                            <div class="ribbon">full HD</div>
-                            <div class="is-free">Free</div>
-                            <img loading="lazy" src="images/3.jpg" alt="">
-
-                            <p>Film name</p>
-                            <span>Real naem</span>
-                        </a>
-                    </div>
-                    <div class="col-md-4 col-lg-3  col-sm-6">
-
-                        <a href="" class="film-item">
-                            <div class="ribbon">full HD</div>
-                            <div class="is-free">Free</div>
-                            <img loading="lazy" src="images/6.jpg" alt="">
-
-                            <p>Film name</p>
-                            <span>Real naem</span>
-                        </a>
-                    </div>
-
-                    <div class="col-md-4 col-lg-3 col-sm-6">
-
-                        <a href="" class="film-item">
-                            <div class="ribbon">full HD</div>
-                            <div class="is-free">Free</div>
-                            <img loading="lazy" src="images/4.jpg" alt="">
-
-                            <p>Film name</p>
-                            <span>Real naem</span>
-                        </a>
-                    </div>
+                                <p>{{$movie->name}}</p>
+                                <span>{{$movie->en_name}}</span>
+                            </a>
+                        </div>
+                    @endforeach
 
 
-                    <div class="col-md-4 col-lg-3 col-sm-6">
 
-                        <a href="" class="film-item">
-                            <div class="ribbon">full HD</div>
-                            <div class="is-free">Free</div>
-                            <img loading="lazy" src="images/5.jpg" alt="">
-
-                            <p>Film name</p>
-                            <span>Real naem</span>
-                        </a>
-                    </div>
-
-                    <div class="col-md-4 col-lg-3 col-sm-6 ">
-
-                        <a href="" class="film-item">
-                            <div class="ribbon">full HD</div>
-                            <div class="is-free">Free</div>
-                            <img loading="lazy" src="images/8.jpg" alt="">
-
-                            <p>Film name</p>
-                            <span>Real naem</span>
-                        </a>
-                    </div>
 
                 </div>
 
@@ -154,7 +76,7 @@
                                 <li>
 
                                     <a class="img-link"  href="">
-                                        <img loading="lazy" class="small-img" src="images/13.jpg" alt="">
+                                        <img loading="lazy" class="small-img" src="/images/13.jpg" alt="">
                                         <div class="name-rating">
                                             <div class="big-name">Big name</div>
                                             <div class="small-name">
@@ -172,7 +94,7 @@
                                 <li>
 
                                     <a class="img-link"  href="">
-                                        <img loading="lazy"  class="small-img" src="images/13.jpg" alt="">
+                                        <img loading="lazy"  class="small-img" src="/images/13.jpg" alt="">
                                         <div class="name-rating">
                                             <div class="big-name">Big name</div>
                                             <div class="small-name">
@@ -188,7 +110,7 @@
                                 <li>
 
                                     <a class="img-link"  href="">
-                                        <img loading="lazy" class="small-img" src="images/13.jpg" alt="">
+                                        <img loading="lazy" class="small-img" src="/images/13.jpg" alt="">
                                         <div class="name-rating">
                                             <div class="big-name">Big name</div>
                                             <div class="small-name">

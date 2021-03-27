@@ -21,6 +21,9 @@ class Movie extends Model
         'duration',	'view_count'	,'category_id'	,'slug'	,'imdb',	'is_movie18',
         'is_finished'	,'is_movie_series'	,'published_at',	'is_on_cinema',	'created_at'
     ];
+    public function scopeNewestMovie($query) {
+        return $query->select(['name' , 'en_name' , 'img' , 'bg_img' , 'published_at'])->orderByDesc('created_at');
+    }
 
     public function sluggable(): array
     {
