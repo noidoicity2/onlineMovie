@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +14,7 @@ class Movie extends Model
 {
     use HasFactory;
     use Sluggable;
+    use SluggableScopeHelpers ;
 
     protected $table = "movie";
     public      $timestamps     =   false;
@@ -22,7 +24,7 @@ class Movie extends Model
         'is_finished'	,'is_movie_series'	,'published_at',	'is_on_cinema',	'created_at'
     ];
     public function scopeNewestMovie($query) {
-        return $query->select(['name' , 'en_name' , 'img' , 'bg_img' , 'published_at'])->orderByDesc('created_at');
+        return $query->select(['id','name' , 'en_name' , 'img' , 'bg_img' , 'published_at' , 'slug'])->orderByDesc('created_at');
     }
 
     public function sluggable(): array
@@ -33,6 +35,16 @@ class Movie extends Model
                 'source'=>'name'
             ]
         ];
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 
 }

@@ -54,7 +54,7 @@
                 </li>
                 <li class="nav-item dropdown avatar-area">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img loading="lazy" class="avatar" src="images/avatar.JPG" alt="">
+                        <img loading="lazy" class="avatar" src="/images/avatar.JPG" alt="">
                         @auth
                             {{Auth::user()->name}}
                         @endauth

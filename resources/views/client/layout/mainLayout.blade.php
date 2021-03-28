@@ -18,6 +18,7 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/app.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('/css/movie.detail.css')}}">
 
 </head>
 

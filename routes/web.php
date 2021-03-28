@@ -136,3 +136,6 @@ Route::prefix('client')->group(function () {
 });
 
 //end Client route
+Route::prefix('movie')->group(function() {
+    Route::get('/{slug}-{id}', [ClientMovieController::class , 'GetMovieBySlug'])->name('get_movie_by_slug');
+});

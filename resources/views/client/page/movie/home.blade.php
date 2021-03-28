@@ -47,7 +47,7 @@
                     @foreach($new_movies as $movie )
                         <div class="col-md-4 col-lg-3  col-sm-6">
 
-                            <a href="" class="film-item">
+                            <a href="{{route('get_movie_by_slug',['slug' => $movie->slug , 'id' => $movie->id])}}" class="film-item">
                                 <div class="ribbon">full HD</div>
                                 <div class="is-free">Free</div>
                                 <img loading="lazy" src="{{$movie->img}}" alt="">
