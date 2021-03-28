@@ -9,6 +9,8 @@ use App\Http\Controllers\admin\MovieController;
 use App\Http\Controllers\client\ClientMovieController;
 use App\Http\Controllers\client\HomeController;
 use App\Http\Middleware\CheckLogin;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -139,3 +141,9 @@ Route::prefix('client')->group(function () {
 Route::prefix('movie')->group(function() {
     Route::get('/{slug}-{id}', [ClientMovieController::class , 'GetMovieBySlug'])->name('get_movie_by_slug');
 });
+DB::listen(function($sql) {
+    Log::info($sql->sql);
+    Log::info($sql->bindings);
+    Log::info($sql->time);
+});
+
