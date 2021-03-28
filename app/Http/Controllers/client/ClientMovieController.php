@@ -12,9 +12,11 @@ class ClientMovieController extends Controller
 {
     //
     protected  $movieRepository;
+    protected $category ;
     public function __construct(MovieRepositoryInterface $movieRepository)
     {
         $this->movieRepository = $movieRepository;
+        $this->category = Category::OnLyName()->get();
     }
 
     public function Index() {
@@ -23,11 +25,14 @@ class ClientMovieController extends Controller
     }
     public function GetMovieBySlug($slug =null , $id = null) {
         $movie  = Movie::find($id);
-        $category = Category::OnLyName()->get();
+
         return view('client.page.movie.detail' , [
             'movie'=>$movie,
-            'categories'=>$category,
+            'categories'=>$this->category,
         ]);
+    }
+    public function Watch($slug =null , $id = null) {
+
     }
 
 }
