@@ -5,6 +5,8 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CountryController;
 use App\Http\Controllers\admin\DirectorController;
 use App\Http\Controllers\admin\MovieController;
+
+use App\Http\Controllers\client\ClientMovieController;
 use App\Http\Controllers\client\HomeController;
 use App\Http\Middleware\CheckLogin;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +32,7 @@ Route::prefix('auth')->group(function () {
 
     Route::post('postlogin', [AuthController::class ,'PostLogin'] )->name('post_login');
 });
-//Route::get('/getAll', [MovieController::class, 'getAll']);
+//Route::get('/getAll', [ClientMovieController::class, 'getAll']);
 
 //start admin route
 
@@ -74,6 +76,7 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
 
 
     Route::prefix('movie')->group(function () {
+
         Route::get('/add', function () {
             return view("admin.page.movie.addMovie");
         })->name('add_movie');
@@ -117,6 +120,7 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
 //end admin route
 //start Client route
 Route::prefix('client')->group(function () {
+    Route::get('/{slug}', [ClientMovieController::class, 'getMovie']);
     Route::get('favorite', function () {});
     Route::get('cart', function () {});
     Route::get('wishlist', function () {});

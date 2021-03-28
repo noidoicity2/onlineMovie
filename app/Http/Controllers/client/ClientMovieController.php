@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
 use Illuminate\Http\Request;
 
-class MovieController extends Controller
+class ClientMovieController extends Controller
 {
     //
     protected  $movieRepository;
