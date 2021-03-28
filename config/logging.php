@@ -100,5 +100,6 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
     ],
+    'enable_sql_log' => env('ENABLE_SQL_LOG', false),
 
 ];

@@ -162,6 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */
@@ -176,6 +177,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 //        add repository provider
         App\Repositories\BackendServiceProvider::class,
+
+        App\Providers\DataBaseQueryServiceProvider::class,
 
     ],
 
@@ -228,6 +231,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+
 
     ],
 
