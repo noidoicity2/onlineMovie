@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 
 use App\Http\Requests\Movie\AddMovieRequest;
+use App\Models\Category;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -48,15 +49,21 @@ class MovieController extends Controller
     public function PostEditMovie() {
 
     }
-    public function Edit($id =null) {
-
+    public function Add($id =null) {
+        $category = Category::OnLyName();
     }
 
-    public function ListMovie($paginate =5 , $orderBy = 'desc')  {
+    public function ListMovie($paginate = 0 , $orderBy = 'desc')  {
+//        $paginate ? 0 == $paginate : 10 ;
+
         $orderArr = array('asc' , 'desc');
         if(!in_array($orderBy , $orderArr)) $orderBy = 'desc';
-
-       return  $this->movieRepository->listMovie($paginate, $orderBy);
+        $movies = $this->movieRepository->listMovie($paginate, $orderBy);
+//return $movies;
+       return  view('admin.page.movie.listMovies' , [
+           'movies'  => $movies,
+           'title'  => "list Movies"
+       ]);
 
     }
 }

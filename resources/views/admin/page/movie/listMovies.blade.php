@@ -51,16 +51,24 @@
                                 </tr>
                                 </tfoot>
                                 <tbody>
+
                                 @if(isset($movies))
                                     @foreach($movies as $movie)
                                         <tr>
                                             <td>{{$movie->id}}</td>
                                             <td>{{$movie->name}}</td>
-                                            <td><img style="height: 30px " src="{{$movie->img}}" alt=""> </td>
-                                            <td>{{$category->slug}}</td>
+                                            <td><img class="mx-auto d-block " style="height: 100px" src="{{$movie->img}}" alt=""> </td>
+                                            <td>
+                                                <input class="form-check" type="checkbox"
+                                                    @if($movie->is_movie_series)
+                                                        checked
+                                                    @endif
+
+                                                >
+                                            </td>
                                             <td style="text-align: center">
                                                 <button class="btn btn-danger rounded-circle delete-btn" ><i class="fa fa-trash"></i></button>
-                                                <a href="{{route("edit_category", ['id'=> $category->id])}}" class="btn btn-info rounded-circle update-btn" ><i class="fa fa-pen"></i></a>
+                                                <a href="" class="btn btn-info rounded-circle update-btn" ><i class="fa fa-pen"></i></a>
                                                 <button class="btn btn-primary rounded-circle" ><i class="fa fa-eye"></i></button>
                                                 <button class="btn btn-info rounded-circle" ><i class="fa fa-pen"></i></button>
                                             </td>
@@ -74,10 +82,15 @@
 
 
                                 </tbody>
+
                             </table>
+
+
                         </div>
+
                     </div>
                 </div>
+
             </div>
         </main>
         <footer class="py-4 bg-light mt-auto">
@@ -93,4 +106,16 @@
             </div>
         </footer>
     </div>
+
+@endsection
+@section('custom_js')
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable( {
+                "paging":   true,
+
+                "info":     false
+            } );
+        } );
+    </script>
 @endsection
