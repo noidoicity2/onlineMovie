@@ -47,4 +47,8 @@ class Movie extends Model
         return 'slug';
     }
 
+    public function categories() {
+        return $this->hasMany(MovieCategory::class , 'movie_id' , 'id');
+    }
+
 }

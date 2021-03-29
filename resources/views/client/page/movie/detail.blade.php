@@ -6,7 +6,7 @@
             <div class="row content-overlay">
                 <div class="col-12 col-sm-6 img-area d-flex flex-column ">
                     <div class="img-left-container d-flex justify-content-center">
-                        <img class="film-img" src="/images/12.jpg" alt="">
+                        <img class="film-img" src="{{$movie->img}}" alt="">
                     </div>
 
                     <div class="group-btn d-flex">
@@ -65,7 +65,7 @@
                             <a href="" class="film-item">
                                 <div class="ribbon">full HD</div>
                                 <div class="is-free">Free</div>
-                                <img loading="lazy" src="/images/6.jpg" alt="">
+                                <img loading="lazy" src="{{$movie->img}}" alt="">
 
                                 <p>Film name</p>
                                 <span>Real naem</span>

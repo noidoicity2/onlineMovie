@@ -46,4 +46,8 @@ class Category extends Model
     public function scopeMoreThan1($query) {
         return $query->select('name');
     }
+
+    public function categories() {
+        return $this->hasMany(MovieCategory::class, 'category_id' , 'id');
+    }
 }
