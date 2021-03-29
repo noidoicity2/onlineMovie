@@ -84,7 +84,7 @@
                                 </tbody>
 
                             </table>
-
+                        {{$movies->links()}}
 
                         </div>
 
@@ -112,7 +112,7 @@
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable( {
-                "paging":   true,
+                "paging":   false,
 
                 "info":     false
             } );
