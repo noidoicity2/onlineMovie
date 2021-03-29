@@ -9,8 +9,17 @@ use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use Illuminate\Database\QueryException;
 
 
-class CategoryRepository implements CategoryRepositoryInterface
+class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
 {
+    /**
+     * UserRepository constructor.
+     *
+     * @param Category $model
+     */
+    public function __construct(Category $model)
+    {
+        parent::__construct($model);
+    }
 
     /**
      * @param $id
@@ -25,44 +34,35 @@ class CategoryRepository implements CategoryRepositoryInterface
     /**
      * @return mixed
      */
-    public function all()
-    {
-        // TODO: Implement all() method.
-        return Category::all();
-    }
+//    public function all()
+//    {
+//        // TODO: Implement all() method.
+//        return Category::all();
+//    }
 
-    /**
-     * @param $id
-     * @param array $data
-     * @return mixed
-     */
-    public function update($id, array $data)
-    {
-        // TODO: Implement update() method.
 
-        return Category::find($id)->update($data);
-    }
+
 
     /**
      * @param $id
      * @return mixed
      */
-    public function delete($id)
-    {
-//     Category::findOrFail($id);
-
-        return Category::destroy($id);
-    }
+//    public function delete($id)
+//    {
+////     Category::findOrFail($id);
+//
+//        return Category::destroy($id);
+//    }
 
     /**
      * @param $data
      * @return mixed
      */
-    public function create($data)
-    {
-            Category::create($data);
-//        CATEGORY_VIEW_DIR
-    }
+//    public function create($data)
+//    {
+//            Category::create($data);
+////        CATEGORY_VIEW_DIR
+//    }
 
 
 

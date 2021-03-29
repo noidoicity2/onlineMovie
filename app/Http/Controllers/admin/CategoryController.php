@@ -80,8 +80,9 @@ class CategoryController extends Controller
 
     }
 
-    public function PostEditCategory(EditCategoryRequest $request) {
+    public function  PostEditCategory (EditCategoryRequest $request) {
         $row_affect = $this->categoryRepository->update($request->id , $request->except(['id']));
+//        return $row_affect;
         if($row_affect>0)  return back()->with([
             'message' =>  "update category successfully"
         ]);

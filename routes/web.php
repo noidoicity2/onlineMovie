@@ -82,12 +82,14 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
         Route::get('/add', function () {
             return view("admin.page.movie.addMovie");
         })->name('add_movie');
+        Route::get('paginate={paginate?}&orderBy={orderBy}' , [MovieController::class , 'ListMovie']);
         Route::get('listMovie' , [MovieController::class , 'all'])->name('list_movie');
         Route::get('/', [MovieController::class , 'all']);
 
         Route::post('postAdd' , [MovieController::class, 'PostAddMovie'])->name('post_add_movie');
         Route::post('postDelete' , [MovieController::class, 'PostDeleteMovie'])->name('post_delete_movie');
         Route::post('postEdit' , [MovieController::class, 'PostEditMovie'])->name('post_edit_movie');
+
 
     });
 

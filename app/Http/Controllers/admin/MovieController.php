@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Movie\AddMovieRequest;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
@@ -48,6 +49,14 @@ class MovieController extends Controller
 
     }
     public function Edit($id =null) {
+
+    }
+
+    public function ListMovie($paginate =5 , $orderBy = 'desc')  {
+        $orderArr = array('asc' , 'desc');
+        if(!in_array($orderBy , $orderArr)) $orderBy = 'desc';
+
+       return  $this->movieRepository->listMovie($paginate, $orderBy);
 
     }
 }
