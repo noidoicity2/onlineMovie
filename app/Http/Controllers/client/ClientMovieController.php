@@ -25,6 +25,7 @@ class ClientMovieController extends Controller
     }
     public function GetMovieBySlug($slug =null , $id = null) {
         $movie  = Movie::find($id);
+//        return $id;
 
         return view('client.page.movie.detail' , [
             'movie'=>$movie,

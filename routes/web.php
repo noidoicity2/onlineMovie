@@ -40,6 +40,7 @@ Route::prefix('auth')->group(function () {
 
 
 Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
+    Route::get('/hls',[MovieController::class , 'testHls']);
     Route::get('/users', function () {
         // Matches The "/admin/users" URL
     });
@@ -141,7 +142,7 @@ Route::prefix('client')->group(function () {
 
 //end Client route
 Route::prefix('movie')->group(function() {
-    Route::get('/{slug}-{id}', [ClientMovieController::class , 'GetMovieBySlug'])->name('get_movie_by_slug');
+    Route::get('/{slug}_{id}', [ClientMovieController::class , 'GetMovieBySlug'])->name('get_movie_by_slug');
 });
 DB::listen(function($sql) {
     Log::info($sql->sql);

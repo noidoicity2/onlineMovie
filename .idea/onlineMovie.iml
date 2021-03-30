@@ -117,6 +117,13 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cocur/slugify" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cviebrock/eloquent-sluggable" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/neutron/temporary-filesystem" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/pbmedia/laravel-ffmpeg" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/evenement/evenement" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/alchemy/binary-driver" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-ffmpeg/php-ffmpeg" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/filesystem" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
