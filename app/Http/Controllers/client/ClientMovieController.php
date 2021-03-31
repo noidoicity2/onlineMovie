@@ -35,5 +35,11 @@ class ClientMovieController extends Controller
     public function Watch($slug =null , $id = null) {
 
     }
+    public function testJw() {
+        return view('client.page.testJw', [
+            'categories'=>$this->category,
+        ]);
+
+    }
 
 }

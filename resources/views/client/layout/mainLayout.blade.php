@@ -14,7 +14,8 @@
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
-
+    <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+{{--    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />--}}
 
     <!-- Custom styles for this template -->
     <link href="/css/app.css" rel="stylesheet">
@@ -58,7 +59,10 @@
 <!-- Bootstrap core JavaScript -->
 <script src="/vendor/jquery/jquery.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jwplayer.com/libraries/0mpSUyh4.js"></script>
 
+@section('custom_js')
+@show
 </body>
 
 </html>

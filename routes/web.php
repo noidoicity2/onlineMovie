@@ -125,7 +125,7 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
 //end admin route
 //start Client route
 Route::prefix('client')->group(function () {
-    Route::get('/{slug}', [ClientMovieController::class, 'getMovie']);
+//    Route::get('/{slug}', [ClientMovieController::class, 'getMovie']);
     Route::get('favorite', function () {});
     Route::get('cart', function () {});
     Route::get('wishlist', function () {});
@@ -137,6 +137,8 @@ Route::prefix('client')->group(function () {
     Route::get('search', function () {});
     Route::get('donate', function () {});
     Route::get('home', [HomeController::class , 'home']);
+
+    Route::get('jw' ,[ClientMovieController::class,'testJw']);
 
 });
 

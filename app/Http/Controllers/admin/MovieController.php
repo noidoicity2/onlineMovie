@@ -91,7 +91,11 @@ class MovieController extends Controller
 //        ->exportForHLS()->withEncryptionKey($encryptionKey)->setSegmentLength(60)
 //            ->addFormat($lowBitrate)
 //        ->save('3/test.m3u8');
-        $this->dispatch(new  convertVideo())->delay(now()->addSeconds(2));
-        return "ok";
+        $this->dispatch(new  convertVideo());
+       return "dasda";
+
+//        return '<img src='. $url .' />';
+
     }
+
 }
