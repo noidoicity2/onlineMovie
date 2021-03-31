@@ -8,23 +8,32 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Movie\AddMovieRequest;
 use App\Jobs\convertVideo;
 use App\Models\Category;
+use App\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
+use App\Services\FIleUploadServices;
 use App\Services\HlsServices;
 
 use FFMpeg\Format\Video\X264;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use ProtoneMedia\LaravelFFMpeg\Exporters\HLSExporter;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
+
 
 class MovieController extends Controller
 {
     //
     protected  $movieRepository;
-    public function __construct(MovieRepositoryInterface $movieRepository)
+    protected $categoryRepository;
+    protected $countryRepository;
+    public function __construct(MovieRepositoryInterface $movieRepository , CategoryRepositoryInterface $categoryRepository, CountryRepositoryInterface $countryRepository)
     {
         $this->movieRepository = $movieRepository;
+        $this->categoryRepository = $categoryRepository;
+        $this->countryRepository = $countryRepository;
     }
 
     public function all() {
@@ -35,10 +44,15 @@ class MovieController extends Controller
         $movie =  $request->all();
 //        return $movie;
 //        return $movie;
+//        return $movie;
 
-        $img = $request->file('img')->getClientOriginalName();
-        $filePath = $request->file('img')->storeAs('uploads', $img, 'public');
-        $movie['img'] = Storage::url($filePath);
+//        $img = $request->file('img')->extension();
+//        $filePath = $request->file('img')->storeAs('uploads', $img, 'public');
+        $slug = Str::slug($request->name);
+        $imgPath = FIleUploadServices::UploadImage($request->file('img') ,$slug);
+        $bgPath =  FIleUploadServices::UploadImage($request->file('bg_img') , $slug);
+        $movie['img'] = Storage::url($imgPath);
+        $movie['bg_img'] = Storage::url($bgPath);
 //        $contents = Storage::url($filePath );
 //        return $contents;
 
@@ -56,7 +70,14 @@ class MovieController extends Controller
 
     }
     public function Add($id =null) {
-        $category = Category::OnLyName();
+//        $category = $this->categoryRepository->getCategoryForSelect()->get();
+//        return  $category;
+        $countries = $this->countryRepository->getCountryForSelect()->get();
+        return view('admin.page.movie.addMovie', [
+            'countries'    => $countries,
+
+
+        ]);
     }
 
     public function ListMovie($paginate = 0 , $orderBy = 'desc')  {
@@ -97,5 +118,7 @@ class MovieController extends Controller
 //        return '<img src='. $url .' />';
 
     }
+
+
 
 }

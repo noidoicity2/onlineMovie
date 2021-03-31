@@ -49,10 +49,13 @@
 
                             <a href="{{route('get_movie_by_slug',['slug' => $movie->slug , 'id' => $movie->id])}}" class="film-item">
                                 <div class="ribbon">full HD</div>
+                                @if($movie->is_free)
                                 <div class="is-free">Free</div>
+                                @endif
                                 <img loading="lazy" src="{{$movie->img}}" alt="">
 
                                 <p>{{$movie->name}}</p>
+{{--                                <p>free {{$movie->is_free}}</p>--}}
                                 <span>{{$movie->en_name}}</span>
                             </a>
                         </div>

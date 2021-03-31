@@ -20,7 +20,7 @@ class HomeController extends Controller
 
     public function home() {
         $category = Category::OnLyName()->get();
-        $new_movies = Movie::NewestMovie()->limit(5)->get();
+        $new_movies = Movie::NewestMovie()->limit(20)->get();
 //        return  $new_movies;
         return view('client.page.movie.home', [
             'categories'  => $category,

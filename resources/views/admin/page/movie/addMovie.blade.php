@@ -40,30 +40,39 @@
                                 <label for="en_name">Real Name</label>
                                 <input type="text" class="form-control" name="en_name" id="en_name" placeholder="Enter real name">
                             </div>
-                            <div class="form-group">
-                                <label for="img">Choose image</label>
-                                <input type="file" class="form-control" name="img" id="img">
+                            <div class="form-group row">
+                                <div class="form-group col-6">
+                                    <label for="img">Choose image</label>
+                                    <input type="file" class="form-control" name="img" id="img">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="bg_img">Choose back ground image</label>
+                                    <input type="file" class="form-control" name="bg_img" id="bg_img">
+                                </div>
+
                             </div>
+                            <div class="form-group">
+                                <label for="is_free">For free user</label>
+                                <input name="is_free" id="is_free" type="checkbox">
+                            </div>
+
                             <div class="form-group">
                                 <label for="country">Country</label>
                                 <select class="form-control" name="country" id="country">
-                                    <option>12</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{$country->id}}">{{$country->name}}</option>
+                                    @endforeach
+
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="country">Category</label>
-                                <select class="form-control" name="category_id" id="category_id">
-                                    <option>12</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
-                            </div>
+{{--                            <div class="form-group">--}}
+{{--                                <label for="country">Category</label>--}}
+{{--                                <select class="form-control" name="category_id" id="category_id">--}}
+{{--                                    @foreach($countries as $country)--}}
+{{--                                        <option value="{{$country->id}}">{{$country->name}}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
                             <div class="form-group">
                                 <label for="slug">Slug</label>
                                 <input type="text" class="form-control" name="slug" id="slug" placeholder="Enter slug for SEO">

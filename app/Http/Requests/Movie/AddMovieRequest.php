@@ -67,6 +67,10 @@ class AddMovieRequest extends FormRequest
             $this->request->add(['is_on_cinema'=>0]);
         } else $this->request->set('is_on_cinema' , 1);
 
+        if(!$this->request->has('is_free')) {
+            $this->request->add(['is_free'=>0]);
+        } else $this->request->set('is_free' , 1);
+
 
         return $this->all();
     }

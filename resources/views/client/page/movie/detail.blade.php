@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-fluid">
         <!--    <h1 class="movie-title">Movie title</h1>-->
-        <div class=" content-wrapper">
+        <div class=" content-wrapper" @if($movie->bg_img) style="background-image: url({{$movie->bg_img}});" @endif>
             <div class="row content-overlay">
                 <div class="col-12 col-sm-6 img-area d-flex flex-column ">
                     <div class="img-left-container d-flex justify-content-center">

@@ -5,9 +5,15 @@ namespace App\Repositories;
 
 
 use App\Models\Country;
+use Illuminate\Database\Eloquent\Model;
 
-class CountryRepository implements Interfaces\CountryRepositoryInterface
+class CountryRepository extends BaseRepository implements Interfaces\CountryRepositoryInterface
 {
+
+    public function __construct(Country $model)
+    {
+        parent::__construct($model);
+    }
 
     public function get($id)
     {
@@ -15,11 +21,7 @@ class CountryRepository implements Interfaces\CountryRepositoryInterface
         return Country::find($id);
     }
 
-    public function all()
-    {
-        // TODO: Implement all() method.
-        return Country::all();
-    }
+
 
     public function update($id, array $data)
     {
@@ -37,8 +39,7 @@ class CountryRepository implements Interfaces\CountryRepositoryInterface
      * @param $data
      * @return mixed
      */
-    public function create($data)
-    {
-        // TODO: Implement create() method.
-    }
+   public function getCountryForSelect() {
+       return $this->model->select(['id', 'name']);
+   }
 }

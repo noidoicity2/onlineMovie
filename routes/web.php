@@ -80,9 +80,7 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
 
     Route::prefix('movie')->group(function () {
 
-        Route::get('/add', function () {
-            return view("admin.page.movie.addMovie");
-        })->name('add_movie');
+        Route::get('/add',[MovieController::class , 'Add'])->name('add_movie');
         Route::get('paginate={paginate?}&orderBy={orderBy}' , [MovieController::class , 'ListMovie'])->name('movie_paginate');
         Route::get('/listMovie' , [MovieController::class , 'ListMovie'])->name('list_movie');
         Route::get('/', [MovieController::class , 'all']);

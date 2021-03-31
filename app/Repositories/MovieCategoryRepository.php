@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 
 use App\Models\MovieCategory;
+use Illuminate\Support\Collection;
 
 class MovieCategoryRepository implements Interfaces\MovieCategoryInterface
 {
@@ -16,10 +17,10 @@ class MovieCategoryRepository implements Interfaces\MovieCategoryInterface
         return MovieCategory::find($id);
     }
 
-    public function all()
-    {
-       return MovieCategory::all();
-    }
+//    public function all()
+//    {
+//       return MovieCategory::all();
+//    }
 
     public function update($id, array $data)
     {
@@ -40,5 +41,13 @@ class MovieCategoryRepository implements Interfaces\MovieCategoryInterface
     {
         // TODO: Implement create() method.
 
+    }
+
+    /**
+     * @return Collection
+     */
+    public function all(): Collection
+    {
+        // TODO: Implement all() method.
     }
 }
