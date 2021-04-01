@@ -10,7 +10,7 @@
                     </div>
 
                     <div class="group-btn d-flex">
-                        <a href="/dsads" type="button" class="btn btn-primary">Watch</a>
+                        <a href="{{route('watch_movie',['slug' => $movie->slug , 'id' => $movie->id])}}" type="button" class="btn btn-primary">Watch</a>
                         <a type="button" class="btn btn-secondary">Secondary</a>
                         <a type="button" class="btn btn-success">Success</a>
                     </div>

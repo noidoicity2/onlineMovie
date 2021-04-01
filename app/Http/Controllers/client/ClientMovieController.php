@@ -33,6 +33,12 @@ class ClientMovieController extends Controller
         ]);
     }
     public function Watch($slug =null , $id = null) {
+        $movie = $this->movieRepository->get($id);
+
+        return view ('client.page.movie.watch' , [
+           'movie' => $movie ,
+            'categories'=>$this->category,
+        ]);
 
     }
     public function testJw() {

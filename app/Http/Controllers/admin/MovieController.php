@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\Movie\AddMovieRequest;
 use App\Jobs\convertVideo;
+use App\Jobs\HandleVideoUpload;
 use App\Models\Category;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
@@ -51,15 +52,18 @@ class MovieController extends Controller
         $slug = Str::slug($request->name);
         $imgPath = FIleUploadServices::UploadImage($request->file('img') ,$slug);
         $bgPath =  FIleUploadServices::UploadImage($request->file('bg_img') , $slug);
+        $videoPath = FIleUploadServices::UploadVideo($request->file('source_url') , $slug);
+//        $request->file('source_url')->getClientOriginalName();
         $movie['img'] = Storage::url($imgPath);
         $movie['bg_img'] = Storage::url($bgPath);
-//        $contents = Storage::url($filePath );
-//        return $contents;
-
-
-//        $paths = Storage::putFileAs('imag' , $request->file('img'))
+        $movie['source_url']= Storage::url($videoPath);
+        $movie['hls_url']= '/storage/videos/'.$slug.'/'.$slug.'.m3u8';
 
         $this->movieRepository->create($movie);
+//        $job = (new HandleVideoUpload());
+        $this->dispatch(new HandleVideoUpload($videoPath,$slug , $request->file('source_url')->extension()));
+//        $this->uploadVideo($videoPath, $slug ,$request->file('source_url')->extension());
+//        $this->movieRepository->create($movie);
         return back()->with([
             'message' =>  "Add Movie successfully"
         ]);
@@ -94,29 +98,51 @@ class MovieController extends Controller
 
     }
     public function testHls() {
-//        $format = new X264('aac', 'libx264');
-//        $lowBitrate = new X264('aac', 'libx264');
-//        $lowBitrate->setKiloBitrate(200);
+        $lowBitrate = new X264('aac', 'libx264');
+        $lowBitrate->setKiloBitrate(200);
+//
 //        $midBitrate = (new X264)->setKiloBitrate(500);
 //        $highBitrate = (new X264)->setKiloBitrate(1000);
-//        $encryptionKey = HLSExporter::generateEncryptionKey();
-//
-////        FFMpeg::openUrl('https://videocoursebuilder.com/lesson-1.mp4');
-//
-////        FFMpeg::open('H:\Project\Laravel_project\onlineMovie\storage\uploads\react.MP4')
-////            ->exportForHLS()
-////            ->setSegmentLength(10) // optional
-////            ->addFormat($lowBitrate)
-////            ->save('H:\Project\Laravel_project\onlineMovie\storage\uploads\test.m3u8');
-//        $media = FFMpeg::fromDisk('uploads')->open('react.MP4')
-//        ->exportForHLS()->withEncryptionKey($encryptionKey)->setSegmentLength(60)
-//            ->addFormat($lowBitrate)
-//        ->save('3/test.m3u8');
-        $this->dispatch(new  convertVideo());
+        $encryptionKey = HLSExporter::generateEncryptionKey();
+//        $en =  HLSExporter::ge
+        Storage::put($this->video.'secret.key', $encryptionKey);
+
+        $media = FFMpeg::fromDisk('public')
+            ->open($this->video)
+            ->exportForHLS()
+            ->withEncryptionKey($encryptionKey)
+            ->setSegmentLength(5)
+            ->addFormat($lowBitrate)
+            ->save($this->slug.'.m3u8');
+        FFMpeg::cleanupTemporaryFiles();
        return "dasda";
 
 //        return '<img src='. $url .' />';
 
+    }
+    private function uploadVideo($video , $slug , $extention) {
+        $lowBitrate = new X264('aac', 'libx264');
+        $lowBitrate->setKiloBitrate(200);
+
+        $highRate =  (new X264('aac', 'libx264'))->setKiloBitrate(1000);
+//
+//        $midBitrate = (new X264)->setKiloBitrate(500);
+//        $highBitrate = (new X264)->setKiloBitrate(1000);
+        $encryptionKey = HLSExporter::generateEncryptionKey();
+//        $en =  HLSExporter::ge
+        Storage::put($video.'secret.key', $encryptionKey);
+        Storage::disk('public' )->put('videos/'.$slug.'/'.'secret.key' , $encryptionKey);
+
+        $media = FFMpeg::fromDisk('public')
+            ->open('videos/'.$slug.'/'.$slug.'.'.$extention)
+            ->exportForHLS()
+            ->withEncryptionKey($encryptionKey)
+            ->setSegmentLength(5)
+            ->addFormat($lowBitrate)
+            ->addFormat($highRate)
+            ->toDisk('public')
+            ->save('videos/'.$slug.'/'.$slug.'.m3u8');
+        info("ok");
     }
 
 

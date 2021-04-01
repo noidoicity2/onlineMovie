@@ -143,6 +143,7 @@ Route::prefix('client')->group(function () {
 //end Client route
 Route::prefix('movie')->group(function() {
     Route::get('/{slug}_{id}', [ClientMovieController::class , 'GetMovieBySlug'])->name('get_movie_by_slug');
+    Route::get('/watch/{slug}_{id}', [ClientMovieController::class , 'Watch'])->name('watch_movie');
 });
 DB::listen(function($sql) {
     Log::info($sql->sql);

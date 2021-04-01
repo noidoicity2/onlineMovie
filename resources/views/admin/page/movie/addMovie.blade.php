@@ -49,6 +49,10 @@
                                     <label for="bg_img">Choose back ground image</label>
                                     <input type="file" class="form-control" name="bg_img" id="bg_img">
                                 </div>
+                                <div class="form-group col-12">
+                                    <label for="source_url">Choose video source</label>
+                                    <input type="file" class="form-control" name="source_url" id="source_url">
+                                </div>
 
                             </div>
                             <div class="form-group">
