@@ -9,10 +9,13 @@
                         <img class="film-img" src="{{$movie->img}}" alt="">
                     </div>
 
-                    <div class="group-btn d-flex">
-                        <a href="{{route('watch_movie',['slug' => $movie->slug , 'id' => $movie->id])}}" type="button" class="btn btn-primary">Watch</a>
-                        <a type="button" class="btn btn-secondary">Secondary</a>
-                        <a type="button" class="btn btn-success">Success</a>
+                    <div class="group-btn d-flex mt-3" >
+                        <a href="{{route('watch_movie',['slug' => $movie->slug , 'id' => $movie->id])}}" type="button" class="btn bg-danger text-light m-2 w-25 "><i class="bi bi-play-fill"></i>
+                            Watch</a>
+                        <a type="button" class="btn bg-secondary text-light m-2 w-25"><i class="bi bi-card-list  "></i>
+                            Secondary</a>
+                        <a type="button" class="btn bg-primary text-light m-2 w-25 "><i class="bi bi-eye-fill "></i>
+                            Secondary</a>
                     </div>
 
                 </div>
@@ -41,7 +44,7 @@
             <div class="row">
                 <div class="col-12">
                     <h2>Nội dung phim</h2>
-                   {!!$movie->description!!}
+                   {!!html_entity_decode($movie->description) !!}
                 </div>
             </div>
         </div>

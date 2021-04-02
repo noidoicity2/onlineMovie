@@ -89,8 +89,20 @@
                             <div class="form-group">
                                 <label for="info">Description</label>
                                 <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-                                <div id="editor">This is some sample content.</div>
+
                             </div>
+                            <div class="form-group row mx-auto " style="height: 500px ; overflow: scroll">
+                                <label class="col-12 form-check-label mb-4" for="info">Category</label>
+                                @foreach($categories as $category)
+                                    <div class="form-group col-2 p-4">
+                                        <input type="checkbox" class="form-check-input" value="{{$category->id}}" name="category[]{{$category->id}}" id="category_{{$category->id}}">
+                                        <label class="form-check-label text-primary" for="category_{{$category->id}}">{{$category->name}}</label>
+                                    </div>
+                                @endforeach
+                                    <input type="hidden" value="">
+
+                            </div>
+
                             <div class="form-group row">
                                 <div class="form-group col-md-3">
                                     <input type="checkbox" class="form-check-input" name="is_movie18" id="is_movie18">
@@ -159,6 +171,27 @@
             }
 
         });
+
+
+        // $("#token-field").tokenInput([
+        //     {id: 7, name: "Ruby"},
+        //     {id: 11, name: "Python"},
+        //     {id: 13, name: "JavaScript"},
+        //     {id: 17, name: "ActionScript"},
+        //     {id: 19, name: "Scheme"},
+        //     {id: 23, name: "Lisp"},
+        //     {id: 29, name: "C#"},
+        //     {id: 31, name: "Fortran"},
+        //     {id: 37, name: "Visual Basic"},
+        //     {id: 41, name: "C"},
+        //     {id: 43, name: "C++"},
+        //     {id: 47, name: "Java"}
+        // ]);
+
+
+        // $('#token-field').tokenfield('setTokens', [{ value: "blue", label: "Blau" }, { value: "red", label: "Rot" }]);
+
+        $('#token-field').tokenfield()
 
 
     </script>

@@ -7,19 +7,25 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\Movie\AddMovieRequest;
 use App\Jobs\HandleVideoUpload;
+use App\Models\MovieCategory;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
+use App\Repositories\Interfaces\MovieCategoryRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
+use App\Repositories\MovieCategoryRepository;
 use App\Services\FIleUploadServices;
 use App\Services\HlsServices;
 
 use FFMpeg\Format\Video\X264;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use ProtoneMedia\LaravelFFMpeg\Exporters\HLSExporter;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
+use function PHPUnit\Framework\stringStartsWith;
 
 
 class MovieController extends Controller
@@ -28,11 +34,17 @@ class MovieController extends Controller
     protected  $movieRepository;
     protected $categoryRepository;
     protected $countryRepository;
-    public function __construct(MovieRepositoryInterface $movieRepository , CategoryRepositoryInterface $categoryRepository, CountryRepositoryInterface $countryRepository)
+    protected $movieCategoryRepository;
+    public function __construct(MovieRepositoryInterface $movieRepository ,
+                                CategoryRepositoryInterface $categoryRepository,
+                                CountryRepositoryInterface $countryRepository,
+                                MovieCategoryRepositoryInterface $movieCategoryRepository
+    )
     {
         $this->movieRepository = $movieRepository;
         $this->categoryRepository = $categoryRepository;
         $this->countryRepository = $countryRepository;
+        $this->movieCategoryRepository = $movieCategoryRepository;
     }
 
     public function all() {
@@ -40,13 +52,10 @@ class MovieController extends Controller
 //        return "dasd";
     }
     public function PostAddMovie(AddMovieRequest $request) {
-        $movie =  $request->all();
-//        return $movie;
-//        return $movie;
-//        return $movie;
+        $movie = $request->all() ;
 
-//        $img = $request->file('img')->extension();
-//        $filePath = $request->file('img')->storeAs('uploads', $img, 'public');
+//        return $movie['category'];
+
         $slug = Str::slug($request->name);
         $imgPath = FIleUploadServices::UploadImage($request->file('img') ,$slug);
         $bgPath =  FIleUploadServices::UploadImage($request->file('bg_img') , $slug);
@@ -59,8 +68,31 @@ class MovieController extends Controller
         $movie['low_hls_url']= '/storage/videos/'.$slug.'/'.$slug.'_0_200'.'.m3u8';
         $movie['description']= htmlentities($request->description);
 
+        $categories = $movie['category'];
+        $insert_data =  array();
+        $test = array();
+        $created_movie = $this->movieRepository->create($movie);
+//return $created_movie;
+        for ($i =0 ; $i <count($categories) ;$i ++) {
+            array_push($insert_data , array('category_id' => $categories[$i] , 'movie_id'=>$created_movie->id) );
+//            $insert_data = array_merge(array('category_id' => $categories[$i] , 'movie_id'=>$created_movie->id) );
 
-        $this->movieRepository->create($movie);
+
+
+        }
+        $this->movieCategoryRepository->insert($insert_data);
+//        dd($insert_data);
+//        for ($i =0 ; $i <count($insert_data) ;$i ++) {
+////         return  $insert_data[$i];
+////           return $j;
+//            $this->movieCategoryRepository->create(['category_id'=> $insert_data[$i]['category_id'], 'movie_id' => $insert_data['$i']['movie_id']]);
+//        }
+
+//        $this->movieCategoryRepository->create($;
+
+
+
+
 //        $job = (new HandleVideoUpload());
         $this->dispatch(new HandleVideoUpload($videoPath,$slug , $request->file('source_url')->extension()));
 //        $this->uploadVideo($videoPath, $slug ,$request->file('source_url')->extension());
@@ -78,8 +110,10 @@ class MovieController extends Controller
 //        $category = $this->categoryRepository->getCategoryForSelect()->get();
 //        return  $category;
         $countries = $this->countryRepository->getCountryForSelect()->get();
+        $categories = $this->categoryRepository->getCategoryForSelect()->get();
         return view('admin.page.movie.addMovie', [
             'countries'    => $countries,
+            'categories'    => $categories,
 
 
         ]);

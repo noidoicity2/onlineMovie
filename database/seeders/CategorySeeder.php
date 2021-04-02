@@ -19,11 +19,11 @@ class CategorySeeder extends Seeder
         //
         $faker = Factory::create();
 
-        for ($i = 0; $i < 200; $i++) {
-//        $name = $faker->unique()->country;
+        for ($i = 0; $i < 20; $i++) {
+//        $name = $faker->uni2que()->country;
             Category::create([
-                'name' => $faker->ty,
-                'description' => $faker->realText(200, 2),
+                'name' => $faker->name,
+                'description' => $faker->realText(99, 2),
 
 //            'slug' => Str::slug($name),
 

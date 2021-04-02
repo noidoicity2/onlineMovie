@@ -5,6 +5,10 @@
             <div class="col-12" id="el">
 
             </div>
+
+        </div>
+        <div class="row">
+            <h2 class="text-light h-5">{{$movie->name}}</h2>
         </div>
     </div>
 @endsection

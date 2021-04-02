@@ -14,6 +14,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('/css/tagsinput.css')}}">
+{{--    <link rel="stylesheet" href="{{asset('/css/token-input.css')}}">--}}
+
 </head>
 <body class="sb-nav-fixed">
 @include("admin.layout.nav")
@@ -42,8 +45,10 @@
 {{--<script src="/assets/demo/datatables-demo.js"></script>--}}
 {{--<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>--}}
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+{{--<script src="{{asset("/js/plugins/bootstrap-tokenfield.js")}}"></script>--}}
+{{--<script src="{{asset('/js/plugins/jquery.tokeninput.js')}}"></script>--}}
 
-
+<script src="{{asset('/js/plugins/tagsinput.js')}}"></script>
 <script src="{{asset('js/Category.js')}}"></script>
 @section('custom_js')
 @show

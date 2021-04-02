@@ -6,10 +6,15 @@ namespace App\Repositories;
 
 
 use App\Models\MovieCategory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class MovieCategoryRepository implements Interfaces\MovieCategoryInterface
+class MovieCategoryRepository extends BaseRepository implements Interfaces\MovieCategoryRepositoryInterface
 {
+public function __construct(MovieCategory $model)
+{
+    parent::__construct($model);
+}
 
     public function get($id)
     {
@@ -17,10 +22,6 @@ class MovieCategoryRepository implements Interfaces\MovieCategoryInterface
         return MovieCategory::find($id);
     }
 
-//    public function all()
-//    {
-//       return MovieCategory::all();
-//    }
 
     public function update($id, array $data)
     {
@@ -34,20 +35,11 @@ class MovieCategoryRepository implements Interfaces\MovieCategoryInterface
     }
 
     /**
-     * @param $data
      * @return mixed
      */
-    public function create($data)
+    public function insert($data)
     {
-        // TODO: Implement create() method.
-
-    }
-
-    /**
-     * @return Collection
-     */
-    public function all(): Collection
-    {
-        // TODO: Implement all() method.
+        // TODO: Implement insert() method.
+        return $this->model->insert($data);
     }
 }
