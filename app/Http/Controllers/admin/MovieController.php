@@ -16,11 +16,13 @@ use App\Repositories\MovieCategoryRepository;
 use App\Services\FIleUploadServices;
 use App\Services\HlsServices;
 
+use Exception;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use ProtoneMedia\LaravelFFMpeg\Exporters\HLSExporter;
@@ -31,7 +33,7 @@ use function PHPUnit\Framework\stringStartsWith;
 class MovieController extends Controller
 {
     //
-    protected  $movieRepository;
+    protected $movieRepository;
     protected $categoryRepository;
     protected $countryRepository;
     protected $movieCategoryRepository;
@@ -41,9 +43,9 @@ class MovieController extends Controller
                                 MovieCategoryRepositoryInterface $movieCategoryRepository
     )
     {
-        $this->movieRepository = $movieRepository;
-        $this->categoryRepository = $categoryRepository;
-        $this->countryRepository = $countryRepository;
+        $this->movieRepository         = $movieRepository;
+        $this->categoryRepository      = $categoryRepository;
+        $this->countryRepository       = $countryRepository;
         $this->movieCategoryRepository = $movieCategoryRepository;
     }
 
@@ -57,30 +59,38 @@ class MovieController extends Controller
 //        return $movie['category'];
 
         $slug = Str::slug($request->name);
-        $imgPath = FIleUploadServices::UploadImage($request->file('img') ,$slug);
-        $bgPath =  FIleUploadServices::UploadImage($request->file('bg_img') , $slug);
-        $videoPath = FIleUploadServices::UploadVideo($request->file('source_url') , $slug);
+        $imgPath    =   FIleUploadServices::UploadImage($request->file('img') ,$slug);
+        $bgPath     =   FIleUploadServices::UploadImage($request->file('bg_img') , $slug);
+        $videoPath  =   FIleUploadServices::UploadVideo($request->file('source_url') , $slug);
 //        $request->file('source_url')->getClientOriginalName();
-        $movie['img'] = Storage::url($imgPath);
-        $movie['bg_img'] = Storage::url($bgPath);
-        $movie['source_url']= Storage::url($videoPath);
-        $movie['hls_url']= '/storage/videos/'.$slug.'/'.$slug.'.m3u8';
-        $movie['low_hls_url']= '/storage/videos/'.$slug.'/'.$slug.'_0_200'.'.m3u8';
-        $movie['description']= htmlentities($request->description);
+        $movie['img']           =   Storage::url($imgPath);
+        $movie['bg_img']        =   Storage::url($bgPath);
+        $movie['source_url']    =   Storage::url($videoPath);
+        $movie['hls_url']       = '/storage/videos/'.$slug.'/'.$slug.'.m3u8';
+        $movie['low_hls_url']   = '/storage/videos/'.$slug.'/'.$slug.'_0_200'.'.m3u8';
+        $movie['description']   = htmlentities($request->description);
 
         $categories = $movie['category'];
         $insert_data =  array();
         $test = array();
-        $created_movie = $this->movieRepository->create($movie);
-//return $created_movie;
-        for ($i =0 ; $i <count($categories) ;$i ++) {
-            array_push($insert_data , array('category_id' => $categories[$i] , 'movie_id'=>$created_movie->id) );
-//            $insert_data = array_merge(array('category_id' => $categories[$i] , 'movie_id'=>$created_movie->id) );
+        DB::beginTransaction();
+        try {
+            $created_movie = $this->movieRepository->create($movie);
+            for ($i =0 ; $i <count($categories) ;$i ++) {
+                array_push($insert_data , array('category_id' => $categories[$i] , 'movie_id'=>$created_movie->id) );
+            }
 
+            $this->movieCategoryRepository->insert($insert_data);
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
 
-
+            throw new Exception($e->getMessage());
         }
-        $this->movieCategoryRepository->insert($insert_data);
+//        $created_movie = $this->movieRepository->create($movie);
+//return $created_movie;
+
+
 //        dd($insert_data);
 //        for ($i =0 ; $i <count($insert_data) ;$i ++) {
 ////         return  $insert_data[$i];
@@ -132,29 +142,7 @@ class MovieController extends Controller
        ]);
 
     }
-//    public function testHls() {
-//        $lowBitrate = new X264('aac', 'libx264');
-//        $lowBitrate->setKiloBitrate(200);
-////
-////        $midBitrate = (new X264)->setKiloBitrate(500);
-////        $highBitrate = (new X264)->setKiloBitrate(1000);
-//        $encryptionKey = HLSExporter::generateEncryptionKey();
-////        $en =  HLSExporter::ge
-//        Storage::put($this->video.'secret.key', $encryptionKey);
-//
-//        $media = FFMpeg::fromDisk('public')
-//            ->open($this->video)
-//            ->exportForHLS()
-//            ->withEncryptionKey($encryptionKey)
-//            ->setSegmentLength(5)
-//            ->addFormat($lowBitrate)
-//            ->save($this->slug.'.m3u8');
-//        FFMpeg::cleanupTemporaryFiles();
-//       return "dasda";
-//
-////        return '<img src='. $url .' />';
-//
-//    }
+
     private function uploadVideo($video , $slug , $extention) {
         $lowBitrate = new X264('aac', 'libx264');
         $lowBitrate->setKiloBitrate(200);
