@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\MovieController;
 use App\Http\Controllers\client\ClientMovieController;
 use App\Http\Controllers\client\HomeController;
 use App\Http\Middleware\CheckLogin;
+use App\Http\Middleware\testRestrict;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +31,7 @@ Route::get('/',  [HomeController::class , 'home']);
 //})->name('login');
 Route::prefix('auth')->group(function () {
     Route::get('login', [AuthController::class , 'Login'])->name('login');
-    Route::get('logout', function (){return view('login');})->name('logout');
+    Route::get('logout',[AuthController::class , 'Logout'] )->name('logout');
 
     Route::post('postlogin', [AuthController::class ,'PostLogin'] )->name('post_login');
 });
@@ -142,9 +143,10 @@ Route::prefix('client')->group(function () {
 
 //end Client route
 Route::prefix('movie')->group(function() {
-    Route::get('/{slug}_{id}', [ClientMovieController::class , 'GetMovieBySlug'])->name('get_movie_by_slug');
+    Route::get('/{slug}_{id}', [ClientMovieController::class , 'GetMovieBySlug'])->middleware(testRestrict::class)->name('get_movie_by_slug');
     Route::get('/watch/{slug}_{id}', [ClientMovieController::class , 'Watch'])->name('watch_movie');
 });
+Route::get('/storage/image/{slug}/{img}')->middleware(testRestrict::class);
 DB::listen(function($sql) {
     Log::info($sql->sql);
     Log::info($sql->bindings);

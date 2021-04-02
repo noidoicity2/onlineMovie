@@ -88,7 +88,8 @@
 
                             <div class="form-group">
                                 <label for="info">Description</label>
-                                <textarea class="form-control" id="info" name="description" rows="3"></textarea>
+                                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                <div id="editor">This is some sample content.</div>
                             </div>
                             <div class="form-group row">
                                 <div class="form-group col-md-3">
@@ -136,3 +137,31 @@
 
 
 @endsection
+
+@section('custom_js')
+    <script>
+
+        $('#description').summernote({
+            toolbar: [
+                // [groupName, [list of button]]
+                // ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['insert' , ['picture' , 'link' , 'video' , 'table']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ] ,
+            lang: 'en',
+            onImageUpload: function(files, editor, welEditable) {
+                sendFile(files[0], editor, welEditable);
+            }
+
+        });
+
+
+    </script>
+@endsection
+
+

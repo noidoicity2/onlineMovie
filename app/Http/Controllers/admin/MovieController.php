@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 
 
 use App\Http\Requests\Movie\AddMovieRequest;
-use App\Jobs\convertVideo;
 use App\Jobs\HandleVideoUpload;
-use App\Models\Category;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
@@ -58,6 +56,9 @@ class MovieController extends Controller
         $movie['bg_img'] = Storage::url($bgPath);
         $movie['source_url']= Storage::url($videoPath);
         $movie['hls_url']= '/storage/videos/'.$slug.'/'.$slug.'.m3u8';
+        $movie['low_hls_url']= '/storage/videos/'.$slug.'/'.$slug.'_0_200'.'.m3u8';
+        $movie['description']= htmlentities($request->description);
+
 
         $this->movieRepository->create($movie);
 //        $job = (new HandleVideoUpload());
@@ -97,29 +98,29 @@ class MovieController extends Controller
        ]);
 
     }
-    public function testHls() {
-        $lowBitrate = new X264('aac', 'libx264');
-        $lowBitrate->setKiloBitrate(200);
+//    public function testHls() {
+//        $lowBitrate = new X264('aac', 'libx264');
+//        $lowBitrate->setKiloBitrate(200);
+////
+////        $midBitrate = (new X264)->setKiloBitrate(500);
+////        $highBitrate = (new X264)->setKiloBitrate(1000);
+//        $encryptionKey = HLSExporter::generateEncryptionKey();
+////        $en =  HLSExporter::ge
+//        Storage::put($this->video.'secret.key', $encryptionKey);
 //
-//        $midBitrate = (new X264)->setKiloBitrate(500);
-//        $highBitrate = (new X264)->setKiloBitrate(1000);
-        $encryptionKey = HLSExporter::generateEncryptionKey();
-//        $en =  HLSExporter::ge
-        Storage::put($this->video.'secret.key', $encryptionKey);
-
-        $media = FFMpeg::fromDisk('public')
-            ->open($this->video)
-            ->exportForHLS()
-            ->withEncryptionKey($encryptionKey)
-            ->setSegmentLength(5)
-            ->addFormat($lowBitrate)
-            ->save($this->slug.'.m3u8');
-        FFMpeg::cleanupTemporaryFiles();
-       return "dasda";
-
-//        return '<img src='. $url .' />';
-
-    }
+//        $media = FFMpeg::fromDisk('public')
+//            ->open($this->video)
+//            ->exportForHLS()
+//            ->withEncryptionKey($encryptionKey)
+//            ->setSegmentLength(5)
+//            ->addFormat($lowBitrate)
+//            ->save($this->slug.'.m3u8');
+//        FFMpeg::cleanupTemporaryFiles();
+//       return "dasda";
+//
+////        return '<img src='. $url .' />';
+//
+//    }
     private function uploadVideo($video , $slug , $extention) {
         $lowBitrate = new X264('aac', 'libx264');
         $lowBitrate->setKiloBitrate(200);

@@ -13,14 +13,14 @@
         jwplayer("el").setup({
             "playlist": [{
 
-                "image":"images/0.jpg",
+                "image":"{{$movie->img}}",
                 "sources": [
                     //     {
                     //     "file": "/storage/react.MP4",
                     //     "label": "720p HD"
                     // },
                     {
-                        "file": "{{$movie->hls_url}}",
+                        "file": "{{$movie->low_hls_url}}",
                         // "label": "360p SD",
                         // "default": "true"
                     },
@@ -31,9 +31,12 @@
                 ]
                 // "file": "images/react.mp4"
             }],
-            "autostart": "viewable",
+            // "autostart": "true",
             "displaytitle" : true,
-            // "qualityLabels":{"2500":"High","1000":"Medium"}
+            "playbackRateControls": true,
+            "playbackRates ":[0.25, 0.75, 1, 1.25],
+            "qualityLabels":{"200":"Low"},
+            "controls": true,
 
         });
     </script>

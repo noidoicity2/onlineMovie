@@ -41,10 +41,7 @@
             <div class="row">
                 <div class="col-12">
                     <h2>Nội dung phim</h2>
-                    <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt debitis accusantium perspiciatis, dolorem in maxime placeat expedita! Consequuntur, rem sapiente. Repudiandae officiis eum reprehenderit sint harum. Minima explicabo natus nam!
-
-                    </p>
+                   {!!$movie->description!!}
                 </div>
             </div>
         </div>

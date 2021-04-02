@@ -37,7 +37,7 @@ class AddMovieRequest extends FormRequest
             //
             'name'          =>    'required|max:50|min:2|unique:category',
             'slug'        =>      'max:50',
-            'description'   =>      'max:1000|required',
+            'description'   =>      'required',
             'img' => [
                 'required',
 
