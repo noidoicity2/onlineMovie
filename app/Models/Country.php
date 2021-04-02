@@ -24,5 +24,10 @@ class Country extends Model
     public function sluggable(): array
     {
         // TODO: Implement sluggable() method.
+        return [
+            'slug' => [
+                'source'=>'name'
+            ]
+        ];
     }
 }
