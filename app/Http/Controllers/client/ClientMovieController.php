@@ -5,6 +5,7 @@ namespace App\Http\Controllers\client;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Movie;
+use App\Repositories\Interfaces\EpisodeRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -13,9 +14,11 @@ class ClientMovieController extends Controller
     //
     protected  $movieRepository;
     protected $category ;
-    public function __construct(MovieRepositoryInterface $movieRepository)
+    protected $episodeRepository;
+    public function __construct(MovieRepositoryInterface $movieRepository, EpisodeRepositoryInterface $episodeRepository)
     {
         $this->movieRepository = $movieRepository;
+        $this->episodeRepository = $episodeRepository;
         $this->category = Category::OnLyName()->get();
     }
 
@@ -24,12 +27,18 @@ class ClientMovieController extends Controller
 //        return view('client.page.movie.home');
     }
     public function GetMovieBySlug($slug =null , $id = null) {
-        $movie  = Movie::find($id);
-//        return $id;
+
+        $movie  = $this->movieRepository->get($id);
+        $episodes = $movie->episodes;
+//        return $episodes;
+
+//        return ($movie);
 
         return view('client.page.movie.detail' , [
             'movie'=>$movie,
+            'episode' => $episodes,
             'categories'=>$this->category,
+
         ]);
     }
     public function Watch($slug =null , $id = null) {

@@ -10,7 +10,7 @@
                     </div>
 
                     <div class="group-btn d-flex mt-3" >
-                        <a href="{{route('watch_movie',['slug' => $movie->slug , 'id' => $movie->id])}}" type="button" class="btn bg-danger text-light m-2 w-25 "><i class="bi bi-play-fill"></i>
+                        <a href="{{route('watch_movie',['slug' => $movie->slug , 'id' => $movie->id])}}" type="button" style="line-height: 50px ; font-size: 30px" class="btn bg-danger text-light  m-2 w-25 "><i class="bi bi-play-fill"></i>
                             Watch</a>
                         <a type="button" class="btn bg-secondary text-light m-2 w-25"><i class="bi bi-card-list  "></i>
                             Secondary</a>
@@ -31,8 +31,8 @@
                     <p class="detail-item">Nation:</p>
                     <p class="detail-item">View count:</p>
                     <p class="detail-item">Publish date: {{$movie->created_at}}</p>
-                    <p class="detail-item">movie name:</p>
-                    <p class="detail-item">movie name:</p>
+                    <p class="detail-item">Total Episode: {{$movie->total_episode}}</p>
+                    <p class="detail-item">List episode {{$movie->episodes->count()}}:</p>
 
                 </div>
             </div>
