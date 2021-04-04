@@ -19,10 +19,17 @@ namespace App\Services;
 
      }
 
-     public static function UploadVideo($file , $name ) {
+     public static function UploadVideo($file , $name  ) {
          $extension = $file->extension();
 //       return $file->storeAs('uploads', $img_name, 'public');
          return $file->storeAs('videos/'.$name, $name.'.'.$extension , 'public');
+
+     }
+
+     public static function UploadEpisode($file , $name ,$episodeName ) {
+         $extension = $file->extension();
+//       return $file->storeAs('uploads', $img_name, 'public');
+         return $file->storeAs('videos/'.$name, $episodeName.'.'.$extension , 'public');
 
      }
 

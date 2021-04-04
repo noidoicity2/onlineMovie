@@ -37,10 +37,10 @@ class MovieController extends Controller
     protected $categoryRepository;
     protected $countryRepository;
     protected $movieCategoryRepository;
-    public function __construct(MovieRepositoryInterface $movieRepository ,
-                                CategoryRepositoryInterface $categoryRepository,
-                                CountryRepositoryInterface $countryRepository,
-                                MovieCategoryRepositoryInterface $movieCategoryRepository
+    public function __construct(MovieRepositoryInterface            $movieRepository ,
+                                CategoryRepositoryInterface         $categoryRepository,
+                                CountryRepositoryInterface          $countryRepository,
+                                MovieCategoryRepositoryInterface    $movieCategoryRepository
     )
     {
         $this->movieRepository         = $movieRepository;
@@ -51,11 +51,11 @@ class MovieController extends Controller
 
     public function all() {
         return $this->movieRepository->all();
-//        return "dasd";
+
     }
     public function PostAddMovie(AddMovieRequest $request) {
         $movie = $request->all() ;
-
+//return $movie;
 //        return $movie['category'];
 
         $slug = Str::slug($request->name);
@@ -66,6 +66,7 @@ class MovieController extends Controller
         $movie['img']           =   Storage::url($imgPath);
         $movie['bg_img']        =   Storage::url($bgPath);
         $movie['source_url']    =   Storage::url($videoPath);
+
         $movie['hls_url']       = '/storage/videos/'.$slug.'/'.$slug.'.m3u8';
         $movie['low_hls_url']   = '/storage/videos/'.$slug.'/'.$slug.'_0_200'.'.m3u8';
         $movie['description']   = htmlentities($request->description);
@@ -85,28 +86,21 @@ class MovieController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
 
-            throw new Exception($e->getMessage());
+//            throw new Exception($e->getMessage());
+            return back()->with([
+                'error' =>  "Failed to add movie"
+            ]);
         }
-//        $created_movie = $this->movieRepository->create($movie);
-//return $created_movie;
-
-
-//        dd($insert_data);
-//        for ($i =0 ; $i <count($insert_data) ;$i ++) {
-////         return  $insert_data[$i];
-////           return $j;
-//            $this->movieCategoryRepository->create(['category_id'=> $insert_data[$i]['category_id'], 'movie_id' => $insert_data['$i']['movie_id']]);
-//        }
-
-//        $this->movieCategoryRepository->create($;
-
-
-
-
-//        $job = (new HandleVideoUpload());
         $this->dispatch(new HandleVideoUpload($videoPath,$slug , $request->file('source_url')->extension()));
-//        $this->uploadVideo($videoPath, $slug ,$request->file('source_url')->extension());
-//        $this->movieRepository->create($movie);
+
+        if($created_movie->is_movie_series == 1) {
+            return view('admin.page.movie.addEpisode' ,[
+                'movie'     => $created_movie,
+
+
+            ]);
+        }
+;
         return back()->with([
             'message' =>  "Add Movie successfully"
         ]);
@@ -117,12 +111,11 @@ class MovieController extends Controller
 
     }
     public function Add($id =null) {
-//        $category = $this->categoryRepository->getCategoryForSelect()->get();
-//        return  $category;
+
         $countries = $this->countryRepository->getCountryForSelect()->get();
         $categories = $this->categoryRepository->getCategoryForSelect()->get();
         return view('admin.page.movie.addMovie', [
-            'countries'    => $countries,
+            'countries'     => $countries,
             'categories'    => $categories,
 
 
@@ -166,6 +159,38 @@ class MovieController extends Controller
             ->toDisk('public')
             ->save('videos/'.$slug.'/'.$slug.'.m3u8');
         info("ok");
+    }
+
+    public function FilterMovie($keyword=null ,
+                                $category = null ,
+                                $country = null ,
+                                $director = null, $actor = null)
+    {
+//        $Movie
+
+    }
+
+    public function AddEpisode($id=null) {
+        $movie = $this->movieRepository->get($id);
+
+        return view('admin.page.movie.addEpisode' ,[
+            'movie' => $movie
+        ]);
+    }
+    public function PostAddEpisode(Request $request) {
+//        $movie = $this->movieRepository->get($id);
+//       dd ($request->file('episode')[0]['url']);
+//        return $epid;
+        $movie = $this->movieRepository->get($request->id);
+        $files = $request->file('episode');
+        for ($i= 0 ; $i< count($files) ; $i ++) {
+//              echo ($files[$i]['url']->getClientOriginalName()) ;
+            $filePath =  FIleUploadServices::UploadEpisode($files[$i]['url'], $movie->slug ,$files[$i]['name'] );
+        }
+
+//        return view('admin.page.movie.addEpisode' ,[
+//            'movie' => $movie
+//        ]);
     }
 
 

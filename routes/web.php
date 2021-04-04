@@ -82,6 +82,7 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
     Route::prefix('movie')->group(function () {
 
         Route::get('/add',[MovieController::class , 'Add'])->name('add_movie');
+        Route::get('{id}/addEpisode/',[MovieController::class , 'AddEpisode'])->name('add_episode');
         Route::get('paginate={paginate?}&orderBy={orderBy}' , [MovieController::class , 'ListMovie'])->name('movie_paginate');
         Route::get('/listMovie' , [MovieController::class , 'ListMovie'])->name('list_movie');
         Route::get('/', [MovieController::class , 'all']);
@@ -89,6 +90,7 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
         Route::post('postAdd' , [MovieController::class, 'PostAddMovie'])->name('post_add_movie');
         Route::post('postDelete' , [MovieController::class, 'PostDeleteMovie'])->name('post_delete_movie');
         Route::post('postEdit' , [MovieController::class, 'PostEditMovie'])->name('post_edit_movie');
+        Route::post('postAddEpisode' , [MovieController::class, 'PostAddEpisode'])->name('post_add_episode');
 
 
     });

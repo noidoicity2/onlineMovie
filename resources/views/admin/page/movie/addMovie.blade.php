@@ -112,10 +112,10 @@
                                     <input type="checkbox" class="form-check-input" name="is_finished" id="is_finished">
                                     <label class="form-check-label text-danger" for="is_finished">Is finished+</label>
                                 </div>
-                                <div class="form-group col-md-3">
-                                    <input type="checkbox" class="form-check-input" name="is_movie_series" id="is_movie_series">
-                                    <label class="form-check-label text-danger" for="is_movie_series">Movie series</label>
-                                </div>
+{{--                                <div class="form-group col-md-3">--}}
+{{--                                    <input type="checkbox" class="form-check-input" name="is_movie_series" id="is_movie_series">--}}
+{{--                                    <label class="form-check-label text-danger" for="is_movie_series">Movie series</label>--}}
+{{--                                </div>--}}
 
                                 <div class="form-group col-md-3">
                                     <input type="checkbox" class="form-check-input" id="is_on_cinema" name="is_on_cinema">
@@ -123,7 +123,20 @@
                                 </div>
 
 
+
                             </div>
+                            <div class="form-group row ">
+                                <div class="form-group col-3">
+                                    <input type="checkbox" class="form-check-input" name="is_movie_series" id="is_movie_series">
+                                    <label class="form-check-label text-secondary" for="is_movie_series">Movie series</label>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="total_episode">Total episode</label>
+                                <input name="total_episode"  id="total_episode" type="text" class="form-control">
+                            </div>
+
                             <button type="submit" class="btn btn-primary px-lg-5 float-left">Save</button>
                         </form>
                     </div>
@@ -191,7 +204,13 @@
 
         // $('#token-field').tokenfield('setTokens', [{ value: "blue", label: "Blau" }, { value: "red", label: "Rot" }]);
 
-        $('#token-field').tokenfield()
+        $('#token-field').tokenfield();
+
+        $('#is_movie_series').change(function () {
+            if(this.checked) {
+
+            }
+        });
 
 
     </script>
