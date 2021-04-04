@@ -27,6 +27,12 @@
                             {{session('message')}}
                         </div>
                     @endif
+                        @if(session('error'))
+                            <div class="alert alert-warning">
+                                {{session('error')}}
+                            </div>
+                        @endif
+
                 </div>
                 <div class="row">
                     <div class="col-xl-12 col-md-12">

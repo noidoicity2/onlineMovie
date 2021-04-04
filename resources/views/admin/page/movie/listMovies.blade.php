@@ -69,7 +69,7 @@
                                             <td style="text-align: center">
                                                 <button class="btn btn-danger rounded-circle delete-btn" ><i class="fa fa-trash"></i></button>
                                                 <a href="" class="btn btn-info rounded-circle update-btn" ><i class="fa fa-pen"></i></a>
-                                                <button class="btn btn-primary rounded-circle" ><i class="fa fa-eye"></i></button>
+                                                <a title="Add episode" class="btn btn-primary"   href="{{route('add_episode' ,['id'=> $movie->id])}}"><i class="fa fa-plus"></i></a>
                                                 <button class="btn btn-info rounded-circle" ><i class="fa fa-pen"></i></button>
                                             </td>
 

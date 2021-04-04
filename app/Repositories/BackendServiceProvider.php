@@ -21,7 +21,9 @@ class BackendServiceProvider extends ServiceProvider
         $this->app->bind(CountryRepositoryInterface::class ,   CountryRepository::class);
         $this->app->bind(MovieCategoryRepositoryInterface::class ,   MovieCategoryRepository::class);
         $this->app->bind(EpisodeRepositoryInterface::class , EpisodeRepository::class);
-        $this->app->bind(DirectorRepositoryInterface::class, DirectorRepository::class);
+        $this->app->bind(DirectorRepositoryInterface::class , DirectorRepository::class);
+
+
     }
 
 }

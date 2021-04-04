@@ -24,7 +24,12 @@
                     //     "label": "720p HD"
                     // },
                     {
+                        @if($movie->is_movie_series==0)
                         "file": "{{$movie->low_hls_url}}",
+                        @else
+                        "file": "{{$movie->episodes->first()->hls_url}}",
+                        @endif
+
                         // "label": "360p SD",
                         // "default": "true"
                     },

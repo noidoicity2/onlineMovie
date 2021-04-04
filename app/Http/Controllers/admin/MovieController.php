@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 
 
 use App\Http\Requests\Movie\AddMovieRequest;
+use App\Jobs\HandleUploadEpisode;
 use App\Jobs\HandleVideoUpload;
 use App\Models\MovieCategory;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\DirectorRepositoryInterface;
+use App\Repositories\Interfaces\EpisodeRepositoryInterface;
 use App\Repositories\Interfaces\MovieCategoryRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
 use App\Repositories\MovieCategoryRepository;
@@ -39,11 +41,13 @@ class MovieController extends Controller
     protected $countryRepository;
     protected $movieCategoryRepository;
     protected $directorRepository;
+    protected $episodeRepository;
     public function __construct(MovieRepositoryInterface            $movieRepository ,
                                 CategoryRepositoryInterface         $categoryRepository,
                                 CountryRepositoryInterface          $countryRepository,
                                 MovieCategoryRepositoryInterface    $movieCategoryRepository,
-                                DirectorRepositoryInterface         $directorRepository
+                                DirectorRepositoryInterface         $directorRepository,
+                                EpisodeRepositoryInterface          $episodeRepository
     )
     {
         $this->movieRepository         = $movieRepository;
@@ -51,6 +55,7 @@ class MovieController extends Controller
         $this->countryRepository       = $countryRepository;
         $this->movieCategoryRepository = $movieCategoryRepository;
         $this->directorRepository            = $directorRepository;
+        $this->episodeRepository = $episodeRepository;
     }
 
     public function all() {
@@ -66,14 +71,19 @@ class MovieController extends Controller
         $slug = Str::slug($request->name);
         $imgPath    =   FIleUploadServices::UploadImage($request->file('img') ,$slug);
         $bgPath     =   FIleUploadServices::UploadImage($request->file('bg_img') , $slug);
-        $videoPath  =   FIleUploadServices::UploadVideo($request->file('source_url') , $slug);
 
         $movie['img']           =   Storage::url($imgPath);
         $movie['bg_img']        =   Storage::url($bgPath);
-        $movie['source_url']    =   Storage::url($videoPath);
+        if($request->file('source_url')) {
 
-        $movie['hls_url']       = '/storage/videos/'.$slug.'/'.$slug.'.m3u8';
-        $movie['low_hls_url']   = '/storage/videos/'.$slug.'/'.$slug.'_0_200'.'.m3u8';
+            $videoPath  =   FIleUploadServices::UploadVideo($request->file('source_url') , $slug);
+            $movie['source_url']    =   Storage::url($videoPath);
+            $movie['hls_url']       = '/storage/videos/'.$slug.'/'.$slug.'.m3u8';
+            $movie['low_hls_url']   = '/storage/videos/'.$slug.'/'.$slug.'_0_200'.'.m3u8';
+            $this->dispatch(new HandleVideoUpload($videoPath,$slug , $request->file('source_url')->extension()));
+        }
+
+
         $movie['description']   = htmlentities($request->description);
 
         $categories = $movie['category'];
@@ -96,7 +106,7 @@ class MovieController extends Controller
                 'error' =>  "Failed to add movie"
             ]);
         }
-        $this->dispatch(new HandleVideoUpload($videoPath,$slug , $request->file('source_url')->extension()));
+
 
         if($created_movie->is_movie_series == 1) {
             return view('admin.page.movie.addEpisode' ,[
@@ -190,12 +200,32 @@ class MovieController extends Controller
         $movie = $this->movieRepository->get($request->id);
         $names =$request->input('episode');
         $files = $request->file('episode');
+        $episode = array();
 //        dd($names);
         for ($i= 0 ; $i< count($files) ; $i ++) {
+
+
 //              echo ($files[$i]['url']->getClientOriginalName()) ;
             $name = Str::slug(($names[$i]['name']));
+            $extension = $files[$i]['url']->extension();
 //            dd($name);
+//            $videoPath  =   FIleUploadServices::UploadVideo($request->file('source_url') , $slug);
             $filePath =  FIleUploadServices::UploadEpisode($files[$i]['url'], $movie->slug ,$name);
+
+            $episode['source_url']    =   Storage::url($filePath);
+            $episode['hls_url']       = '/storage/videos/'.$movie->slug.'/'.$name.'/'.$name.'.m3u8';
+            $episode['low_hls_url']   = '/storage/videos/'.$movie->slug.'/'.$name.'/'.$name.'_0_200'.'.m3u8';
+
+            $this->episodeRepository->create([
+               'name' => $names[$i]['name'],
+                'movie_id' => $movie->id,
+                'source_url' =>  $episode['source_url']  ,
+                'hls_url'=>   $episode['hls_url']  ,
+                'low_hls_url' =>    $episode['low_hls_url']
+
+            ]);
+
+            $this->dispatch(new HandleUploadEpisode($filePath, $movie->slug ,$extension ,$name));
         }
         return "success";
 

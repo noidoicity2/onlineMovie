@@ -63,7 +63,7 @@
                 <div class="collapse" id="movie-menu" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="{{route('add_category')}}">Add new movie</a>
-                        <a class="nav-link" href="{{route('list_category')}}">All movie</a>
+                        <a class="nav-link" href="{{route('list_movie')}}">All movie</a>
                     </nav>
                 </div>
                 {{--                end Movie--}}
@@ -77,7 +77,7 @@
                 </a>
                 <div class="collapse" id="country-menu" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{route('add_category')}}">Add new movie</a>
+                        <a class="nav-link" href="{{route('add_movie')}}">Add new movie</a>
                         <a class="nav-link" href="{{route('list_category')}}">All movie</a>
                     </nav>
                 </div>

@@ -16,7 +16,7 @@ class Episode extends Model
 
     protected $table = "episode";
     public      $timestamps     =   false;
-    protected $fillable = ['name' , 'movie_id' , 'source_url' , 'hls_url' , 'note' ,'season_id' , 'slug'];
+    protected $fillable = ['name' , 'movie_id' , 'source_url' , 'hls_url' , 'low_hls_url' , 'note' ,'season_id' , 'slug'];
 
 
 

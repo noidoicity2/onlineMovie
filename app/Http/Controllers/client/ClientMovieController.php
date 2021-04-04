@@ -44,6 +44,8 @@ class ClientMovieController extends Controller
     public function Watch($slug =null , $id = null) {
         $movie = $this->movieRepository->get($id);
 
+//        return $movie->episodes;
+
         return view ('client.page.movie.watch' , [
            'movie' => $movie ,
             'categories'=>$this->category,
