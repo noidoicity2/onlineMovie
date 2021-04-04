@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
+use App\Repositories\Interfaces\DirectorRepositoryInterface;
 use App\Repositories\Interfaces\EpisodeRepositoryInterface;
 use App\Repositories\Interfaces\MovieCategoryRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
@@ -20,6 +21,7 @@ class BackendServiceProvider extends ServiceProvider
         $this->app->bind(CountryRepositoryInterface::class ,   CountryRepository::class);
         $this->app->bind(MovieCategoryRepositoryInterface::class ,   MovieCategoryRepository::class);
         $this->app->bind(EpisodeRepositoryInterface::class , EpisodeRepository::class);
+        $this->app->bind(DirectorRepositoryInterface::class, DirectorRepository::class);
     }
 
 }

@@ -34,24 +34,41 @@
                             @csrf
                             <div class="form-group">
                                 <label for="name">Movie Name</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter movie name">
+                                <input type="text" class="form-control" value="{{old('name')}}" name="name" id="name" placeholder="Enter movie name">
                             </div>
                             <div class="form-group">
                                 <label for="en_name">Real Name</label>
                                 <input type="text" class="form-control" name="en_name" id="en_name" placeholder="Enter real name">
                             </div>
+                            <div class="form-group">
+                                <label for="duration">Duration(minutes)</label>
+                                <input type="text" class="form-control" name="duration" id="duration" placeholder="Enter duration in minutes">
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Director</label>
+                                <select class="form-control" name="director_id" id="director_id">
+                                    @foreach($directors as $director)
+                                        <option value="{{$director->id}}">{{$director->name}}</option>
+                                    @endforeach
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="published_at">Publish at</label>
+                                <input type="date" class="form-control" name="published_at" id="published_at" placeholder="Enter director name">
+                            </div>
                             <div class="form-group row">
                                 <div class="form-group col-6">
                                     <label for="img">Choose image</label>
-                                    <input type="file" class="form-control" name="img" id="img">
+                                    <input type="file" class="form-control-file" value="{{old('img')}}" name="img" id="img">
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="bg_img">Choose back ground image</label>
-                                    <input type="file" class="form-control" name="bg_img" id="bg_img">
+                                    <input type="file" class="form-control-file" name="bg_img" id="bg_img">
                                 </div>
                                 <div class="form-group col-12">
                                     <label for="source_url">Choose video source</label>
-                                    <input type="file" class="form-control" name="source_url" id="source_url">
+                                    <input type="file" class="form-control-file" name="source_url" id="source_url">
                                 </div>
 
                             </div>

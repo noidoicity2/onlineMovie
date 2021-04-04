@@ -10,6 +10,7 @@ use App\Jobs\HandleVideoUpload;
 use App\Models\MovieCategory;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
+use App\Repositories\Interfaces\DirectorRepositoryInterface;
 use App\Repositories\Interfaces\MovieCategoryRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
 use App\Repositories\MovieCategoryRepository;
@@ -37,16 +38,19 @@ class MovieController extends Controller
     protected $categoryRepository;
     protected $countryRepository;
     protected $movieCategoryRepository;
+    protected $directorRepository;
     public function __construct(MovieRepositoryInterface            $movieRepository ,
                                 CategoryRepositoryInterface         $categoryRepository,
                                 CountryRepositoryInterface          $countryRepository,
-                                MovieCategoryRepositoryInterface    $movieCategoryRepository
+                                MovieCategoryRepositoryInterface    $movieCategoryRepository,
+                                DirectorRepositoryInterface         $directorRepository
     )
     {
         $this->movieRepository         = $movieRepository;
         $this->categoryRepository      = $categoryRepository;
         $this->countryRepository       = $countryRepository;
         $this->movieCategoryRepository = $movieCategoryRepository;
+        $this->directorRepository            = $directorRepository;
     }
 
     public function all() {
@@ -54,6 +58,7 @@ class MovieController extends Controller
 
     }
     public function PostAddMovie(AddMovieRequest $request) {
+
         $movie = $request->all() ;
 //return $movie;
 //        return $movie['category'];
@@ -62,7 +67,7 @@ class MovieController extends Controller
         $imgPath    =   FIleUploadServices::UploadImage($request->file('img') ,$slug);
         $bgPath     =   FIleUploadServices::UploadImage($request->file('bg_img') , $slug);
         $videoPath  =   FIleUploadServices::UploadVideo($request->file('source_url') , $slug);
-//        $request->file('source_url')->getClientOriginalName();
+
         $movie['img']           =   Storage::url($imgPath);
         $movie['bg_img']        =   Storage::url($bgPath);
         $movie['source_url']    =   Storage::url($videoPath);
@@ -114,9 +119,12 @@ class MovieController extends Controller
 
         $countries = $this->countryRepository->getCountryForSelect()->get();
         $categories = $this->categoryRepository->getCategoryForSelect()->get();
+        $directors = $this->directorRepository->all();
+
         return view('admin.page.movie.addMovie', [
             'countries'     => $countries,
             'categories'    => $categories,
+            'directors'     => $directors,
 
 
         ]);
@@ -178,19 +186,20 @@ class MovieController extends Controller
         ]);
     }
     public function PostAddEpisode(Request $request) {
-//        $movie = $this->movieRepository->get($id);
-//       dd ($request->file('episode')[0]['url']);
-//        return $epid;
+
         $movie = $this->movieRepository->get($request->id);
+        $names =$request->input('episode');
         $files = $request->file('episode');
+//        dd($names);
         for ($i= 0 ; $i< count($files) ; $i ++) {
 //              echo ($files[$i]['url']->getClientOriginalName()) ;
-            $filePath =  FIleUploadServices::UploadEpisode($files[$i]['url'], $movie->slug ,$files[$i]['name'] );
+            $name = Str::slug(($names[$i]['name']));
+//            dd($name);
+            $filePath =  FIleUploadServices::UploadEpisode($files[$i]['url'], $movie->slug ,$name);
         }
+        return "success";
 
-//        return view('admin.page.movie.addEpisode' ,[
-//            'movie' => $movie
-//        ]);
+
     }
 
 

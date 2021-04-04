@@ -29,7 +29,7 @@ namespace App\Services;
      public static function UploadEpisode($file , $name ,$episodeName ) {
          $extension = $file->extension();
 //       return $file->storeAs('uploads', $img_name, 'public');
-         return $file->storeAs('videos/'.$name, $episodeName.'.'.$extension , 'public');
+         return $file->storeAs('videos/'.$name.'/'.$episodeName, $episodeName.'.'.$extension , 'public');
 
      }
 
