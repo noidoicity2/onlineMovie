@@ -6,10 +6,12 @@ use App\Http\Controllers\admin\CountryController;
 use App\Http\Controllers\admin\DirectorController;
 use App\Http\Controllers\admin\MovieController;
 
+use App\Http\Controllers\admin\PaymentController;
 use App\Http\Controllers\client\ClientMovieController;
 use App\Http\Controllers\client\HomeController;
 use App\Http\Middleware\CheckLogin;
 use App\Http\Middleware\testRestrict;
+use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -76,6 +78,15 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
 
         Route::get('/listCategory', [CategoryController::class , 'all'])->name('list_category');
         Route::get('/', [CategoryController::class , 'all']);
+    });
+
+    Route::prefix('payment')->group(function () {
+        Route::get('', [PaymentController::class , 'ListPaymentMethod'])->name("list_payment_method");
+        Route::get('/add', [PaymentController::class , 'Add'])->name("add_payment_method");
+        Route::get('/edit/{id}', [PaymentController::class , 'Edit'])->name("edit_payment_method");
+        Route::post('/postEdit', [PaymentController::class , 'PostEditPayment'])->name("post_edit_payment_method");
+        Route::post('/postAdd', [PaymentController::class , 'PostAddPayment'])->name("post_add_payment_method");
+        Route::post('/postDelete', [PaymentController::class , 'PostDeletePayment'])->name("post_delete_payment_method");
     });
 
 

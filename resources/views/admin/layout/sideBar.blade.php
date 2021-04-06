@@ -112,6 +112,21 @@
                 {{--                end slider--}}
 
 
+                {{--                slider--}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#payment-menu" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
+                    Payment
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="payment-menu" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{route('add_payment_method')}}">Add new method</a>
+                        <a class="nav-link" href="{{route('list_category')}}">All movie</a>
+                    </nav>
+                </div>
+                {{--                end slider--}}
+
+
             </div>
         </div>
         <div class="sb-sidenav-footer">
