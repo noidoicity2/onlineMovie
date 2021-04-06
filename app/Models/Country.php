@@ -30,4 +30,8 @@ class Country extends Model
             ]
         ];
     }
+    public function movies() {
+        return $this->hasMany(Movie::class, 'country_id' , 'id');
+    }
+
 }

@@ -19,7 +19,7 @@ class Movie extends Model
     protected $table = "movie";
     public      $timestamps     =   false;
     protected $fillable = [
-        'name',	'en_name'	,'img'	,'bg_img'	,'description'	,'country',
+        'name',	'en_name'	,'img'	,'bg_img'	,'description'	,'country_id',
         'duration',	'view_count'	,'category_id'	,'slug'	,'imdb',	'is_movie18', 'director_id',
         'is_finished'	,'is_movie_series'	,'published_at',	'is_on_cinema',	'is_free' , 'source_url','hls_url', 'low_hls_url',
         'created_at'

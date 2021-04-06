@@ -76,56 +76,28 @@
                         <div class="rating">
                             <h3>Most viewed</h3>
                             <ul class="list-rating">
-                                <li>
+                                @foreach($mostViewedMovies as $mostViewMovie)
+                                    <li>
 
-                                    <a class="img-link"  href="">
-                                        <img loading="lazy" class="small-img" src="/images/13.jpg" alt="">
-                                        <div class="name-rating">
-                                            <div class="big-name">Big name</div>
-                                            <div class="small-name">
-                                                small name
+                                        <a class="img-link"  href="">
+                                            <img loading="lazy" class="small-img" src="{{$mostViewMovie->img}}" alt="">
+                                            <div class="name-rating">
+                                                <div class="big-name">{{$mostViewMovie->name}}</div>
+                                                <div class="small-name">
+                                                    {{$mostViewMovie->name}}
+                                                </div>
+                                                <div class="view-count"><i class="bi-eye">{{number_format($mostViewMovie->view_count)}}</i> Views
+                                                </div>
+
                                             </div>
-                                            <div class="view-count"><i class="bi-eye">100.000.000</i> Views
-                                            </div>
-
-                                        </div>
-                                    </a>
+                                        </a>
 
 
 
-                                </li>
-                                <li>
-
-                                    <a class="img-link"  href="">
-                                        <img loading="lazy"  class="small-img" src="/images/13.jpg" alt="">
-                                        <div class="name-rating">
-                                            <div class="big-name">Big name</div>
-                                            <div class="small-name">
-                                                small name
-                                            </div>
-                                            <div class="view-count"><i class="bi-eye">100.000.000</i> Views
-                                            </div>
+                                    </li>
+                                @endforeach
 
 
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-
-                                    <a class="img-link"  href="">
-                                        <img loading="lazy" class="small-img" src="/images/13.jpg" alt="">
-                                        <div class="name-rating">
-                                            <div class="big-name">Big name</div>
-                                            <div class="small-name">
-                                                small name
-                                            </div>
-                                            <div class="view-count"><i class="bi-eye">100.000.000</i> Views
-                                            </div>
-
-
-                                        </div>
-                                    </a>
-                                </li>
                             </ul>
                         </div>
 

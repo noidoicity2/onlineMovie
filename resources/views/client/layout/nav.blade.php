@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-light  fixed-top justify-content-lg-around">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light  fixed-top justify-content-lg-around" style="background-color: #0c2738">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Emovie</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,8 +14,21 @@
 
             <ul class="navbar-nav ml-auto">
 
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">New movie</a>
+                <li class="nav-item dropdown ">
+                    <a  class="nav-link dropdown-toggle" href="" id="navbarDropdownPortfolio" data-toggle="dropdown"  aria-expanded="false">
+                        Countries
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" style="overflow: auto ; max-height: 500px" aria-labelledby="navbarDropdownPortfolio">
+                        <a class="dropdown-item text-success"  style="" href="{{route('get_all_country)')}}">All Countries</a>
+                        @foreach($countries as $country)
+                            <a class="dropdown-item" href="portfolio-1-col.html">{{$country->name}}</a>
+                        @endforeach
+                        {{--                        <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>--}}
+                        {{--                        <a class="dropdown-item" href="portfolio-2-col.html">2 Column Portfolio</a>--}}
+                        {{--                        <a class="dropdown-item" href="portfolio-3-col.html">3 Column Portfolio</a>--}}
+                        {{--                        <a class="dropdown-item" href="portfolio-4-col.html">4 Column Portfolio</a>--}}
+                        {{--                        <a class="dropdown-item" href="portfolio-item.html">Single Portfolio Item</a>--}}
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="about.html">New movie</a>
@@ -54,7 +67,8 @@
                 </li>
                 @unless(Auth::user())
                     <li class="nav-item">
-                        <a class="nav-link bg-success" href="{{route('login')}}">Login</a>
+                        <a class="nav-link bg-primary" href="{{route('login')}}"><i class="bi bi-box-arrow-in-right"></i>
+                            Login</a>
                     </li>
                 @endunless
 

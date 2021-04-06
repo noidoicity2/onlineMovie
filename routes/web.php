@@ -128,6 +128,7 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
 Route::prefix('client')->group(function () {
 //    Route::get('/{slug}', [ClientMovieController::class, 'getMovie']);
     Route::get('favorite', function () {});
+
     Route::get('cart', function () {});
     Route::get('wishlist', function () {});
     Route::get('profile', function () {});
@@ -138,8 +139,8 @@ Route::prefix('client')->group(function () {
     Route::get('search', function () {});
     Route::get('donate', function () {});
     Route::get('home', [HomeController::class , 'home']);
+    Route::get('movieSeries-{id}', [ClientMovieController::class , 'MovieSeries']);
 
-    Route::get('jw' ,[ClientMovieController::class,'testJw']);
 
 });
 
@@ -147,7 +148,15 @@ Route::prefix('client')->group(function () {
 Route::prefix('movie')->group(function() {
     Route::get('/{slug}_{id}', [ClientMovieController::class , 'GetMovieBySlug'])->middleware(testRestrict::class)->name('get_movie_by_slug');
     Route::get('/watch/{slug}_{id}', [ClientMovieController::class , 'Watch'])->name('watch_movie');
+
 });
+Route::prefix('countries')->group(function() {
+    Route::get('/' , [ClientMovieController::class, 'GetAllContries'])->name('get_all_country)');
+    Route::get('/{slug}_{id}/' , [ClientMovieController::class, 'GetMovieByCountry'])->name('get_movie_by_country');
+
+
+});
+
 Route::get('/storage/image/{slug}/{img}')->middleware(testRestrict::class);
 DB::listen(function($sql) {
     Log::info($sql->sql);

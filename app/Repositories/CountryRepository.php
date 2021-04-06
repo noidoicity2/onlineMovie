@@ -42,4 +42,22 @@ class CountryRepository extends BaseRepository implements Interfaces\CountryRepo
    public function getCountryForSelect() {
        return $this->model->select(['id', 'name']);
    }
+
+    /**
+     * @return mixed
+     */
+    public function getAllCountry()
+    {
+        // TODO: Implement getAllCountry() method.
+        return $this->model->paginate(10);
+    }
+    public function Paginate($numberPerPage) {
+        return $this->model->paginate($numberPerPage);
+    }
+
+    public function Select($columns)
+    {
+        // TODO: Implement Select() method.
+        return $this->model->select($columns);
+    }
 }

@@ -52,6 +52,7 @@ class BaseRepository
 
         return $this->model->find($id)->update($data);
     }
+
     public function delete($id) {
         return $this->model->destroy($id);
     }

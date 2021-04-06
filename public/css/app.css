@@ -45,10 +45,10 @@ nav {
     min-height: 70px;
     margin: 0;
     padding: 0;
-    background-color: #0c2738 !important;
+    /*background-color: #0c2738 !important;*/
 }
 
-nav a {
+html nav:first-child a {
     color: #ffffff!important;
     font-weight: 500;
     font-size: 15px;
@@ -318,6 +318,9 @@ a.film-item:hover  {
         margin-top: 5px;
         background-color: #404040;
         border: 1px solid #1b1e21;
+    }
+    .page-link {
+        /*color: #005cbf;*/
     }
 
 }

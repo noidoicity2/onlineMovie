@@ -42,4 +42,5 @@ public function __construct(MovieCategory $model)
         // TODO: Implement insert() method.
         return $this->model->insert($data);
     }
+
 }
