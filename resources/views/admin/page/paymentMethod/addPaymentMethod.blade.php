@@ -29,7 +29,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-12 col-md-12">
-                        <form method="post" action="{{route("post_add_payment_method")}}">
+                        <form method="post" action="{{route("post_add_payment_method")}}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
                                 <div class="col-sm-6">

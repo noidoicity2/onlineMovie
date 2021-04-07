@@ -7,8 +7,10 @@ use App\Http\Controllers\admin\DirectorController;
 use App\Http\Controllers\admin\MovieController;
 
 use App\Http\Controllers\admin\PaymentController;
+use App\Http\Controllers\admin\TransactionController;
 use App\Http\Controllers\client\ClientMovieController;
 use App\Http\Controllers\client\HomeController;
+
 use App\Http\Middleware\CheckLogin;
 use App\Http\Middleware\testRestrict;
 use App\Models\PaymentMethod;
@@ -81,7 +83,7 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
     });
 
     Route::prefix('payment')->group(function () {
-        Route::get('', [PaymentController::class , 'ListPaymentMethod'])->name("list_payment_method");
+        Route::get('/', [PaymentController::class , 'ListPaymentMethod'])->name("list_payment_method");
         Route::get('/add', [PaymentController::class , 'Add'])->name("add_payment_method");
         Route::get('/edit/{id}', [PaymentController::class , 'Edit'])->name("edit_payment_method");
         Route::post('/postEdit', [PaymentController::class , 'PostEditPayment'])->name("post_edit_payment_method");
@@ -143,7 +145,8 @@ Route::prefix('client')->group(function () {
     Route::get('cart', function () {});
     Route::get('wishlist', function () {});
     Route::get('profile', function () {});
-    Route::get('payment', function () {});
+    Route::get('payment', [TransactionController::class , 'create']);
+    Route::get('payment/return', [TransactionController::class , 'return'])->name('return_payment');
     Route::get('bookMark', function () {});
     Route::get('profile', function () {});
 

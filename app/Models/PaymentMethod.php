@@ -9,22 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentMethod extends Model
 {
     use HasFactory;
-    use Sluggable;
+
+
+    public $table = 'payment_method';
     protected $fillable = ['name' , 'description' , 'img'];
 
 
         public      $timestamps     =   false;
 
-    /**
-     * @return array
-     */
-    public function sluggable(): array
-    {
-        // TODO: Implement sluggable() method.
-        return [
-            'slug' => [
-                'source'=>'name'
-            ]
-        ];
-    }
+
 }

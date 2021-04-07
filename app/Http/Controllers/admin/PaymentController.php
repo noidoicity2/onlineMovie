@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Payment\AddPayment;
 use App\Repositories\Interfaces\PaymentMethodRepositoryInterface;
+use App\Services\FIleUploadServices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 class PaymentController extends Controller
 {
@@ -36,7 +41,16 @@ class PaymentController extends Controller
     public function PostEditPayment() {
 
     }
-    public function PostAddPayment() {
+    public function PostAddPayment(AddPayment $request) {
+        $imgPath    =   FIleUploadServices::UploadPaymentImage($request->file('img') , Str::slug($request->name));
+        $img = Storage::url($imgPath);
+//        =   Storage::url($imgPath);
+//        dd($request->all());
+       return $this->paymentMethodRepository->create([
+           'name' => $request->name,
+           'img' => $img,
+           'description' => $request->description,
+       ]);
 
     }
     public function PostDeletePayment() {
