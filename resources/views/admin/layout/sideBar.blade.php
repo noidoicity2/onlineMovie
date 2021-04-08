@@ -83,19 +83,7 @@
                 </div>
                 {{--                end Country--}}
 
-                {{--                Membership--}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#membership-menu" aria-expanded="false" aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
-                    Membership
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="membership-menu" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{route('add_category')}}">Add new movie</a>
-                        <a class="nav-link" href="{{route('list_category')}}">All movie</a>
-                    </nav>
-                </div>
-                {{--                end membership--}}
+
 
                 {{--                slider--}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#slider-menu" aria-expanded="false" aria-controls="collapseLayouts">
@@ -112,7 +100,7 @@
                 {{--                end slider--}}
 
 
-                {{--                slider--}}
+                {{--                Payment method--}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#payment-menu" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
                     Payment
@@ -124,7 +112,21 @@
                         <a class="nav-link" href="{{route('list_payment_method')}}">All payment methods</a>
                     </nav>
                 </div>
-                {{--                end slider--}}
+                {{--              Payment method--}}
+
+                {{--                membership--}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#membership-menu" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                    Membership
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="membership-menu" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{route('add_membership')}}">Add membership</a>
+                        <a class="nav-link" href="{{route('list_membership')}}">list membership</a>
+                    </nav>
+                </div>
+                {{--             membership--}}
 
 
             </div>

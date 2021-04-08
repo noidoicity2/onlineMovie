@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CountryController;
 use App\Http\Controllers\admin\DirectorController;
+use App\Http\Controllers\admin\MembershipController;
 use App\Http\Controllers\admin\MovieController;
 
 use App\Http\Controllers\admin\PaymentController;
@@ -81,6 +82,17 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
         Route::get('/listCategory', [CategoryController::class , 'all'])->name('list_category');
         Route::get('/', [CategoryController::class , 'all']);
     });
+
+    Route::prefix('membership')->group(function () {
+        Route::get('/', [MembershipController::class , 'ListMembership'])->name("list_membership");
+
+        Route::get('/add', [MembershipController::class , 'Add'])->name("add_membership");
+        Route::get('/edit/{id}', [MembershipController::class , 'Edit'])->name("edit_payment_method");
+        Route::post('/postEdit', [MembershipController::class , 'PostEditMembership'])->name("post_edit_membership");
+        Route::post('/postAdd', [MembershipController::class , 'PostAddMembership'])->name("post_add_membership");
+        Route::post('/postDelete', [MembershipController::class , 'PostDeleteMembership'])->name("post_delete_membership");
+    });
+
 
     Route::prefix('payment')->group(function () {
         Route::get('/', [PaymentController::class , 'ListPaymentMethod'])->name("list_payment_method");
