@@ -48,7 +48,7 @@ nav {
     /*background-color: #0c2738 !important;*/
 }
 
-html nav:first-child a {
+html nav a {
     color: #ffffff!important;
     font-weight: 500;
     font-size: 15px;
