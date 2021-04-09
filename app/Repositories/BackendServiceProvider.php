@@ -8,6 +8,7 @@ use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\DirectorRepositoryInterface;
 use App\Repositories\Interfaces\EpisodeRepositoryInterface;
+use App\Repositories\Interfaces\MembershipCategoryRepositoryInterface;
 use App\Repositories\Interfaces\MembershipRepositoryInterface;
 use App\Repositories\Interfaces\MovieCategoryRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
@@ -28,6 +29,7 @@ class BackendServiceProvider extends ServiceProvider
         $this->app->bind(SlideRepositoryInterface::class , SlideRepository::class);
         $this->app->bind(PaymentMethodRepositoryInterface::class , PaymentMethodRepository::class);
         $this->app->bind(MembershipRepositoryInterface::class , MembershipRepository::class);
+        $this->app->bind(MembershipCategoryRepositoryInterface::class , MembershipCategoryRepository::class);
 
     }
 

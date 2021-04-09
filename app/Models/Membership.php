@@ -10,7 +10,7 @@ class Membership extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = "membership";
-    protected $fillable = ['name' , 'description' , 'price' , 'number_of_day'];
+    protected $fillable = ['name' , 'description' , 'price' , 'number_of_day' ,'all_category' ] ;
 
 
 }

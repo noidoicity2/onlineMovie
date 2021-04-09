@@ -3,21 +3,30 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Membership\AddMembershipRequest;
+use App\Models\Category;
+use App\Repositories\Interfaces\MembershipCategoryRepositoryInterface;
 use App\Repositories\Interfaces\MembershipRepositoryInterface;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MembershipController extends Controller
 {
     //
     protected $membershipRepository;
-    public function __construct(MembershipRepositoryInterface  $membershipRepository)
+    protected $membershipCategoryRepository;
+
+    public function __construct(MembershipRepositoryInterface  $membershipRepository,
+                                MembershipCategoryRepositoryInterface $membershipCategoryRepository)
     {
         $this->membershipRepository = $membershipRepository;
+        $this->membershipCategoryRepository = $membershipCategoryRepository;
     }
 
     public function Add() {
         return view('admin.page.membership.addMembership',[
-
+            'categories' => Category::select(['id','name'])->get(),
         ]);
 
     }
@@ -25,16 +34,43 @@ class MembershipController extends Controller
         $memberships = $this->membershipRepository->all();
 
         return view('admin.page.membership.listMembership' , [
-            'memberships' => $memberships
+            'memberships' => $memberships,
+
         ]);
 
 
     }
-    public function PostAddMembership(Request $request) {
+    public function PostAddMembership(AddMembershipRequest $request) {
 //        return $request->all();
-        $this->membershipRepository->create($request->all());
+        $memberships = $request->all();
 
-        return back()->with(['message'=>"add membership successfully"]);
+
+        $categories = $memberships['category'];
+        $insert_data= array();
+
+
+        DB::beginTransaction();
+        try {
+
+          $membership =  $this->membershipRepository->create($request->all());
+            for ($i =0 ; $i <count($categories) ;$i ++) {
+                array_push($insert_data , array('category_id' => $categories[$i] , 'membership_id'=>$membership->id) );
+            }
+             $this->membershipCategoryRepository->insert($insert_data);
+//            return $insert_data;
+
+            DB::commit();
+            return back()->with(['message'=>"add membership successfully"]);
+
+        }
+        catch (Exception $e){
+            DB::rollBack();
+            return back()->with(['error'=>"add membership fail"]);
+
+        }
+
+
+
 
     }
 }

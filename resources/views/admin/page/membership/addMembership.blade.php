@@ -58,7 +58,24 @@
                                 <input type="text" class="form-control" name="number_of_day" id="number_of_day" placeholder="Enter number of day">
 
                             </div>
+                            <div class="form-group ">
 
+
+                                <input type="checkbox" class="form-check-inline" name="all_category" id="all_category" placeholder="Enter number of day">
+                                <label class="form-check-label"  for="all_category">Include all movie category</label>
+                            </div>
+                            <label class="col-12 form-check-label text-danger  font-weight-bolder  " for="info">Include categories</label>
+                            <div class="form-group row mx-auto font-weight-bolder " style="height: 200px ; overflow: scroll">
+
+                                @foreach($categories as $category)
+                                    <div class="form-group col-3 p-4">
+                                        <input type="checkbox" class="form-check-input" value="{{$category->id}}" name="category[]{{$category->id}}" id="category_{{$category->id}}">
+                                        <label class="form-check-label text-primary" for="category_{{$category->id}}">{{$category->name}}</label>
+                                    </div>
+                                @endforeach
+                                <input type="hidden" value="">
+
+                            </div>
                             <button type="submit" class="btn btn-primary px-lg-5 float-left">Save</button>
                         </form>
                     </div>

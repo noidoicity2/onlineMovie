@@ -135,10 +135,7 @@
                                     <input type="checkbox" class="form-check-input" name="is_finished" id="is_finished">
                                     <label class="form-check-label text-danger" for="is_finished">Is finished+</label>
                                 </div>
-{{--                                <div class="form-group col-md-3">--}}
-{{--                                    <input type="checkbox" class="form-check-input" name="is_movie_series" id="is_movie_series">--}}
-{{--                                    <label class="form-check-label text-danger" for="is_movie_series">Movie series</label>--}}
-{{--                                </div>--}}
+
 
                                 <div class="form-group col-md-3">
                                     <input type="checkbox" class="form-check-input" id="is_on_cinema" name="is_on_cinema">

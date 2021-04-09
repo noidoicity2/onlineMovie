@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Membership;
+namespace App\Http\Requests\request;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddMembershipRequest extends FormRequest
+class addMembershipRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class AddMembershipRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -26,11 +26,5 @@ class AddMembershipRequest extends FormRequest
         return [
             //
         ];
-    }
-    public function validationData(){
-        if(!$this->request->has('all_category')) {
-            $this->request->add(['all_category'=>0]);
-        } else $this->request->set('all_category' , 1);
-        return $this->all();
     }
 }
