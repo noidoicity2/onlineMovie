@@ -66,12 +66,12 @@
                     </div>
                 </li>
                 @unless(Auth::user())
-                    <li class="nav-item" >
-                        <a class="nav-link text-danger font-weight-bold" href="{{route('login')}}"><i class="bi bi-box-arrow-in-right"></i>
+                    <li class="nav-item " >
+                        <a class="nav-link  font-weight-bold" href="{{route('login')}}"><i class="bi bi-box-arrow-in-right"></i>
                             Login</a>
                     </li>
                     <li class="nav-item"  >
-                        <a class="nav-link font-weight-bold" style="color: #a71d2a" href="{{route('login')}}"><i class="bi bi-box-arrow-in-right"></i>
+                        <a class="nav-link font-weight-bold text-light bg-success" href="{{route('login')}}"><i class="bi bi-box-arrow-in-right"></i>
                             Sign Up</a>
                     </li>
                 @endunless
