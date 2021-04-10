@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Movie;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
+use App\Repositories\Interfaces\EpisodeRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class HomeController extends BaseController
 {
     //
     //
@@ -19,14 +20,19 @@ class HomeController extends Controller
     protected  $movieRepository;
     protected  $countryRepository;
 
-    public function __construct(MovieRepositoryInterface $movieRepository,
-                                CountryRepositoryInterface $countryRepository)
-    {
-        $this->movieRepository = $movieRepository;
-        $this->countryRepository = $countryRepository;
-        $this->categories = Category::OnLyName()->get()->take(10);
-        $this->countries = $this->countryRepository->all()->take(5);
-    }
+//    public function __construct(MovieRepositoryInterface $movieRepository,
+//                                CountryRepositoryInterface $countryRepository)
+//    {
+//        $this->movieRepository = $movieRepository;
+//        $this->countryRepository = $countryRepository;
+//        $this->categories = Category::OnLyName()->get()->take(10);
+//        $this->countries = $this->countryRepository->all()->take(5);
+//    }
+
+public function __construct(MovieRepositoryInterface $movieRepository, CountryRepositoryInterface $countryRepository)
+{
+    parent::__construct($movieRepository, $countryRepository);
+}
 
     public function home() {
 

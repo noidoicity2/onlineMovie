@@ -13,15 +13,16 @@ class BaseController extends Controller
 {
     protected $categories;
     protected $countries;
-
-
+    protected  $movieRepository;
     protected  $countryRepository;
     //
-    public function __construct(EpisodeRepositoryInterface $episodeRepository ,
+    public function __construct(MovieRepositoryInterface $movieRepository,
                                 CountryRepositoryInterface $countryRepository)
     {
 
+        $this->movieRepository = $movieRepository;
+        $this->countryRepository = $countryRepository;
         $this->categories = Category::OnLyName()->get()->take(10);
-        $this->countries = $this->countryRepository->getCountryForSelect()->take(5)->get();
+        $this->countries = $this->countryRepository->all()->take(5);
     }
 }

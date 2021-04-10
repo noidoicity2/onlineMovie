@@ -14,6 +14,8 @@ use App\Repositories\Interfaces\MovieCategoryRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
 use App\Repositories\Interfaces\PaymentMethodRepositoryInterface;
 use App\Repositories\Interfaces\SlideRepositoryInterface;
+use App\Repositories\Interfaces\UserMembershipRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class BackendServiceProvider extends ServiceProvider
@@ -31,6 +33,8 @@ class BackendServiceProvider extends ServiceProvider
         $this->app->bind(MembershipRepositoryInterface::class , MembershipRepository::class);
         $this->app->bind(MembershipCategoryRepositoryInterface::class , MembershipCategoryRepository::class);
 
+        $this->app->bind(UserRepositoryInterface::class , UserRepository::class);
+        $this->app->bind(UserMembershipRepositoryInterface::class , UserMembershipRepository::class);
     }
 
 }

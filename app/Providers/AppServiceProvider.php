@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
+use App\Models\Country;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -36,5 +39,9 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Paginator::useBootstrap();
+        $navCountries = Country::select(['id' , 'name' , 'slug'])->take(5)->get();
+        $navCategories = Category::OnLyName()->get()->take(10);
+        View::share(compact($navCategories , $navCountries));
+
     }
 }

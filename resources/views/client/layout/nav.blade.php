@@ -77,6 +77,9 @@
                 @endunless
 
                 @auth
+                    <li class="nav-item">
+                        <a class="nav-link bg-danger rounded" href="{{route('buy_vip')}}">Buy Vip</a>
+                    </li>
                 <li class="nav-item dropdown avatar-area">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img loading="lazy" class="avatar" src="/images/avatar.JPG" alt="">

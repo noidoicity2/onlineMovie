@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CountryController;
 use App\Http\Controllers\admin\DirectorController;
 use App\Http\Controllers\admin\MembershipController;
+use App\Http\Controllers\client\MembershipController as ClientMembership;
 use App\Http\Controllers\admin\MovieController;
 
 use App\Http\Controllers\admin\PaymentController;
@@ -36,9 +37,12 @@ Route::get('/',  [HomeController::class , 'home']);
 //})->name('login');
 Route::prefix('auth')->group(function () {
     Route::get('login', [AuthController::class , 'Login'])->name('login');
+    Route::get('register', [AuthController::class , 'Register'])->name('register');
     Route::get('logout',[AuthController::class , 'Logout'] )->name('logout');
 
     Route::post('postlogin', [AuthController::class ,'PostLogin'] )->name('post_login');
+    Route::post('postRegister', [AuthController::class ,'PostRegister'] )->name('post_register');
+
 });
 //Route::get('/getAll', [ClientMovieController::class, 'getAll']);
 
@@ -166,6 +170,7 @@ Route::prefix('client')->group(function () {
     Route::get('donate', function () {});
     Route::get('home', [HomeController::class , 'home']);
     Route::get('movieSeries-{id}', [ClientMovieController::class , 'MovieSeries']);
+    Route::get('buyvip', [ClientMembership::class , 'ListMemberShip'])->name('buy_vip');
 
 
 });

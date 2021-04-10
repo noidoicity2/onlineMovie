@@ -3,13 +3,21 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use MongoDB\Driver\Session;
 
 class AuthController extends Controller
+
 {
+    protected $userRepository;
     //
+    public function __construct(UserRepositoryInterface  $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function PostLogin(Request $request) {
 //        if(Auth::user()) return "logged in";
         $credentials = $request->only('email', 'password');
@@ -19,6 +27,19 @@ class AuthController extends Controller
         }else abort(401);
 
 
+    }
+    public function PostRegister(Request $request) {
+        $user = $request->all();
+       $user['password'] = bcrypt($user['password']);
+
+       $this->userRepository->create($user);
+       return back()->with(['message'=> "Register successfully"]);
+
+
+
+    }
+    public function  Register() {
+        return view('register');
     }
 
     public function Login() {
