@@ -20,7 +20,9 @@ class MembershipController extends Controller
     public function ListMemberShip() {
         $memberships = $this->membershipRepository->all();
 
-        return view('client.page.membership.ListMembership');
+        return view('client.page.membership.ListMembership' , [
+            'memberships' => $memberships,
+        ]);
 
     }
 

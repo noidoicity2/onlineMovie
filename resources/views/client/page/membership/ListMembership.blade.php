@@ -2,13 +2,27 @@
 
 @section('content')
     <div class="container">
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
+        <h1 class="text-warning mt-5 ml-3">Become vip</h1>
+        <div class="row mt-2 mb-5">
+
+            @foreach($memberships as $membership)
+                <div class="col-sm-4">
+                    <div class="card bg-dark text-light mb-5" style="">
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{$membership->name}}</h5>
+                            <p class="card-text">{{$membership->description}}</p>
+                            <p class="card-subtitle">{{number_format($membership->price)}} VND/  <span class="text-danger"> {{$membership->number_of_day}} Day</span></p>
+                            <a href="/dcmm" class="btn btn-primary">Buy now</a>
+                        </div>
+                    </div>
+                </div>
+
+            @endforeach
+
+
         </div>
+
+
     </div>
 @endsection

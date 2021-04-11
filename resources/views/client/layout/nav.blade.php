@@ -20,7 +20,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" style="overflow: auto ; max-height: 500px" aria-labelledby="navbarDropdownPortfolio">
                         <a class="dropdown-item text-success"  style="" href="{{route('get_all_country)')}}">All Countries</a>
-                        @foreach($countries as $country)
+                        @foreach($navCountries as $country)
                             <a class="dropdown-item" href="portfolio-1-col.html">{{$country->name}}</a>
                         @endforeach
                         {{--                        <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>--}}
@@ -45,7 +45,7 @@
                         Category
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                        @foreach($categories as $category)
+                        @foreach($navCategories as $category)
                             <a class="dropdown-item" href="portfolio-1-col.html">{{$category->name}}</a>
                         @endforeach
 {{--                        <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>--}}

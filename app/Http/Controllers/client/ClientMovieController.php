@@ -28,8 +28,8 @@ class ClientMovieController extends Controller
         $this->episodeRepository = $episodeRepository;
         $this->countryRepository =$countryRepository;
 
-        $this->categories = Category::OnLyName()->get()->take(10);
-        $this->countries = $this->countryRepository->getCountryForSelect()->take(5)->get();
+//        $this->categories = Category::OnLyName()->get()->take(10);
+//        $this->countries = $this->countryRepository->getCountryForSelect()->take(5)->get();
     }
 
     public function Index() {
@@ -95,8 +95,8 @@ class ClientMovieController extends Controller
         $mostViewedMovies = $this->movieRepository->getMostViewedMovie()->take(3)->get();
 
         return view('client.page.movie.listMovieByCountry', [
-            'categories'  => $this->categories,
-            'countries'   => $this->countries,
+//            'categories'  => $this->categories,
+//            'countries'   => $this->countries,
             'mostViewedMovies'=> $mostViewedMovies,
 
             'movies'  => $movie,

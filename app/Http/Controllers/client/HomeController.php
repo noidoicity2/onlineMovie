@@ -6,11 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Movie;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
-use App\Repositories\Interfaces\EpisodeRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
 use Illuminate\Http\Request;
 
-class HomeController extends BaseController
+class HomeController extends Controller
 {
     //
     //
@@ -20,31 +19,30 @@ class HomeController extends BaseController
     protected  $movieRepository;
     protected  $countryRepository;
 
-//    public function __construct(MovieRepositoryInterface $movieRepository,
-//                                CountryRepositoryInterface $countryRepository)
-//    {
-//        $this->movieRepository = $movieRepository;
-//        $this->countryRepository = $countryRepository;
+    public function __construct(MovieRepositoryInterface $movieRepository,
+                                CountryRepositoryInterface $countryRepository)
+    {
+        $this->movieRepository = $movieRepository;
+        $this->countryRepository = $countryRepository;
 //        $this->categories = Category::OnLyName()->get()->take(10);
 //        $this->countries = $this->countryRepository->all()->take(5);
-//    }
-
-public function __construct(MovieRepositoryInterface $movieRepository, CountryRepositoryInterface $countryRepository)
-{
-    parent::__construct($movieRepository, $countryRepository);
-}
+    }
 
     public function home() {
 
-        $new_movies = Movie::NewestMovie()->limit(20)->with('episodes:name,movie_id')->get();
-        $mostViewedMovies = $this->movieRepository->getMostViewedMovie()->take(10)->get();
+//        $new_movies = Movie::NewestMovie()->limit(20)->with('episodes:name,movie_id')->get();
+        $new_movies = cache()->remember('new_movies' , 60*2 , function () {
+           return  Movie::NewestMovie()->limit(20)->with('episodes:name,movie_id')->get();
+        });
+//        $mostViewedMovies = $this->movieRepository->getMostViewedMovie()->take(10)->get();
+        $mostViewedMovies =   cache()->remember('mostViewedMovies' , 60*2 , function () {
+            return $this->movieRepository->getMostViewedMovie()->take(10)->get();
+        });
 //        return $mostViewedMovies;
 //        return  $new_movies;
         return view('client.page.movie.home', [
-            'categories'  => $this->categories,
-            'countries'   => $this->countries,
-            'mostViewedMovies'=> $mostViewedMovies,
 
+            'mostViewedMovies'=> $mostViewedMovies,
             'new_movies'  => $new_movies,
 
         ] );
