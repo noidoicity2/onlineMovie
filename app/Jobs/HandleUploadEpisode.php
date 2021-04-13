@@ -47,7 +47,7 @@ class HandleUploadEpisode implements ShouldQueue
         $lowBitrate = new X264('aac', 'libx264');
         $lowBitrate->setKiloBitrate(200);
 
-        $highRate =  (new X264('aac', 'libx264'))->setKiloBitrate(1000);
+        $highRate =  (new X264('aac', 'libx264'))->setKiloBitrate(3500);
 //
 //        $midBitrate = (new X264)->setKiloBitrate(500);
 //        $highBitrate = (new X264)->setKiloBitrate(1000);
@@ -60,7 +60,7 @@ class HandleUploadEpisode implements ShouldQueue
             ->open('videos/'.$this->slug.'/'.'/'.$this->episodeName.'/'.$this->episodeName.'.'.$this->extention)
             ->exportForHLS()
             ->withEncryptionKey($encryptionKey)
-            ->setSegmentLength(5)
+            ->setSegmentLength(120)
             ->addFormat($lowBitrate)
             ->addFormat($highRate)
             ->toDisk('public')

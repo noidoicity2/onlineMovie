@@ -12,5 +12,9 @@ class Membership extends Model
     protected $table = "membership";
     protected $fillable = ['name' , 'description' , 'price' , 'number_of_day' ,'all_category' ] ;
 
+    public function categories() {
+        $this->hasMany(MembershipCategory::class , 'membership_id' , 'id');
+    }
+
 
 }

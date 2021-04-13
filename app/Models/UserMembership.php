@@ -9,6 +9,6 @@ class UserMembership extends Model
 {
     use HasFactory;
    protected $table = "user_membership";
-   protected $fillable = ['user_id' , 'membership_id' , 'created_at'];
+   protected $fillable = ['user_id' , 'membership_id' , 'created_at' , 'expired_date'];
    public      $timestamps     =   false;
 }

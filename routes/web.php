@@ -162,7 +162,7 @@ Route::prefix('client')->group(function () {
     Route::get('wishlist', function () {});
     Route::get('profile', function () {});
     Route::get('payment', [TransactionController::class , 'create']);
-    Route::get('payment/return', [TransactionController::class , 'return'])->name('return_payment');
+    Route::get('payment/return', [ClientMembership::class , 'return'])->name('return_payment');
     Route::get('bookMark', function () {});
     Route::get('profile', function () {});
 
@@ -170,8 +170,10 @@ Route::prefix('client')->group(function () {
     Route::get('donate', function () {});
     Route::get('home', [HomeController::class , 'home']);
     Route::get('movieSeries-{id}', [ClientMovieController::class , 'MovieSeries']);
-    Route::get('buyvip', [ClientMembership::class , 'ListMemberShip'])->name('buy_vip');
 
+    Route::get('buyvip', [ClientMembership::class , 'ListMemberShip'])->name('buy_vip');
+    Route::Post('createPayment', [ClientMembership::class , 'createPaymentUrl'])->name('create_payment');
+    Route::get('previewPurchase/{id}&&day={day}', [ClientMembership::class , 'PreviewPurchase'])->name('preview_purchase');
 
 });
 

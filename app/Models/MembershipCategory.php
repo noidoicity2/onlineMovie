@@ -11,4 +11,8 @@ class MembershipCategory extends Model
     protected $table = 'membership_category';
     protected $fillable = ['category_id' , 'membership_id'];
     public      $timestamps     =   false;
+
+    public function membership() {
+        return $this->belongsTo(Membership::class , 'membership_id' , 'id');
+    }
 }

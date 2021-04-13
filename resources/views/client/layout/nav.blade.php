@@ -77,22 +77,32 @@
                 @endunless
 
                 @auth
-                    <li class="nav-item">
-                        <a class="nav-link bg-danger rounded" href="{{route('buy_vip')}}">Buy Vip</a>
-                    </li>
+                    @if(Auth::user()->is_vip ==0)
+                        <li class="nav-item">
+                            <a class="nav-link bg-danger rounded" href="{{route('buy_vip')}}">Buy Vip</a>
+                        </li>
+
+
+                    @endif
+
+
                 <li class="nav-item dropdown avatar-area">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img loading="lazy" class="avatar" src="/images/avatar.JPG" alt="">
 
-                            {{Auth::user()->name}}
+                            {{Auth::user()->name}}  @if(Auth::user()->is_vip ==1)  <span class="text-danger">(Vip)</span> @endif
+
 
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPages">
-                        <a class="dropdown-item" href="full-width.html">Full Width Page</a>
-                        <a class="dropdown-item" href="sidebar.html">Sidebar Page</a>
-                        <a class="dropdown-item" href="faq.html">FAQ</a>
-                        <a class="dropdown-item" href="404.html">404</a>
-                        <a class="dropdown-item" href="{{route('logout')}}">Log out</a>
+                        @if(Auth::user()->is_vip ==1)
+                            <a class="dropdown-item bg-danger" href="full-width.html">Upgrade your membership</a>
+                        @endif
+                            <a class="dropdown-item" href="full-width.html">Full Width Page</a>
+                            <a class="dropdown-item" href="sidebar.html">Sidebar Page</a>
+                            <a class="dropdown-item" href="faq.html">FAQ</a>
+                            <a class="dropdown-item" href="404.html">404</a>
+                            <a class="dropdown-item" href="{{route('logout')}}">Log out</a>
                     </div>
                 </li>
                 @endauth
