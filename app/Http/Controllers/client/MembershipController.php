@@ -5,8 +5,10 @@ namespace App\Http\Controllers\client;
 use App\Http\Controllers\Controller;
 use App\Models\MembershipCategory;
 use App\Models\Transaction;
+use App\Models\User;
 use App\Models\UserMembership;
 use App\Repositories\Interfaces\MembershipRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -132,11 +134,11 @@ class MembershipController extends Controller
             $transation = Transaction::find($transaction_id);
 //            if($transation)
             $transation->update(['status' => "success"]);
-            $user_membership = UserMembership::where('user_id' , Auth::id())->where('membership_id' , $membership_id)->get();
+            $user_membership = UserMembership::where('user_id' , Auth::id())->where('membership_id' , $membership_id)->first();
 //            return $user_membership;
-            if(!$user_membership) {
+            if($user_membership!= null) {
                 UserMembership::find($user_membership->id)->update([
-                    'expired_date' => $user_membership->expired_date->addDays($days)
+                    'expired_date' =>       Carbon::parse($user_membership->expired_date)->addDays($days)
                 ]);
             }
             else {

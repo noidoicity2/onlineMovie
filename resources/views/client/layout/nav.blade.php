@@ -96,7 +96,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPages">
                         @if(Auth::user()->is_vip ==1)
-                            <a class="dropdown-item bg-danger" href="full-width.html">Upgrade your membership</a>
+                            <a class="dropdown-item bg-danger" href="{{route('buy_vip')}}">Upgrade your membership</a>
                         @endif
                             <a class="dropdown-item" href="full-width.html">Full Width Page</a>
                             <a class="dropdown-item" href="sidebar.html">Sidebar Page</a>
