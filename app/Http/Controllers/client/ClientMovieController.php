@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Models\BookMark;
 use App\Models\Category;
+use App\Models\Favorite;
 use App\Models\Movie;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\EpisodeRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class ClientMovieController extends Controller
 {
@@ -86,6 +90,72 @@ class ClientMovieController extends Controller
             'listCountries'=>$allCountry,
 
         ]);
+    }
+    public  function Favorite() {
+//        return "đá";
+        $favorite_movie = Favorite::where('user_id' , Auth::id())->with('movie')->paginate(5);
+//        $favorite_movie  = Cache::remember('favorite')
+//     return $favorite_movie;
+        return view('client.page.movie.favorite' , [
+           'favorite_items' => $favorite_movie
+        ]);
+
+
+    }
+    public function PostAddFavorite(Request $request) {
+        $favorite= Favorite::where([
+            'user_id' => Auth::id(),
+            'movie_id'=>$request->movie_id])->first();
+        if($favorite == null) {
+            Favorite::create([
+                'user_id' => Auth::id(),
+                'movie_id'=>$request->movie_id,
+            ]);
+
+            return json_encode([
+                'success' => true ,
+                'message' => "add to favorite successfully"
+            ]);
+        }
+        else {
+           Favorite::destroy($favorite->id);
+            return json_encode([
+                'success' => true ,
+                'message' => "You unliked this movie"]);
+        }
+
+    }
+
+    public function PostBookMark(Request $request) {
+        $bookMark = BookMark::where(['user_id' => Auth::id() , 'movie_id' =>$request->movie_id  ])->first();
+//        dd($bookMark);
+//        return  compact($bookMark);
+        if($bookMark ==null) {
+            BookMark::create([
+                'user_id' => Auth::id(),
+                'movie_id'=> $request->movie_id,
+                'episode_id' =>$request->episode_id,
+                'position' =>$request->position,
+            ]);
+            return json_encode([
+                "success" => true,
+                "message"=> "bookmark movie successfully",
+
+            ]);
+        }
+
+        BookMark::find($bookMark->id)->update(['position' => $request->position]);
+        return json_encode([
+            "success" => true,
+            "message"=> "update bookmark movie successfully",
+
+        ]);
+
+
+
+    }
+    public function GetBookMarkMovie() {
+        $bookmarks = BookMark::where('user_id' , Auth::id())->paginate(5);
     }
 
     public function GetMovieByCountry($slug=null,$id=null) {

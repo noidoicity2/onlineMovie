@@ -153,17 +153,22 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
 
 });
 //end admin route
+
+
 //start Client route
 Route::prefix('client')->group(function () {
 //    Route::get('/{slug}', [ClientMovieController::class, 'getMovie']);
-    Route::get('favorite', function () {});
+    Route::get('favorite', [ClientMovieController::class , 'Favorite'])->name('favorite_movie');
+    Route::Post('postAddToFavorite', [ClientMovieController::class , 'PostAddFavorite'])->name('add_to_favorite');
 
-    Route::get('cart', function () {});
-    Route::get('wishlist', function () {});
+
     Route::get('profile', function () {});
     Route::get('payment', [TransactionController::class , 'create']);
     Route::get('payment/return', [ClientMembership::class , 'return'])->name('return_payment');
-    Route::get('bookMark', function () {});
+
+    Route::get('bookmark', [ClientMembership::class , 'GetBookMarkMovie'])->name('get_bookmark_movie');
+    Route::Post('postBookMark', [ClientMovieController::class , 'PostBookMark'])->name('add_to_bookmark');
+
     Route::get('profile', function () {});
 
     Route::get('search', function () {});

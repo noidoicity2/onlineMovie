@@ -8,14 +8,14 @@
                     <div class="img-left-container d-flex justify-content-center">
                         <img class="film-img" src="{{$movie->img}}" alt="">
                     </div>
-
-                    <div class="group-btn d-flex mt-3" >
-                        <a href="{{route('watch_movie',['slug' => $movie->slug , 'id' => $movie->id])}}" type="button" style="line-height: 50px ; font-size: 30px" class="btn bg-danger text-light  m-2 w-25 "><i class="bi bi-play-fill"></i>
+{{--                    <input type="hidden" id="movie_id" value="{{$movie->id}}" >--}}
+                    <div class="group-btn d-flex mt-3 flex-wrap" >
+                        <a  href="{{route('watch_movie',['slug' => $movie->slug , 'id' => $movie->id])}}" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-success text-light  m-1 w-25" ><i class="bi bi-play-fill"></i>
                             Watch</a>
-                        <a type="button" class="btn bg-secondary text-light m-2 w-25"><i class="bi bi-card-list  "></i>
-                            Secondary</a>
-                        <a type="button" class="btn bg-primary text-light m-2 w-25 "><i class="bi bi-eye-fill "></i>
-                            Secondary</a>
+                        <a id="like-btn" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-primary text-light  m-1 w-25 "><i class="bi bi-heart"></i>
+                            Like</a>
+                        <a   href="{{route('watch_movie',['slug' => $movie->slug , 'id' => $movie->id])}}" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-danger text-light m-1  w-25 "><i class="bi bi-list"></i>
+                             Episodes</a>
                     </div>
 
                 </div>
@@ -184,4 +184,28 @@
 
 
     </div>
+@endsection
+
+@section('custom_js')
+    <script>
+        $('#like-btn').click(function(e) {
+            e.preventDefault();
+
+                $.ajax({
+                    url: '{{route('add_to_favorite')}}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        "movie_id": {{$movie->id}},
+                        "_token": "{{ csrf_token() }}",
+                    }
+                }).done(function (data) {
+                    // $('#noidung').html(ketqua);
+                    alert(data.message);
+                }).fail(function () {
+                    alert('error');
+                });
+
+        });
+    </script>
 @endsection

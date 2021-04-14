@@ -98,7 +98,7 @@
                         @if(Auth::user()->is_vip ==1)
                             <a class="dropdown-item bg-danger" href="{{route('buy_vip')}}">Upgrade your membership</a>
                         @endif
-                            <a class="dropdown-item" href="full-width.html">Full Width Page</a>
+                            <a class="dropdown-item" href="{{route('favorite_movie')}}">Your favorite</a>
                             <a class="dropdown-item" href="sidebar.html">Sidebar Page</a>
                             <a class="dropdown-item" href="faq.html">FAQ</a>
                             <a class="dropdown-item" href="404.html">404</a>
