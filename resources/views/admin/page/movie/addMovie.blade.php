@@ -85,7 +85,7 @@
 
                             <div class="form-group">
                                 <label for="country">Country</label>
-                                <select class="form-control" name="country" id="country">
+                                <select class="form-control" name="country_id" id="country">
                                     @foreach($countries as $country)
                                         <option value="{{$country->id}}">{{$country->name}}</option>
                                     @endforeach

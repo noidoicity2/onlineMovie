@@ -32,10 +32,8 @@ class AuthController extends Controller
         $user = $request->all();
        $user['password'] = bcrypt($user['password']);
 
-       $this->userRepository->create($user);
+       $this->userRepository->create( array_merge($user , ['role_id' => 1]) );
        return back()->with(['message'=> "Register successfully"]);
-
-
 
     }
     public function  Register() {

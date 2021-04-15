@@ -1,11 +1,11 @@
 @extends('client.layout.mainLayout')
 @section('content')
-    <div class="container">
+    <div class="container mt-5 "  >
         <div class="row content-overlay">
-            <div class="col-12" id="el">
+            <div class="col-12  " id="el"  >
 
             </div>
-            <div class="col-12" id="alert-msg" >
+            <div class="col-12 " id="alert-msg" >
 
             </div>
             <div class="col-12">
@@ -21,7 +21,7 @@
 
         </div>
     </div>
-    <button id="save-btn" class="btn-secondary">save</button>
+
 @endsection
 @section('custom_js')
     <script type="text/JavaScript">
@@ -65,13 +65,13 @@
 
         });
         // var elapsed = player
-        var saveBtn = document.getElementById("save-btn");
-        var elapsed ;
-        saveBtn.onclick = function () {
-             elapsed = player.getPosition();
-            console.log(elapsed);
-           // player.pause();
-        }
+        // var saveBtn = document.getElementById("save-btn");
+        // var elapsed ;
+        // saveBtn.onclick = function () {
+        //      elapsed = player.getPosition();
+        //     console.log(elapsed);
+        //    // player.pause();
+        // }
 
         $("#btn-bookmark").click(function () {
              elapsed = player.getPosition();

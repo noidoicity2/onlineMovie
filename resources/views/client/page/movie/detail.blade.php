@@ -71,10 +71,34 @@
 
         <div class="section-detail">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 text-light">
                     <h2>Nội dung phim</h2>
                    {!!html_entity_decode($movie->description) !!}
                 </div>
+            </div>
+        </div>
+        <div class="section-comment">
+            <h2>Comments</h2>
+            <div class="row">
+                <div class="col-12">
+                    <form action="" class="form-group">
+                        <textarea id="comment" class="form-control-lg w-100" style="height: 100px" id="" cols="30" placeholder="Leave a commenet" name="commentcomment" rows="30"></textarea>
+                        <button id="send-cmt" class="btn btn-primary float-right mb-2">Send</button>
+                    </form>
+
+                </div>
+                <div class="comment col-12" id="comment-container">
+                    <div class="col-12 border border-primary mb-2">
+                        <h5 class="text-warning font-weight-bolder">van dat</h5>
+                        <p class="text-light text-info">hedasdasdasd</p>
+                    </div>
+                    <div class="col-12 border border-primary">
+                        <h5 class="text-warning font-weight-bolder">van dat</h5>
+                        <p class="text-light text-info">hedasdasdasd</p>
+                    </div>
+                </div>
+
+
             </div>
         </div>
 
@@ -265,6 +289,20 @@
             }).fail(function () {
                 alert('error');
             });
+
+        });
+
+        $('#send-cmt').click(function (e) {
+            e.preventDefault();
+            var cmt = $('#comment').val();
+            var name = '{{Auth::user()->name}}'
+            var template = `
+               <div class="col-12 border border-primary mb-2">
+                        <h5 class="text-warning font-weight-bolder"> ${name} </h5>
+                        <p class="text-light text-info"> ${cmt}</p>
+               </div>
+            `;
+            $('#comment-container').prepend(template);
 
         });
     </script>

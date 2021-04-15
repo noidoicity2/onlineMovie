@@ -100,6 +100,7 @@ class ClientMovieController extends Controller
     }
     public function Watch($slug =null , $id = null) {
         $movie = $this->movieRepository->get($id);
+        Movie::find($id)->increment('view_count');
 
 //        return $movie->episodes;
 

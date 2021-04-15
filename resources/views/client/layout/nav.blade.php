@@ -71,7 +71,7 @@
                             Login</a>
                     </li>
                     <li class="nav-item"  >
-                        <a class="nav-link font-weight-bold text-light bg-success" href="{{route('login')}}"><i class="bi bi-box-arrow-in-right"></i>
+                        <a class="nav-link font-weight-bold text-light bg-success" href="{{route('register')}}"><i class="bi bi-box-arrow-in-right"></i>
                             Sign Up</a>
                     </li>
                 @endunless

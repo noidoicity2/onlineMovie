@@ -125,6 +125,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/filesystem" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />
       <excludeFolder url="file://$MODULE_DIR$/public/videos" />
+      <excludeFolder url="file://$MODULE_DIR$/public/storage" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/public" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

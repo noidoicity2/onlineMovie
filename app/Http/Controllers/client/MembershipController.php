@@ -60,7 +60,7 @@ class MembershipController extends Controller
           'user_id' => Auth::id(),
           'membership_id' => $membership->id,
           'number_of_day' => $membership->number_of_day ,
-          'status'        => "pending" ,
+          'status'        => "unsuccessfully" ,
           'total_amount'   => $membership->price
 
       ]);
