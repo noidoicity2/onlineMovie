@@ -91,8 +91,12 @@ class ClientMovieController extends Controller
         ]);
     }
 
-    public function ListEpisode() {
+    public function ListEpisode($slug =null , $id = null) {
+        $episodes = Episode::where('movie_id' , $id)->with('movie')->get();
 
+        return view('client.page.movie.listEpisode' , [
+            'episodes' => $episodes
+        ]);
     }
     public function Watch($slug =null , $id = null) {
         $movie = $this->movieRepository->get($id);
@@ -258,6 +262,15 @@ class ClientMovieController extends Controller
 
         ]);
 
+    }
+
+    public  function  GetMovieSeries() {
+        $movies = Movie::where('is_movie_series' ,1)
+            ->select('name' , 'id' ,'en_name' , 'img' , 'is_free' ,'slug')
+            ->orderBy('created_at' , 'desc')->paginate(20);
+        return view('client.page.movie.SeriesMovie' , [
+            'movies' => $movies
+        ]);
     }
 
 

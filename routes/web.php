@@ -192,6 +192,9 @@ Route::prefix('client')->group(function () {
 
 //end Client route
 Route::prefix('movie')->group(function() {
+    Route::get('movieSeries', [ClientMovieController::class , 'GetMovieSeries'])->name('get_movie_series');
+    Route::get('{slug}_{id}/episodes', [ClientMovieController::class , 'ListEpisode'])->name('list_episode');
+
     Route::get('/{slug}_{id}', [ClientMovieController::class , 'GetMovieBySlug'])->middleware(testRestrict::class)->name('get_movie_by_slug');
     Route::get('/watch/{slug}_{id}', [ClientMovieController::class , 'Watch'])->name('watch_movie');
     Route::get('episodes/watch/{slug}_{id}', [ClientMovieController::class , 'WatchEpisode'])->name('watch_episode');

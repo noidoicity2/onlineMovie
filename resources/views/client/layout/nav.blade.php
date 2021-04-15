@@ -37,7 +37,7 @@
                     <a class="nav-link" href="about.html">New movie</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">Movie series</a>
+                    <a class="nav-link" href="{{route('get_movie_series')}}">Movie series</a>
                 </li>
 
                 <li class="nav-item dropdown">

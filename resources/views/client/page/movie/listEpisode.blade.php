@@ -6,11 +6,11 @@
         <div class="row">
 
             @foreach($episodes as $episode )
-                <a href="{{route('watch_episode' , ['slug' => $episode->slug , 'id' => $episode->id])}}" class="btn btn-secondary">{{$episode->name}}</a>
+                <a  href="{{route('watch_episode' , ['slug' => $episode->slug , 'id' => $episode->id])}}" class="btn btn-secondary mr-2 mb-2">{{$episode->name}}</a>
             @endforeach
 
         </div>
-    {{$episodes->links('vendor.pagination.bootstrap-4')}}
+{{--    {{$episodes->links('vendor.pagination.bootstrap-4')}}--}}
 
 
 @endsection

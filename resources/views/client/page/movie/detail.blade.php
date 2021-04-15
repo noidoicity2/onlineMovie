@@ -26,7 +26,7 @@
 
 
                         @if($movie->is_movie_series == 1)
-                        <a   href="{{route('epis'}}" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-danger text-light m-1  w-25 "><i class="bi bi-list"></i>
+                        <a   href="{{route('list_episode' , ['slug' => $movie->slug , 'id'=> $movie->id])}}" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-danger text-light m-1  w-25 "><i class="bi bi-list"></i>
                              Episodes</a>
                         @endif
                     </div>
