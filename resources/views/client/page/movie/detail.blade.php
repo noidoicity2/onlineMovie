@@ -10,12 +10,23 @@
                     </div>
 {{--                    <input type="hidden" id="movie_id" value="{{$movie->id}}" >--}}
                     <div class="group-btn d-flex mt-3 flex-wrap" >
-                        <a  href="{{route('watch_movie',['slug' => $movie->slug , 'id' => $movie->id])}}" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-success text-light  m-1 w-25" ><i class="bi bi-play-fill"></i>
-                            Watch</a>
-                        <a id="like-btn" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-secondary text-light  m-1 w-25 "><i class="bi bi-heart"></i>
-                            Like</a>
+                        @if($movie->is_movie_series ==0)
+                            <a  href="{{route('watch_movie',['slug' => $movie->slug , 'id' => $movie->id])}}" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-success text-light  m-1 w-25" ><i class="bi bi-play-fill"></i>
+                                Watch</a>
+                        @endif
+
+
+                            <a id="like-btn" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-danger text-light  m-1 w-25 "><i class="bi bi-heart"></i>
+                                @if($is_liked == 0)
+                                <span id="like-text">like</span></a>
+                                @else
+                             <span id="like-text">Unlike</span></a>
+                                 @endif
+
+
+
                         @if($movie->is_movie_series == 1)
-                        <a   href="{{route('watch_movie',['slug' => $movie->slug , 'id' => $movie->id])}}" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-danger text-light m-1  w-25 "><i class="bi bi-list"></i>
+                        <a   href="{{route('epis'}}" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-danger text-light m-1  w-25 "><i class="bi bi-list"></i>
                              Episodes</a>
                         @endif
                     </div>
@@ -35,6 +46,22 @@
                     <p class="detail-item">Publish date: {{$movie->created_at}}</p>
                     <p class="detail-item">Total Episode: {{$movie->total_episode}}</p>
                     <p class="detail-item">List episode {{$movie->episodes->count()}}:</p>
+                   <div>
+                     <p style="font-size: 2rem; color: #c69500 ;margin-bottom: 1.5px"> Ratings: </p>
+                       <span class="text-light font-weight-bolder" style="font-size: 3rem">{{$avg_rating}}</span>
+                        @for($i =1 ; $i < 10 ; $i++)
+                            @if($i <= $avg_rating)
+                                <i  class="rate_{{$i+1}} fa fa-star " alt="{{$i+1}}"   style="font-size: 2rem;color: #c69500 ; cursor: pointer ; " aria-hidden="true" ></i>
+                            @else
+                                <i  class="rate_{{$i+1}} fa fa-star " alt="{{$i+1}}"   style="font-size: 2rem;color: #4a5568 ; cursor: pointer ; " aria-hidden="true" ></i>
+                            @endif
+                       @endfor
+
+
+
+                   </div>
+
+
 
                 </div>
             </div>
@@ -203,10 +230,41 @@
                     }
                 }).done(function (data) {
                     // $('#noidung').html(ketqua);
+                   var liketxt = $('#like-text').text();
+                   if(liketxt == 'like') {
+                       $('#like-text').text('unlike');
+                   }else  {
+                       $('#like-text').text('like');
+                   }
                     alert(data.message);
                 }).fail(function () {
                     alert('error');
                 });
+
+        });
+
+// rating
+        $('i[class^="rate_"]').click(function () {
+            console.log($(this).attr('alt'));
+            // console.log("dasd");
+
+            $.ajax({
+                url: '{{route('post_rate_movie')}}',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    "movie_id": {{$movie->id}},
+                    "user_id"  : {{Auth::id()}},
+                    "rating_point": $(this).attr('alt'),
+                    "_token": "{{ csrf_token() }}",
+                }
+            }).done(function (data) {
+                // $('#noidung').html(ketqua);
+                alert(data.message);
+                location.reload();
+            }).fail(function () {
+                alert('error');
+            });
 
         });
     </script>

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @method static create($data)
  * @method static OnLyName()
+ * @method static CategoryForSelect()
  */
 class Category extends Model
 {
@@ -46,6 +47,10 @@ class Category extends Model
     public function scopeMoreThan1($query) {
         return $query->select('name');
     }
+    public function scopeCategoryForSelect($query) {
+        return $query->select('name' , 'id');
+    }
+
 
     public function categories() {
         return $this->hasMany(MovieCategory::class, 'category_id' , 'id');

@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\MovieController;
 
 use App\Http\Controllers\admin\PaymentController;
 use App\Http\Controllers\admin\TransactionController;
+use App\Http\Controllers\client\RatingController;
 use App\Http\Controllers\client\TransactionController as ClientTransaction;
 use App\Http\Controllers\client\ClientMovieController;
 use App\Http\Controllers\client\HomeController;
@@ -115,6 +116,8 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
         Route::get('{id}/addEpisode/',[MovieController::class , 'AddEpisode'])->name('add_episode');
         Route::get('paginate={paginate?}&orderBy={orderBy}' , [MovieController::class , 'ListMovie'])->name('movie_paginate');
         Route::get('/listMovie' , [MovieController::class , 'ListMovie'])->name('list_movie');
+
+
         Route::get('/', [MovieController::class , 'all']);
 
         Route::post('postAdd' , [MovieController::class, 'PostAddMovie'])->name('post_add_movie');
@@ -170,9 +173,13 @@ Route::prefix('client')->group(function () {
     Route::get('bookmark', [ClientMembership::class , 'GetBookMarkMovie'])->name('get_bookmark_movie');
     Route::Post('postBookMark', [ClientMovieController::class , 'PostBookMark'])->name('add_to_bookmark');
 
+    Route::get('search', [ClientMovieController::class, 'Filter'])->name('search');
+    Route::get('filter' , [ClientMovieController::class , 'Filter'])->name('filter');
     Route::get('profile', function () {});
 
-    Route::get('search', function () {});
+    Route::post('postRateMovie' , [RatingController::class , 'PostRateMovie'])->name('post_rate_movie');
+
+
     Route::get('donate', function () {});
     Route::get('home', [HomeController::class , 'home']);
     Route::get('movieSeries-{id}', [ClientMovieController::class , 'MovieSeries']);
@@ -187,6 +194,7 @@ Route::prefix('client')->group(function () {
 Route::prefix('movie')->group(function() {
     Route::get('/{slug}_{id}', [ClientMovieController::class , 'GetMovieBySlug'])->middleware(testRestrict::class)->name('get_movie_by_slug');
     Route::get('/watch/{slug}_{id}', [ClientMovieController::class , 'Watch'])->name('watch_movie');
+    Route::get('episodes/watch/{slug}_{id}', [ClientMovieController::class , 'WatchEpisode'])->name('watch_episode');
 
 });
 Route::prefix('countries')->group(function() {

@@ -6,9 +6,9 @@
         </button>
 
         <div class="collapse navbar-collapse item-nav" id="navbarResponsive">
-            <form class="d-flex ml-auto search-form" action="/action_page.php">
+            <form class="d-flex ml-auto search-form" action="{{route('search')}}">
                 <!--        <label for="email">Email:</label>-->
-                <input class="form-control mr-sm-2 search-input"  type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control mr-sm-2 search-input" name="name"  type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0 search-btn" type="submit">Search</button>
             </form>
 

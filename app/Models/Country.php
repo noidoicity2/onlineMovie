@@ -7,6 +7,9 @@ use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static CountryForSelect()
+ */
 class Country extends Model
 {
 
@@ -29,6 +32,9 @@ class Country extends Model
                 'source'=>'name'
             ]
         ];
+    }
+    public function scopeCountryForSelect($query ) {
+        return $query->select('name' , 'id');
     }
     public function movies() {
         return $this->hasMany(Movie::class, 'country_id' , 'id');

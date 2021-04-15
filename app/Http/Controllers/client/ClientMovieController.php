@@ -5,14 +5,19 @@ namespace App\Http\Controllers\client;
 use App\Http\Controllers\Controller;
 use App\Models\BookMark;
 use App\Models\Category;
+use App\Models\Country;
+use App\Models\Episode;
 use App\Models\Favorite;
 use App\Models\Movie;
+use App\Models\MovieRating;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\EpisodeRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+
 
 class ClientMovieController extends Controller
 {
@@ -44,6 +49,32 @@ class ClientMovieController extends Controller
 
         $movie  = $this->movieRepository->get($id);
         $episodes = $movie->episodes;
+        $rating_point = 0;
+        $favorite = Favorite::where([
+           'movie_id' => $movie->id,
+           'user_id'  => Auth::id(),
+        ])->first();
+        $is_liked= 0;
+        if($favorite != null) {
+            $is_liked = 1;
+        }
+        $rating = MovieRating::where([
+            'user_id' => Auth::id(),
+            'movie_id'=> $movie->id,
+        ])->select('rating_point')->first();
+
+        if($rating == null) {
+            $rating_point = 0;
+        }
+        else {
+            $rating_point = $rating->rating_point;
+        }
+
+        $avg_rating = MovieRating::where([
+            'movie_id' => $movie->id,
+
+        ])->avg('rating_point');
+
 //        return $episodes;
 
 //        return ($movie);
@@ -53,8 +84,15 @@ class ClientMovieController extends Controller
             'episode' => $episodes,
             'categories'=>$this->categories,
             'countries'   => $this->countries,
+            'rating_point' => $rating_point,
+            'avg_rating' => $avg_rating,
+            'is_liked'  => $is_liked,
 
         ]);
+    }
+
+    public function ListEpisode() {
+
     }
     public function Watch($slug =null , $id = null) {
         $movie = $this->movieRepository->get($id);
@@ -67,6 +105,13 @@ class ClientMovieController extends Controller
             'countries'   => $this->countries,
         ]);
 
+    }
+    public function WatchEpisode($slug = null , $id = null) {
+        $episode = Episode::find($id);
+
+        return view('client.page.movie.watchEpisode' ,[
+            'episode' => $episode,
+        ]);
     }
     public function testJw() {
         return view('client.page.testJw', [
@@ -172,6 +217,47 @@ class ClientMovieController extends Controller
             'movies'  => $movie,
 
         ] );
+    }
+    public function Filter(Request $request) {
+        $selectCategories = Category::CategoryForSelect()->get();
+        $selectCountries = Country::CountryForSelect()->get();
+
+        $whereArray = [
+            'published_at' =>  $request->published_at ,
+            'country_id'        => $request->country_id,
+            'is_on_cinema' => $request->is_on_cinema,
+            'is_free' => $request->is_free,
+            'is_movie_series' => $request->is_movie_series,
+        ];
+        $filterWhere = array_filter($whereArray , function ($value) {
+            return $value != ""&&$value !=null;
+        });
+//        return $request->name;
+//        dd($filterWhere);
+//        return $request->category_id;
+        if($request->category_id == "") {
+            $movies  = Movie::where('name' , 'like' , '%'.$request->name.'%')
+                ->where($filterWhere)
+                ->paginate(12);
+        }
+        else{
+            $movies  = Movie::where('name' , 'like' , '%'.$request->name.'%')
+                ->where($filterWhere)
+                ->whereHas('categories' , function ( Builder $query) use ($request) {
+                    $query->where('id' ,$request->category_id );
+                })
+                ->paginate(12);
+        }
+
+
+        return view('client.page.movie.filter' , [
+            'movies' => $movies,
+            'selectCategories' => $selectCategories,
+            'selectCountries' => $selectCountries,
+            'keyword'   => $request->name,
+
+        ]);
+
     }
 
 
