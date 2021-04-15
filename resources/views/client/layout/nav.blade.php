@@ -99,7 +99,7 @@
                             <a class="dropdown-item bg-danger" href="{{route('buy_vip')}}">Upgrade your membership</a>
                         @endif
                             <a class="dropdown-item" href="{{route('favorite_movie')}}">Your favorite</a>
-                            <a class="dropdown-item" href="sidebar.html">Sidebar Page</a>
+                            <a class="dropdown-item" href="{{route('transaction_history')}}">Your transactions</a>
                             <a class="dropdown-item" href="faq.html">FAQ</a>
                             <a class="dropdown-item" href="404.html">404</a>
                             <a class="dropdown-item" href="{{route('logout')}}">Log out</a>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Membership;
 use App\Models\MembershipCategory;
 use App\Models\Transaction;
 use App\Models\User;
@@ -30,6 +31,13 @@ class MembershipController extends Controller
             'memberships' => $memberships,
         ]);
 
+    }
+    public function GetUserMembership() {
+        $memberships =  Membership::where('user_id' , Auth::id())->get();
+
+        return view('client.page.membership.yourMembership' , [
+           'memberships' => $memberships
+        ]);
     }
 
     public function BuyVip() {

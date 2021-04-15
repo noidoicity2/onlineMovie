@@ -60,7 +60,7 @@ class HandleUploadEpisode implements ShouldQueue
             ->open('videos/'.$this->slug.'/'.'/'.$this->episodeName.'/'.$this->episodeName.'.'.$this->extention)
             ->exportForHLS()
             ->withEncryptionKey($encryptionKey)
-            ->setSegmentLength(120)
+            ->setSegmentLength(5)
             ->addFormat($lowBitrate)
             ->addFormat($highRate)
             ->toDisk('public')

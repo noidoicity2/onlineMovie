@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\MovieController;
 
 use App\Http\Controllers\admin\PaymentController;
 use App\Http\Controllers\admin\TransactionController;
+use App\Http\Controllers\client\TransactionController as ClientTransaction;
 use App\Http\Controllers\client\ClientMovieController;
 use App\Http\Controllers\client\HomeController;
 
@@ -162,8 +163,8 @@ Route::prefix('client')->group(function () {
     Route::Post('postAddToFavorite', [ClientMovieController::class , 'PostAddFavorite'])->name('add_to_favorite');
 
 
-    Route::get('profile', function () {});
-    Route::get('payment', [TransactionController::class , 'create']);
+    Route::get('transactions', [ClientTransaction::class , 'History'])->name('transaction_history');
+//    Route::get('payment', [TransactionController::class , 'create']);
     Route::get('payment/return', [ClientMembership::class , 'return'])->name('return_payment');
 
     Route::get('bookmark', [ClientMembership::class , 'GetBookMarkMovie'])->name('get_bookmark_movie');

@@ -10,7 +10,7 @@
                     <div class="card bg-dark text-light mb-5 " style="">
 
                         <div class="card-body">
-                            <h5 class="card-title">{{$membership->name}}</h5>
+                            <h5 class="card-title font-weight-bolder text-danger">{{$membership->name}}</h5>
                             <p class="card-text">{{$membership->description}}</p>
                             <p class="card-subtitle">{{number_format($membership->price)}} VND/  <span class="text-danger"> {{$membership->number_of_day}} Day</span></p>
                             <a href="{{route('preview_purchase' , ['id'=> $membership->id , 'day'=>$membership->number_of_day])}}" class="btn btn-primary">Buy now</a>

@@ -12,10 +12,12 @@
                     <div class="group-btn d-flex mt-3 flex-wrap" >
                         <a  href="{{route('watch_movie',['slug' => $movie->slug , 'id' => $movie->id])}}" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-success text-light  m-1 w-25" ><i class="bi bi-play-fill"></i>
                             Watch</a>
-                        <a id="like-btn" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-primary text-light  m-1 w-25 "><i class="bi bi-heart"></i>
+                        <a id="like-btn" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-secondary text-light  m-1 w-25 "><i class="bi bi-heart"></i>
                             Like</a>
+                        @if($movie->is_movie_series == 1)
                         <a   href="{{route('watch_movie',['slug' => $movie->slug , 'id' => $movie->id])}}" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-danger text-light m-1  w-25 "><i class="bi bi-list"></i>
                              Episodes</a>
+                        @endif
                     </div>
 
                 </div>
