@@ -36,7 +36,11 @@
                                             <td>{{$transaction->id}}</td>
                                             <td>{{$transaction->membership->name}}</td>
                                             <td>{{$transaction->created_at}}</td>
-                                            <td>{{$transaction->status}}</td>
+                                            @if($transaction->status == "unsuccessfully")
+                                            <td class="bg-danger">{{$transaction->status}}</td>
+                                            @else
+                                                <td>{{$transaction->status}}</td>
+                                            @endif
 
                                         </tr>
                                     @endforeach

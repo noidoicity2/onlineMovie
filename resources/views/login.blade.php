@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{asset('/css/login.css')}}">
-{{--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">--}}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/fonts/material-icon/css/material-design-iconic-font.min.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -49,6 +49,11 @@
                 <div class="signin-form">
 
                     <h2 class="form-title">Sign in</h2>
+                    @if($errors->any())
+                        <div class="alert alert-danger" role="alert">
+                            {{$errors->first()}}
+                        </div>
+                    @endif
                     <form method="POST"  action="{{route('post_login')}}" class="register-form" id="login-form">
                         @csrf
                         <div class="form-group">

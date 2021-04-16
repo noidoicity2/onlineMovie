@@ -12,9 +12,11 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/fonts/material-icon/css/material-design-iconic-font.min.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" />
-    <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+{{--    <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">--}}
 {{--    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />--}}
 
     <!-- Custom styles for this template -->
@@ -59,6 +61,8 @@
 <!-- Bootstrap core JavaScript -->
 <script src="/vendor/jquery/jquery.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+
 <script src="https://cdn.jwplayer.com/libraries/0mpSUyh4.js"></script>
 
 @section('custom_js')

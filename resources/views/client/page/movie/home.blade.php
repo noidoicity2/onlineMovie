@@ -51,6 +51,8 @@
                                 <div class="ribbon">full HD</div>
                                 @if($movie->is_free)
                                 <div class="is-free">Free</div>
+                                @else
+                                    <div class="is-premium"><i class="fa fa-usd" aria-hidden="true"></i> Vip</div>
                                 @endif
                                 <img loading="lazy" src="{{$movie->img}}" alt="">
 
@@ -79,7 +81,7 @@
                                 @foreach($mostViewedMovies as $mostViewMovie)
                                     <li>
 
-                                        <a class="img-link"  href="">
+                                        <a class="img-link"  href="{{route('get_movie_by_slug',['slug' => $mostViewMovie->slug , 'id' => $mostViewMovie->id])}}">
                                             <img loading="lazy" class="small-img" src="{{$mostViewMovie->img}}" alt="">
                                             <div class="name-rating">
                                                 <div class="big-name">{{$mostViewMovie->name}}</div>

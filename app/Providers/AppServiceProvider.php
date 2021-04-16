@@ -43,8 +43,9 @@ class AppServiceProvider extends ServiceProvider
         $navCountries = Cache::remember('navCountries' , 60*60 , function () {
             return Country::select(['id' , 'name' , 'slug'])->take(5)->get();
         });
+
         $navCategories = Cache::remember('navCategories', 60*60 , function (){
-            return Category::OnLyName()->get()->take(10);
+            return Category::select('id' , 'name' ,'slug')->get()->take(10);
         }) ;
 
        View::composer('client.layout.nav' , function ($view) use ($navCategories, $navCountries) {

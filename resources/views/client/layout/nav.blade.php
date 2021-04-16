@@ -1,6 +1,7 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-light  fixed-top justify-content-lg-around" style="background-color: #0c2738">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Emovie</a>
+        <a class="navbar-brand" href="/" style="font-size: 50px"><i class="fa fa-film" aria-hidden="true"></i>
+            Emovie</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -34,7 +35,7 @@
                     <a class="nav-link" href="about.html">New movie</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">New movie</a>
+                    <a class="nav-link" href="{{route('get_theater_movie')}}">In theater</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('get_movie_series')}}">Movie series</a>
@@ -46,7 +47,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
                         @foreach($navCategories as $category)
-                            <a class="dropdown-item" href="portfolio-1-col.html">{{$category->name}}</a>
+                            <a class="dropdown-item" href="{{route('get_movie_by_category' , ['slug'=>$category->slug, 'id' => $category->id])}}">{{$category->name}}</a>
                         @endforeach
 {{--                        <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>--}}
 {{--                        <a class="dropdown-item" href="portfolio-2-col.html">2 Column Portfolio</a>--}}
@@ -100,7 +101,7 @@
                         @endif
                             <a class="dropdown-item" href="{{route('favorite_movie')}}">Your favorite</a>
                             <a class="dropdown-item" href="{{route('transaction_history')}}">Your transactions</a>
-                            <a class="dropdown-item" href="faq.html">FAQ</a>
+                            <a class="dropdown-item" href="{{route('request_movie')}}">Request Movie</a>
                             <a class="dropdown-item" href="404.html">404</a>
                             <a class="dropdown-item" href="{{route('logout')}}">Log out</a>
                     </div>

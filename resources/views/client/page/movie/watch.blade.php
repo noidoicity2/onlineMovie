@@ -1,26 +1,28 @@
 @extends('client.layout.mainLayout')
 @section('content')
-    <div class="container mt-5 "  >
-        <div class="row content-overlay">
-            <div class="col-12  " id="el"  >
+ <div class="">
+     <div class="container mt-5  "  >
+         <div class="row content-overlay">
+             <div class="col-12  " id="el"  >
 
-            </div>
-            <div class="col-12 " id="alert-msg" >
+             </div>
+             <div class="col-12 " id="alert-msg" >
 
-            </div>
-            <div class="col-12">
+             </div>
+             <div class="col-12">
 
-                <button id="btn-bookmark" class="btn btn-success mt-2">Book Mark</button>
-                <button class="btn btn-success mt-2">Book Mark</button>
-                <button class="btn btn-success mt-2">Book Mark</button>
-            </div>
+                 <button id="btn-bookmark" class="btn btn-success mt-2">Book Mark</button>
+                 <button class="btn btn-success mt-2">Book Mark</button>
+                 <button class="btn btn-success mt-2">Book Mark</button>
+             </div>
 
-        </div>
-        <div class="row">
-            <h2 class="text-light h-5">{{$movie->name}}</h2>
+         </div>
+         <div class="row">
+             <h2 class="text-light h-5">{{$movie->name}}</h2>
 
-        </div>
-    </div>
+         </div>
+     </div>
+ </div>
 
 @endsection
 @section('custom_js')

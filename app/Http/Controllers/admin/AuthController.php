@@ -23,8 +23,9 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect(route('add_movie'));
-        }else abort(401);
+            if(Auth::user()->role_id == 1) return redirect(route('add_movie'));
+            return redirect(route('home_customer'));
+        }else return back()->withErrors([ 'Invalid email or password']);
 
 
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Mail\PurchaseMembership;
 use App\Models\Membership;
 use App\Models\MembershipCategory;
 use App\Models\Transaction;
@@ -12,6 +13,7 @@ use App\Repositories\Interfaces\MembershipRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class MembershipController extends Controller
 {
@@ -133,7 +135,9 @@ class MembershipController extends Controller
     {
 //        return $request;
 //        $url = session('url_prev','/');
+
         $transaction_id = session('transaction_id');
+//        Mail::to(Auth::user())->send(new PurchaseMembership(Transaction::find($transaction_id)));
         $membership_id = session('membership_id');
         $days = session('days');
 //        session(['membership_id' => $transation->membership_id]);

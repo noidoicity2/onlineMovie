@@ -54,5 +54,8 @@ class Movie extends Model
     public function episodes () {
         return $this->hasMany(Episode::class , 'movie_id' , 'id');
     }
+    public function  comments () {
+        return $this->hasMany(MovieComment::class , 'movie_id' , 'id');
+    }
 
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CountryController;
 use App\Http\Controllers\admin\DirectorController;
 use App\Http\Controllers\admin\MembershipController;
+use App\Http\Controllers\client\CommentController;
 use App\Http\Controllers\client\MembershipController as ClientMembership;
 use App\Http\Controllers\admin\MovieController;
 
@@ -181,7 +182,7 @@ Route::prefix('client')->group(function () {
 
 
     Route::get('donate', function () {});
-    Route::get('home', [HomeController::class , 'home']);
+    Route::get('home', [HomeController::class , 'home'])->name('home_customer');
     Route::get('movieSeries-{id}', [ClientMovieController::class , 'MovieSeries']);
 
     Route::get('buyvip', [ClientMembership::class , 'ListMemberShip'])->name('buy_vip');
@@ -192,12 +193,21 @@ Route::prefix('client')->group(function () {
 
 //end Client route
 Route::prefix('movie')->group(function() {
+
+    Route::get('requestMovie' , [ClientMovieController::class , 'RequestMovie'])->name('request_movie');
+    Route::get('postRequestMovie' , [ClientMovieController::class , 'PostRequestMovie'])->name('post_request_movie');
+
+    Route::get('inTheater' , [ClientMovieController::class , 'GetTheaterMovie'])->name('get_theater_movie');
+
     Route::get('movieSeries', [ClientMovieController::class , 'GetMovieSeries'])->name('get_movie_series');
+    Route::get('category={slug}_{id}', [ClientMovieController::class , 'GetMovieByCategory'])->name('get_movie_by_category');
     Route::get('{slug}_{id}/episodes', [ClientMovieController::class , 'ListEpisode'])->name('list_episode');
 
     Route::get('/{slug}_{id}', [ClientMovieController::class , 'GetMovieBySlug'])->middleware(testRestrict::class)->name('get_movie_by_slug');
     Route::get('/watch/{slug}_{id}', [ClientMovieController::class , 'Watch'])->name('watch_movie');
     Route::get('episodes/watch/{slug}_{id}', [ClientMovieController::class , 'WatchEpisode'])->name('watch_episode');
+
+    Route::post('addComment' , [CommentController::class , 'PostAddComment'])->name('post_add_comment');
 
 });
 Route::prefix('countries')->group(function() {

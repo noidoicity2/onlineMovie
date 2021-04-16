@@ -88,14 +88,14 @@
 
                 </div>
                 <div class="comment col-12" id="comment-container">
-                    <div class="col-12 border border-primary mb-2">
-                        <h5 class="text-warning font-weight-bolder">van dat</h5>
-                        <p class="text-light text-info">hedasdasdasd</p>
-                    </div>
-                    <div class="col-12 border border-primary">
-                        <h5 class="text-warning font-weight-bolder">van dat</h5>
-                        <p class="text-light text-info">hedasdasdasd</p>
-                    </div>
+                    @foreach($comments as $comment)
+                        <div class="col-12 border border-primary mb-2">
+                            <h5 class="text-warning font-weight-bolder">{{$comment->user->name}}</h5>
+                            <p class="text-light text-info">{{$comment->content}}</p>
+                        </div>
+                    @endforeach
+
+
                 </div>
 
 
@@ -303,6 +303,24 @@
                </div>
             `;
             $('#comment-container').prepend(template);
+
+            $.ajax({
+                url: '{{route('post_add_comment')}}',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    "movie_id": {{$movie->id}},
+                    "user_id"  : {{Auth::id()}},
+                    "comment": $('#comment').val(),
+                    "_token": "{{ csrf_token() }}",
+                }
+            }).done(function (data) {
+                // $('#noidung').html(ketqua);
+                alert(data.message);
+                location.reload();
+            }).fail(function () {
+                alert('error');
+            });
 
         });
     </script>

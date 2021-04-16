@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Mail\PurchaseMembership;
+use App\Mail\Test;
 use App\Models\Category;
 use App\Models\Movie;
+use App\Models\Transaction;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -29,6 +34,8 @@ class HomeController extends Controller
     }
 
     public function home() {
+//        Mail::mailer('mailgun')->to(Auth::user())->send(new Test());
+
 
 //        $new_movies = Movie::NewestMovie()->limit(20)->with('episodes:name,movie_id')->get();
         $new_movies = cache()->remember('new_movies' , 60*2 , function () {

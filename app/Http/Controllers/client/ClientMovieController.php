@@ -9,7 +9,9 @@ use App\Models\Country;
 use App\Models\Episode;
 use App\Models\Favorite;
 use App\Models\Movie;
+use App\Models\MovieComment;
 use App\Models\MovieRating;
+use App\Models\RequestMovie;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\EpisodeRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
@@ -49,6 +51,10 @@ class ClientMovieController extends Controller
 
         $movie  = $this->movieRepository->get($id);
         $episodes = $movie->episodes;
+        $comments = MovieComment::with('user')->where('movie_id', $movie->id)->orderBy('created_at' , 'desc')->take(5)->get();
+//       return $comments;
+//        dd($comments);
+//        $comments = MovieComment::where('')
         $rating_point = 0;
         $favorite = Favorite::where([
            'movie_id' => $movie->id,
@@ -62,6 +68,8 @@ class ClientMovieController extends Controller
             'user_id' => Auth::id(),
             'movie_id'=> $movie->id,
         ])->select('rating_point')->first();
+
+
 
         if($rating == null) {
             $rating_point = 0;
@@ -87,6 +95,7 @@ class ClientMovieController extends Controller
             'rating_point' => $rating_point,
             'avg_rating' => $avg_rating,
             'is_liked'  => $is_liked,
+            'comments' => $comments,
 
         ]);
     }
@@ -110,6 +119,16 @@ class ClientMovieController extends Controller
             'countries'   => $this->countries,
         ]);
 
+    }
+    public function GetMovieByCategory ($slug =null , $id = null) {
+        $movies = Movie::whereHas('categories' , function ( Builder $query) use ($id) {
+            $query->where('category_id' , $id );
+        })->paginate(5);
+//        $movies = Movie::with('categories')->get();
+//        return $movies;
+        return view('client.page.movie.listMovieByCategory' , [
+            'movies' => $movies,
+        ]);
     }
     public function WatchEpisode($slug = null , $id = null) {
         $episode = Episode::find($id);
@@ -249,7 +268,7 @@ class ClientMovieController extends Controller
             $movies  = Movie::where('name' , 'like' , '%'.$request->name.'%')
                 ->where($filterWhere)
                 ->whereHas('categories' , function ( Builder $query) use ($request) {
-                    $query->where('id' ,$request->category_id );
+                    $query->where('category_id' ,$request->category_id );
                 })
                 ->paginate(12);
         }
@@ -274,5 +293,27 @@ class ClientMovieController extends Controller
         ]);
     }
 
+    public function GetTheaterMovie() {
+        $movie = Movie::where('is_on_cinema' , 1)->paginate(4);
+        return view('client.page.movie.theaterMovie' , [
+            'movies' => $movie,
+        ]);
+
+    }
+    public function RequestMovie () {
+//        $movie =
+        return view('client.page.movie.requestMovie' );
+    }
+    public function PostRequestMovie (Request  $request) {
+//        $movie =
+        RequestMovie::create([
+            'user_id' => Auth::id(),
+            'movie_name'=> $request->movie_name,
+            'director_name' => $request->director_name,
+        ]);
+        return back()->with([
+            'message' => "Thanks for your request"
+        ]);
+    }
 
 }
