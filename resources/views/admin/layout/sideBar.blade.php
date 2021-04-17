@@ -3,7 +3,7 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Core</div>
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{route('dashboard')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
@@ -93,7 +93,7 @@
                 </a>
                 <div class="collapse" id="slider-menu" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{route('add_category')}}">Add new movie</a>
+                        <a class="nav-link" href="{{route('add_slider')}}">Add new slider</a>
                         <a class="nav-link" href="{{route('list_category')}}">All movie</a>
                     </nav>
                 </div>

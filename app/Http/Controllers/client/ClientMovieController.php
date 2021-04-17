@@ -285,24 +285,26 @@ class ClientMovieController extends Controller
     }
 
     public  function  GetMovieSeries() {
-        $movies = Movie::where('is_movie_series' ,1)
-            ->select('name' , 'id' ,'en_name' , 'img' , 'is_free' ,'slug')
-            ->orderBy('created_at' , 'desc')->paginate(20);
+        $movies = $this->movieRepository->getSeriesMovies();
         return view('client.page.movie.SeriesMovie' , [
             'movies' => $movies
         ]);
     }
 
     public function GetTheaterMovie() {
-        $movie = Movie::where('is_on_cinema' , 1)->paginate(4);
+        $movies = $this->movieRepository->getCinemaMovies();
         return view('client.page.movie.theaterMovie' , [
-            'movies' => $movie,
+            'movies' => $movies,
         ]);
 
     }
     public function RequestMovie () {
 //        $movie =
-        return view('client.page.movie.requestMovie' );
+        $movieRequests = RequestMovie::where('user_id' , Auth::id())->get();
+
+        return view('client.page.movie.requestMovie' , [
+            'movieRequests' => $movieRequests
+        ] );
     }
     public function PostRequestMovie (Request  $request) {
 //        $movie =

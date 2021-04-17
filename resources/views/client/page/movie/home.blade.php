@@ -7,32 +7,49 @@
                 <div class="slider">
                     <div id="demo" class="carousel slide" data-ride="carousel">
                         <ul class="carousel-indicators">
-                            <li data-target="#demo" data-slide-to="0" class="active"></li>
-                            <li data-target="#demo" data-slide-to="1"></li>
-                            <li data-target="#demo" data-slide-to="2"></li>
+                            @for($i = 0 ; $i < $sliders->count() ; $i++)
+                                @if($i==0)
+                                <li data-target="#demo" data-slide-to="{{$i}}" class="active"></li>
+                                @else
+                                    <li data-target="#demo" data-slide-to="{{$i}}" class=""></li>
+                                @endif
+
+                            @endfor
+{{--                            <li data-target="#demo" data-slide-to="0" class="active"></li>--}}
+{{--                            <li data-target="#demo" data-slide-to="1"></li>--}}
+{{--                            <li data-target="#demo" data-slide-to="2"></li>--}}
                         </ul>
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img loading="lazy" src="/images/bg-3.jpg" alt="Los Angeles" width="1100" height="500">
-                                <div class="carousel-caption">
-                                    <h3>Los Angeles</h3>
-                                    <p>We had such a great time in LA!</p>
+{{--                            <div class="carousel-item active">--}}
+{{--                                <img loading="lazy" src="/images/bg-3.jpg" alt="Los Angeles" width="1100" height="500">--}}
+{{--                                <div class="carousel-caption">--}}
+{{--                                    <h3>Los Angeles</h3>--}}
+{{--                                    <p>We had such a great time in LA!</p>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+                        <?php $tmp = 0   ?>
+                            @foreach($sliders as $slider)
+                                @if($tmp == 0)
+                                <div class="carousel-item active">
+                                    <a href="{{route('get_movie_by_slug' , ['slug' => $slider->movie->slug , 'id' => $slider->movie_id])}}">     <img style="max-height: 500px" loading="lazy" src="{{$slider->image_url}}" alt="Chicago" width="1100" height="500"></a>
                                 </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img loading="lazy" src="/images/bg-2.jpg" alt="Chicago" width="1100" height="500">
-                                <div class="carousel-caption">
-                                    <h3>Chicago</h3>
-                                    <p>Thank you, Chicago!</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img loading="lazy" src="/images/bg-1.jpg" alt="New York" width="1100" height="500">
-                                <div class="carousel-caption">
-                                    <h3>New York</h3>
-                                    <p>We love the Big Apple!</p>
-                                </div>
-                            </div>
+                                @else
+                                    <div class="carousel-item ">
+                                        <a href="{{route('get_movie_by_slug' , ['slug' => $slider->movie->slug , 'id' => $slider->movie_id])}}">     <img style="max-height: 400px"  loading="lazy" src="{{$slider->image_url}}" alt="Chicago" width="1100" height="500"></a>
+                                    </div>
+                                @endif
+                                <?php $tmp++   ?>
+                            @endforeach
+{{--                            <div class="carousel-item active">--}}
+{{--                                <a href="">     <img loading="lazy" src="/images/bg-2.jpg" alt="Chicago" width="1100" height="500"></a>--}}
+{{--                            </div>--}}
+{{--                            <div class="carousel-item">--}}
+{{--                                <img loading="lazy" src="/images/bg-1.jpg" alt="New York" width="1100" height="500">--}}
+{{--                                <div class="carousel-caption">--}}
+{{--                                    <h3>New York</h3>--}}
+{{--                                    <p>We love the Big Apple!</p>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                         </div>
                         <a class="carousel-control-prev" href="#demo" data-slide="prev">
                             <span class="carousel-control-prev-icon"></span>

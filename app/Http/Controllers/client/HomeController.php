@@ -7,6 +7,7 @@ use App\Mail\PurchaseMembership;
 use App\Mail\Test;
 use App\Models\Category;
 use App\Models\Movie;
+use App\Models\Slider;
 use App\Models\Transaction;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
@@ -38,6 +39,7 @@ class HomeController extends Controller
 
 
 //        $new_movies = Movie::NewestMovie()->limit(20)->with('episodes:name,movie_id')->get();
+        $sliders = Slider::with('movie')->orderBy('display_order', 'asc')->get();
         $new_movies = cache()->remember('new_movies' , 60*2 , function () {
            return  Movie::NewestMovie()->limit(20)->with('episodes:name,movie_id')->get();
         });
@@ -51,6 +53,7 @@ class HomeController extends Controller
 
             'mostViewedMovies'=> $mostViewedMovies,
             'new_movies'  => $new_movies,
+            'sliders'   => $sliders,
 
         ] );
     }

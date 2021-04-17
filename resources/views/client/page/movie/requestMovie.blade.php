@@ -21,7 +21,44 @@
 
         <div class="row">
 
+<div class="row">
 
+    <table class="table table-bordered table-dark" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Membership name</th>
+            <th>Created at</th>
+            <th>Status</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+
+        @if(isset($movieRequests))
+            @foreach($movieRequests as $movieRequest)
+                <tr>
+                    <td>{{$movieRequest->id}}</td>
+                    <td>{{$movieRequest->movie_name}}</td>
+                    <td>{{$movieRequest->director_name}}</td>
+                    <td>{{$movieRequest->status}}</td>
+
+                </tr>
+            @endforeach
+        @else
+
+        @endif
+
+
+
+        </tbody>
+
+    </table>
+{{--    {{$transactions->links()}}--}}
+
+
+</div>
 
         </div>
 

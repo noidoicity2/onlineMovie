@@ -11,7 +11,7 @@ class RequestMovie extends Model
     protected   $table          =   "request_movie";
     public      $timestamps     =   false;
 
-    protected $fillable = ['user_id' , 'movie_name' , 'director_name'];
+    protected $fillable = ['user_id' , 'movie_name' , 'director_name' , 'status'];
 
     public function user() {
         return $this->belongsTo(User::class , 'user_id' , 'id');

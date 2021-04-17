@@ -3,8 +3,10 @@
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CountryController;
+use App\Http\Controllers\admin\DasboardController;
 use App\Http\Controllers\admin\DirectorController;
 use App\Http\Controllers\admin\MembershipController;
+use App\Http\Controllers\admin\SliderController;
 use App\Http\Controllers\client\CommentController;
 use App\Http\Controllers\client\MembershipController as ClientMembership;
 use App\Http\Controllers\admin\MovieController;
@@ -72,9 +74,13 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
     Route::get('/roles', function () {
         // Matches The "/admin/users" URL
     });
-    Route::get('/dashboard', function() {
+    Route::prefix('sliders')->group(function () {
+        // Matches The "/admin/users" URL
+        Route::get('/add', [SliderController::class , 'AddSlider'])->name("add_slider");
+        Route::post('postAddSlider', [SliderController::class , 'PostAddSlider'])->name("post_add_slider");
 
-    })->name("dashboard");
+    });
+    Route::get('/dashboard', [DasboardController::class ,'Index'])->name("dashboard");
 
 
     Route::prefix('category')->group(function () {

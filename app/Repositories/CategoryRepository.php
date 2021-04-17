@@ -73,4 +73,13 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         // TODO: Implement getCategoryForSelect() method.
         return $this->model->select(['id', 'name']);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTotalCategory()
+    {
+        // TODO: Implement getTotalCategory() method.
+        return $this->model->count();
+    }
 }

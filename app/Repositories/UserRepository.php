@@ -19,4 +19,22 @@ public function __construct(User $model)
         // TODO: Implement get() method.
         return $this->model->find($id);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTotalUser()
+    {
+        // TODO: Implement getTotalUser() method.
+        return $this->model->count();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTotalLockUser()
+    {
+        // TODO: Implement getTotalLockUser() method.
+        return $this->model->where('is_locked' ,1)->count();
+    }
 }

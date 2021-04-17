@@ -8,6 +8,7 @@ namespace App\Repositories\Interfaces;
 interface MovieRepositoryInterface extends BaseRepositoryInterface{
     public function listMovie($paginate, $orderBy) ;
     public function getSeriesMovies() ;
+    public function getLatestMovie() ;
     public function getFinishedMovies() ;
     public function getCinemaMovies();
     public function getFreeMovies();
@@ -17,6 +18,7 @@ interface MovieRepositoryInterface extends BaseRepositoryInterface{
     public function getMostViewedMovie();
     public  function getMovieByCountryId($id);
     public function where($array);
+    public function getTotalMovie();
 
 
 

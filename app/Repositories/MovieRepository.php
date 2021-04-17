@@ -73,7 +73,9 @@ class MovieRepository extends BaseRepository implements MovieRepositoryInterface
     public function getSeriesMovies()
     {
         // TODO: Implement getSeriesMovies() method.
-        return $this->model->where('is_movie_series' ,1)->paginate(10);
+        return $this->model->where('is_movie_series' ,1)
+            ->select('name' , 'id' ,'en_name' , 'img' , 'is_free' ,'slug')
+            ->orderBy('created_at' , 'desc')->paginate(20);
     }
 
     /**
@@ -91,7 +93,7 @@ class MovieRepository extends BaseRepository implements MovieRepositoryInterface
     public function getCinemaMovies()
     {
         // TODO: Implement getCinemaMovies() method.
-        return $this->model->where('is_on_cinema' ,1)->paginate(10);
+        return $this->model->where('is_on_cinema' , 1)->paginate(4);
     }
 
     /**
@@ -156,5 +158,25 @@ class MovieRepository extends BaseRepository implements MovieRepositoryInterface
     {
         // TODO: Implement where() method.
         return $this->model->where($array);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLatestMovie()
+    {
+
+        // TODO: Implement getLastestMovie() method.
+        return $this->model->orderBy('created_date' , 'desc')->paginate(10);
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTotalMovie()
+    {
+        // TODO: Implement getTotalMovie() method.
+        return $this->model->count();
     }
 }
