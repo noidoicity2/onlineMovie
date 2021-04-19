@@ -84,6 +84,31 @@
 
 
                 </div>
+                <h2>Recommend for  you</h2>
+                <div class="row" >
+                    @foreach($recommendedMovies as $recommended )
+                        <div class="col-md-4 col-lg-3  col-sm-6">
+
+                            <a href="{{route('get_movie_by_slug',['slug' => $recommended->slug , 'id' => $recommended->id])}}" class="film-item">
+                                <div class="ribbon">full HD</div>
+                                @if($recommended->is_free)
+                                    <div class="is-free">Free</div>
+                                @else
+                                    <div class="is-premium"><i class="fa fa-usd" aria-hidden="true"></i> Vip</div>
+                                @endif
+                                <img loading="lazy" src="{{$recommended->img}}" alt="">
+
+                                <p>{{$recommended->name}}</p>
+                                {{--                                <p>free {{$movie->is_free}}</p>--}}
+                                <span>{{$recommended->en_name}}</span>
+                            </a>
+                        </div>
+                    @endforeach
+
+
+
+
+                </div>
 
             </div>
 

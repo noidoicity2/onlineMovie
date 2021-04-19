@@ -57,5 +57,8 @@ class Movie extends Model
     public function  comments () {
         return $this->hasMany(MovieComment::class , 'movie_id' , 'id');
     }
+    public function favoriteMovies() {
+        return $this->hasMany(Favorite::class, 'movie_id'  , 'id');
+    }
 
 }
