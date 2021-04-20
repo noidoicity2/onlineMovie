@@ -16,7 +16,11 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('/css/tagsinput.css')}}">
 {{--    <link rel="stylesheet" href="{{asset('/css/token-input.css')}}">--}}
-
+    <style>
+        .progress { position:relative; width:100%; }
+        .bar { background-color: #00ff00; width:0%;  }
+        .percent {position: absolute ;display:inline-block;font-size: 20px!important; top:40%; left:50%; color: #040608;}
+    </style>
 </head>
 <body class="sb-nav-fixed">
 @include("admin.layout.nav")

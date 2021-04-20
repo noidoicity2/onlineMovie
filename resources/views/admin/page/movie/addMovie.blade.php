@@ -36,7 +36,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-12 col-md-12">
-                        <form action="{{route('post_add_movie')}}" method="post" enctype="multipart/form-data">
+                        <form id="AddMovieForm" action="{{route('post_add_movie')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="name">Movie Name</label>
@@ -75,6 +75,7 @@
                                 <div class="form-group col-12">
                                     <label for="source_url">Choose video source</label>
                                     <input type="file" class="form-control-file" name="source_url" id="source_url">
+
                                 </div>
 
                             </div>
@@ -152,18 +153,23 @@
                                 </div>
 
                             </div>
-                            <div class="form-group">
-                                <label for="total_episode">Total episode</label>
-                                <input name="total_episode"  id="total_episode" type="text" class="form-control">
-                            </div>
 
                             <button type="submit" class="btn btn-primary px-lg-5 float-left">Save</button>
                         </form>
                     </div>
 
+                    <div class="progress mt-5" style="height: 50px" >
+                        <div class="bar" style="height: 50px" ></div >
+                        <div class="percent progess-bar" style="font-size: 10px ; line-height: 10px">0%</div >
+                    </div>
 
                 </div>
-
+                <div class="row">
+{{--                    <div class="progress col-12 mt-5">--}}
+{{--                        <div class="bar" ></div >--}}
+{{--                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>--}}
+{{--                    </div>--}}
+                </div>
             </div>
         </main>
         <footer class="py-4 bg-light mt-auto">
@@ -184,6 +190,10 @@
 @endsection
 
 @section('custom_js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.js"></script>
+
+
+
     <script>
 
         $('#description').summernote({
@@ -205,6 +215,52 @@
 
         });
 
+        var SITEURL = "/";
+        $(function() {
+            $(document).ready(function()
+            {
+                var bar = $('.bar');
+                var percent = $('.percent');
+                $('#AddMovieForm').ajaxForm({
+                    beforeSend: function() {
+                        var percentVal = '0%';
+                        bar.width(percentVal)
+                        percent.html(percentVal);
+                    },
+                    uploadProgress: function(event, position, total, percentComplete) {
+                        var percentVal = percentComplete + '%';
+                        bar.width(percentVal)
+                        percent.html(percentVal);
+                    },
+                    complete: function(data) {
+
+                            // console.log(data);
+
+
+                        // alert(data.message);
+                        // window.location.reload;
+                    },
+                    success: function (data) {
+                        // console.log(data);
+                    },
+                    error : function (data) {
+                        // console.log(A.parse(data.) );
+                        var errors =JSON.parse(data.responseText);
+                        var e=  Object.values(errors);
+                        var msg = "";
+                        e.forEach(e=> {
+                            msg = msg+e+'\n';
+                        });
+                        alert(msg);
+                        // msg = msg + e + '\n'
+                        // alert(errors.name)
+                        // $errors.
+                    },
+
+                });
+            });
+        });
+
 
         // $("#token-field").tokenInput([
         //     {id: 7, name: "Ruby"},
@@ -224,7 +280,7 @@
 
         // $('#token-field').tokenfield('setTokens', [{ value: "blue", label: "Blau" }, { value: "red", label: "Rot" }]);
 
-        $('#token-field').tokenfield();
+        // $('#token-field').tokenfield();
 
         $('#is_movie_series').change(function () {
             if(this.checked) {

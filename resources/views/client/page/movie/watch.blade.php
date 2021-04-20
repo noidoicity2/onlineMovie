@@ -33,10 +33,7 @@
 
                 "image":"{{$movie->img}}",
                 "sources": [
-                    //     {
-                    //     "file": "/storage/react.MP4",
-                    //     "label": "720p HD"
-                    // },
+
                     {
                         @if($movie->is_movie_series==0)
                         "file": "{{$movie->hls_url}}",
@@ -46,14 +43,13 @@
 
                         // "label": "360p SD",
                         // "default": "true"
-                    },
-                    //     {
-                    //     "file": "/uploads/myVideo180.mp4",
-                    //     "label": "180p Web"
-                    // }
+                    }
+
                 ]
                 // "file": "images/react.mp4"
-            }],
+            },
+
+            ],
             // "autostart": "true",
             "displaytitle" : true,
             "playbackRateControls": true,
@@ -95,7 +91,7 @@
                     "position" : elapsed,
                 }
             }).done(function (data) {
-                // $('#noidung').html(ketqua);
+
                 var htm =
                     ` <div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
                           <strong>${data.message}</strong>

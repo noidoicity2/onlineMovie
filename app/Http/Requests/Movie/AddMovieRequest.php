@@ -2,7 +2,11 @@
 
 namespace App\Http\Requests\Movie;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
 use function PHPUnit\Framework\isNull;
 
 class AddMovieRequest extends FormRequest
@@ -73,5 +77,17 @@ class AddMovieRequest extends FormRequest
 
 
         return $this->all();
+    }
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = (new ValidationException($validator))->errors();
+//        return json_encode([
+//           'errors' => $errors,
+//            'success' => false,
+//        ]);
+//return $errors;
+        throw new HttpResponseException(
+            response()->json($errors, JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
+        );
     }
 }
