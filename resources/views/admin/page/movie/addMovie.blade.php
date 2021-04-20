@@ -241,7 +241,14 @@
                         // window.location.reload;
                     },
                     success: function (data) {
-                        // console.log(data);
+                       var dt = JSON.parse(data);
+                       console.log(data);
+
+                        alert(dt.message);
+                        console.log(dt.redirectUrl);
+                        if(dt.redirectUrl != "") {
+                            window.location.href  = dt.redirectUrl;
+                        }
                     },
                     error : function (data) {
                         // console.log(A.parse(data.) );

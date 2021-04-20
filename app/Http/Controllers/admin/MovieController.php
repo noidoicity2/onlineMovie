@@ -74,7 +74,8 @@ class MovieController extends Controller
 
         $movie['img']           =   Storage::url($imgPath);
         $movie['bg_img']        =   Storage::url($bgPath);
-        if($request->file('source_url')) {
+//        return $request->file('source_url');
+        if($request->file('source_url')!="") {
 
             $videoPath  =   FIleUploadServices::UploadVideo($request->file('source_url') , $slug);
             $movie['source_url']    =   Storage::url($videoPath);
@@ -109,11 +110,15 @@ class MovieController extends Controller
 
 
         if($created_movie->is_movie_series == 1) {
-            return view('admin.page.movie.addEpisode' ,[
-                'movie'     => $created_movie,
-
-
+            return json_encode([
+                'message' =>  "Add Movie successfully",
+                'redirectUrl' => route('add_episode' , ['id' =>$created_movie->id]),
             ]);
+//            return view('admin.page.movie.addEpisode' ,[
+//                'movie'     => $created_movie,
+//
+//
+//            ]);
         }
 ;
         return back()->with([

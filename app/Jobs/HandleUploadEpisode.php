@@ -47,7 +47,7 @@ class HandleUploadEpisode implements ShouldQueue
         $lowBitrate = new X264('aac', 'libx264');
         $lowBitrate->setKiloBitrate(200);
 
-        $highRate =  (new X264('aac', 'libx264'))->setKiloBitrate(3500);
+        $highRate =  (new X264('aac', 'libx264'))->setKiloBitrate(3000);
 //
 //        $midBitrate = (new X264)->setKiloBitrate(500);
 //        $highBitrate = (new X264)->setKiloBitrate(1000);
@@ -60,12 +60,13 @@ class HandleUploadEpisode implements ShouldQueue
             ->open('videos/'.$this->slug.'/'.'/'.$this->episodeName.'/'.$this->episodeName.'.'.$this->extention)
             ->exportForHLS()
             ->withEncryptionKey($encryptionKey)
-            ->setSegmentLength(5)
+            ->setSegmentLength(60*5)
             ->addFormat($lowBitrate)
             ->addFormat($highRate)
             ->toDisk('public')
             ->save('videos/'.$this->slug.'/'.$this->episodeName.'/'.$this->episodeName.'.m3u8');
         FFMpeg::cleanupTemporaryFiles();
+        FFMpeg::clearResolvedInstances();
         info("ok");
     }
 }

@@ -121,7 +121,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/pbmedia/laravel-ffmpeg" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/evenement/evenement" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/alchemy/binary-driver" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/php-ffmpeg/php-ffmpeg" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/filesystem" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />
       <excludeFolder url="file://$MODULE_DIR$/public/videos" />

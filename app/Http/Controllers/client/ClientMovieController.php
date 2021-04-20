@@ -102,7 +102,7 @@ class ClientMovieController extends Controller
 
     public function ListEpisode($slug =null , $id = null) {
         $episodes = Episode::where('movie_id' , $id)->with('movie')->get();
-
+//return  $episodes;
         return view('client.page.movie.listEpisode' , [
             'episodes' => $episodes
         ]);
