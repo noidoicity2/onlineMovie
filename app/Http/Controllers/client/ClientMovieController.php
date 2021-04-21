@@ -15,10 +15,12 @@ use App\Models\RequestMovie;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\EpisodeRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
+use App\Repositories\Interfaces\MovieViewRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\URL;
 
 
 class ClientMovieController extends Controller
@@ -27,17 +29,20 @@ class ClientMovieController extends Controller
     protected  $movieRepository;
     protected  $countryRepository;
     protected $episodeRepository;
+    protected  $movieViewRepository;
 
     protected $categories ;
     protected $countries;
 
     public function __construct(MovieRepositoryInterface $movieRepository,
                                 EpisodeRepositoryInterface $episodeRepository ,
-                                CountryRepositoryInterface $countryRepository)
+                                CountryRepositoryInterface $countryRepository,
+                                MovieViewRepositoryInterface $movieViewRepository   )
     {
         $this->movieRepository = $movieRepository;
         $this->episodeRepository = $episodeRepository;
         $this->countryRepository =$countryRepository;
+        $this->movieViewRepository = $movieViewRepository;
 
 //        $this->categories = Category::OnLyName()->get()->take(10);
 //        $this->countries = $this->countryRepository->getCountryForSelect()->take(5)->get();
@@ -109,14 +114,35 @@ class ClientMovieController extends Controller
     }
     public function Watch($slug =null , $id = null) {
         $movie = $this->movieRepository->get($id);
+//        $movie->source_url = URL::te
         Movie::find($id)->increment('view_count');
-
+        $this->movieViewRepository->create([
+            'movie_id' => $id,
+            'user_id' => Auth::id(),
+        ]);
 //        return $movie->episodes;
 
         return view ('client.page.movie.watch' , [
            'movie' => $movie ,
             'categories'=>$this->categories,
-            'countries'   => $this->countries,
+//            'countries'   => $this->countries,
+        ]);
+
+    }
+    public function WatchBackUpMovie($slug =null , $id = null) {
+        $movie = $this->movieRepository->get($id);
+
+        Movie::find($id)->increment('view_count');
+        $this->movieViewRepository->create([
+            'movie_id' => $id,
+            'user_id' => Auth::id(),
+        ]);
+//        return $movie->episodes;
+
+        return view ('client.page.movie.watchBackUp' , [
+            'movie' => $movie ,
+            'categories'=>$this->categories,
+//            'countries'   => $this->countries,
         ]);
 
     }
