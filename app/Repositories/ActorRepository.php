@@ -18,13 +18,7 @@ class ActorRepository implements ActorRepositoryInterface
         // TODO: Implement get() method.
     }
 
-    /**
-     * @return mixed
-     */
-    public function all()
-    {
-        // TODO: Implement all() method.
-    }
+
 
     /**
      * @param $id

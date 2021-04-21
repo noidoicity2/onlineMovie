@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Modern Business - Start Bootstrap Template</title>
+    <title>Online Movie Website</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
     <!-- Custom styles for this template -->
     <link href="/css/app.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('/css/movie.detail.css')}}">
-
+    <meta http-equiv="X-UA-Compatible" name="description" content="Home page for online movie">
 </head>
 
 <body>

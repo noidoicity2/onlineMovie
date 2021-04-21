@@ -121,8 +121,11 @@ class MovieController extends Controller
 //            ]);
         }
 ;
-        return back()->with([
-            'message' =>  "Add Movie successfully"
+//        return back()->with([
+//            'message' =>  "Add Movie successfully"
+//        ]);
+        return json_encode([
+            'message' =>  "Add Movie successfully",
         ]);
 
 

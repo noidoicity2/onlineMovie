@@ -35,15 +35,14 @@
                 "sources": [
 
                     {
-                        @if($movie->is_movie_series==0)
+
                         "file": "{{$movie->hls_url}}",
-                        @else
-                        "file": "{{$movie->episodes->first()->hls_url}}",
-                        @endif
+
 
                         // "label": "360p SD",
                         // "default": "true"
-                    }
+                    },
+
 
                 ]
                 // "file": "images/react.mp4"
@@ -60,6 +59,23 @@
 
             },
             "controls": true,
+
+        });
+
+        player.on('error',function(){
+            console.log("dasd");
+            player.remove();
+            player = jwplayer("el");
+            player.setup({
+              'playlist': {
+                  'file' : '{{$movie->source_url}}',
+
+              },
+
+
+                "autostart": "viewable",
+            });
+
 
         });
         // var elapsed = player

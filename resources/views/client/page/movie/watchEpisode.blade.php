@@ -31,24 +31,10 @@
 
                 "image":"{{$episode->movie->img}}",
                 "sources": [
-                    //     {
-                    //     "file": "/storage/react.MP4",
-                    //     "label": "720p HD"
-                    // },
                     {
-
                         "file": "{{$episode->hls_url}}",
-
-
-                        // "label": "360p SD",
-                        // "default": "true"
                     },
-                    //     {
-                    //     "file": "/uploads/myVideo180.mp4",
-                    //     "label": "180p Web"
-                    // }
                 ]
-                // "file": "images/react.mp4"
             }],
             // "autostart": "true",
             "displaytitle" : true,
@@ -60,6 +46,18 @@
 
             },
             "controls": true,
+
+        });
+
+        player.on('error',function(){
+            console.log("dasd");
+            player.remove();
+            player = jwplayer("el");
+            player.setup({
+                'file': "{{$episode->source_url}}",
+                "autostart": "viewable",
+            });
+            {{--player.load({file:"{{$episode->source_url}}", image:"http://blog.com/streamimage-error.png"});--}}
 
         });
         // var elapsed = player

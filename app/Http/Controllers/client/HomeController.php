@@ -56,9 +56,10 @@ class HomeController extends Controller
 //        })->get();
         $recommendMovies = DB::select('select * from category where id in (select b.category_id from favorite as a INNER JOIN movie_category as b on a.movie_id = b.movie_id where a.user_id = ?)', [Auth::id()] );
         $recommendMovies = array_column($recommendMovies, 'id');
-        $mvs = Movie::whereHas('categories', function (Builder $query) use($recommendMovies) {
+        $mvs = Movie::select('id' , 'name' , 'slug' , 'img')->whereHas('categories', function (Builder $query) use($recommendMovies) {
             $query->whereIn('category_id', $recommendMovies);
         } )->get();
+//        return $mvs;
 //         $movieCategories = MovieCategory::distinct('movie_id')->whereIn('category_id' , $recommendMovies)->with('movie')->get();
 //return $movieCategories;
 //        $recommendMovies = new Collection($recommendMovies);

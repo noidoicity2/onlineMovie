@@ -42,7 +42,7 @@ protected $fileName;
         $lowBitrate = new X264('aac', 'libx264');
         $lowBitrate->setKiloBitrate(200);
 
-        $highRate =  (new X264('aac', 'libx264' ))->setKiloBitrate(3500);
+        $highRate =  (new X264('aac', 'libx264' ))->setKiloBitrate(1200);
 //
 //        $midBitrate = (new X264)->setKiloBitrate(500);
 //        $highBitrate = (new X264)->setKiloBitrate(1000);
@@ -55,7 +55,7 @@ protected $fileName;
             ->open('videos/'.$this->slug.'/'.$this->slug.'.'.$this->fileName)
             ->exportForHLS()
             ->withEncryptionKey($encryptionKey)
-            ->setSegmentLength(5)
+            ->setSegmentLength(60*2)
             ->addFormat($lowBitrate)
             ->addFormat($highRate)
             ->toDisk('public')

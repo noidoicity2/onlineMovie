@@ -12,10 +12,7 @@ class FileRepository implements Interfaces\FileRepositoryInterface
         // TODO: Implement get() method.
     }
 
-    public function all()
-    {
-        // TODO: Implement all() method.
-    }
+
 
     public function update($id, array $data)
     {
