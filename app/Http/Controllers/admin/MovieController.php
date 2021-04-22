@@ -3,34 +3,24 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-
-
 use App\Http\Requests\Movie\AddMovieRequest;
 use App\Jobs\HandleUploadEpisode;
 use App\Jobs\HandleVideoUpload;
-use App\Models\MovieCategory;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\DirectorRepositoryInterface;
 use App\Repositories\Interfaces\EpisodeRepositoryInterface;
 use App\Repositories\Interfaces\MovieCategoryRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
-use App\Repositories\MovieCategoryRepository;
 use App\Services\FIleUploadServices;
-use App\Services\HlsServices;
-
 use Exception;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Http\Request;
-
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use ProtoneMedia\LaravelFFMpeg\Exporters\HLSExporter;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
-use function PHPUnit\Framework\stringStartsWith;
 
 
 class MovieController extends Controller
@@ -47,8 +37,7 @@ class MovieController extends Controller
                                 CountryRepositoryInterface          $countryRepository,
                                 MovieCategoryRepositoryInterface    $movieCategoryRepository,
                                 DirectorRepositoryInterface         $directorRepository,
-                                EpisodeRepositoryInterface          $episodeRepository
-    )
+                                EpisodeRepositoryInterface          $episodeRepository)
     {
         $this->movieRepository         = $movieRepository;
         $this->categoryRepository      = $categoryRepository;
@@ -65,9 +54,6 @@ class MovieController extends Controller
     public function PostAddMovie(AddMovieRequest $request) {
 
         $movie = $request->all() ;
-//return $movie;
-//        return $movie['category'];
-
         $slug = Str::slug($request->name);
         $imgPath    =   FIleUploadServices::UploadImage($request->file('img') ,$slug);
         $bgPath     =   FIleUploadServices::UploadImage($request->file('bg_img') , $slug);
