@@ -71,7 +71,7 @@
                                 @else
                                     <div class="is-premium"><i class="fa fa-usd" aria-hidden="true"></i> Vip</div>
                                 @endif
-                                <img loading="lazy" src="{{$movie->img}}" alt="">
+                                <img class="movie-img" loading="lazy" src="{{$movie->img}}" alt="">
 
                                 <p>{{$movie->name}}</p>
 {{--                                <p>free {{$movie->is_free}}</p>--}}

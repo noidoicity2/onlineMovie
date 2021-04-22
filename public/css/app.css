@@ -148,6 +148,9 @@ a.film-item:hover  {
     /*width: 110% ;*/
     /*z-index: 9;*/
 }
+/*.movie-img {*/
+/*    max-height: 366px;*/
+/*}*/
 
 .film-item p {
     /*display: block;*/
@@ -178,6 +181,7 @@ a.film-item:hover  {
 .film-item  img{
     display: block;
     width: 100% ;
+    max-height: 320px;
 
 }
 .ribbon {
