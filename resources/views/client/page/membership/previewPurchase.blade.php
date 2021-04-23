@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="text-success  text-center mt-5 ml-3" style="text-transform: uppercase">Become vip member</h1>
+        <h1 class="text-warning  text-center mt-5 ml-3" style="text-transform: uppercase">Preview purchase</h1>
 {{--        <div class="row mt-2 mb-5">--}}
 
 
