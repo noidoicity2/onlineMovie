@@ -72,7 +72,7 @@
         <div class="section-detail">
             <div class="row">
                 <div class="col-12 text-light">
-                    <h2>Nội dung phim</h2>
+                    <h2>Description</h2>
                    {!!html_entity_decode($movie->description) !!}
                 </div>
             </div>

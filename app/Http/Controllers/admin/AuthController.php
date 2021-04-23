@@ -33,7 +33,7 @@ class AuthController extends Controller
         $user = $request->all();
        $user['password'] = bcrypt($user['password']);
 
-       $this->userRepository->create( array_merge($user , ['role_id' => 1]) );
+       $this->userRepository->create( array_merge($user , ['role_id' => 2]) );
        return back()->with(['message'=> "Register successfully"]);
 
     }

@@ -149,7 +149,7 @@ class ClientMovieController extends Controller
     public function GetMovieByCategory ($slug =null , $id = null) {
         $movies = Movie::whereHas('categories' , function ( Builder $query) use ($id) {
             $query->where('category_id' , $id );
-        })->paginate(5);
+        })->paginate(8);
 //        $movies = Movie::with('categories')->get();
 //        return $movies;
         return view('client.page.movie.listMovieByCategory' , [
