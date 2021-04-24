@@ -73,6 +73,7 @@ class ClientMovieController extends Controller
             'user_id' => Auth::id(),
             'movie_id'=> $movie->id,
         ])->select('rating_point')->first();
+        $rating_count = MovieRating::where('movie_id' , $movie->id)->count();
 
 
 
@@ -101,6 +102,7 @@ class ClientMovieController extends Controller
             'avg_rating' => $avg_rating,
             'is_liked'  => $is_liked,
             'comments' => $comments,
+            'rating_count' => $rating_count
 
         ]);
     }
@@ -188,7 +190,8 @@ class ClientMovieController extends Controller
     }
     public  function Favorite() {
 //        return "đá";
-        $favorite_movie = Favorite::where('user_id' , Auth::id())->with('movie')->paginate(5);
+        $favorite_movie = Favorite::where('user_id' , Auth::id())->with('movie' )->withCount('episodes')->paginate(8);
+//        return $favorite_movie;
 //        $favorite_movie  = Cache::remember('favorite')
 //     return $favorite_movie;
         return view('client.page.movie.favorite' , [

@@ -64,9 +64,15 @@
                     @foreach($new_movies as $movie )
                         <div class="col-md-4 col-lg-3  col-sm-6">
 
-                            <a href="{{route('get_movie_by_slug',['slug' => $movie->slug , 'id' => $movie->id])}}" class="film-item">
-                                <div class="ribbon">full HD</div>
-                                @if($movie->is_free)
+                            <a href="{{route('get_movie_by_slug',['slug' => $movie->slug , 'id' => $movie->id])}}" class="film-item    @unless($movie->is_free) film-vip-item @endunless ">
+
+                                @if($movie->is_movie_series == 1)
+                                    <div class="total-episode">{{$movie->episodes_count}}/ {{$movie->total_episode}} episodes</div>
+                                @else
+                                    <div class="ribbon">full HD</div>
+                                @endif
+
+                            @if($movie->is_free)
                                 <div class="is-free">Free</div>
                                 @else
                                     <div class="is-premium"><i class="fa fa-usd" aria-hidden="true"></i> Vip</div>
@@ -90,7 +96,14 @@
                         <div class="col-md-4 col-lg-3  col-sm-6">
 
                             <a href="{{route('get_movie_by_slug',['slug' => $recommended->slug , 'id' => $recommended->id])}}" class="film-item">
-                                <div class="ribbon">full HD</div>
+                                @if($recommended->is_movie_series == 1)
+                                    <div class="ribbon">{{$recommended->episodes_count}}</div>
+                                @else
+                                    <div class="ribbon">full HD</div>
+                                @endif
+
+
+
                                 @if($recommended->is_free)
                                     <div class="is-free">Free</div>
                                 @else

@@ -20,8 +20,13 @@ class Favorite extends Model
         return $this->belongsTo(Movie::class , 'movie_id' , 'id');
     }
 
+
     public function movieCategories() {
         return $this->hasManyThrough(MovieCategory::class , Movie::class , 'id' , 'movie_id' ,'movie_id' );
+    }
+
+    public function episodes() {
+        return $this->hasManyThrough(Episode::class , Movie::class , 'id' , 'movie_id' ,'movie_id' );
     }
 
 }

@@ -46,7 +46,7 @@ class MovieRepository extends BaseRepository implements MovieRepositoryInterface
 //            ->orderBy('created_at' , 'desc')->get();
         return $this->model
             ->where('is_movie_series' ,1)
-            ->select('name' , 'id' ,'en_name' , 'img' , 'is_free' ,'slug')
+            ->select('name' , 'id' ,'en_name' , 'img' ,'is_movie_series' , 'is_free' ,'slug' , 'total_episode')->withCount('episodes')
             ->orderBy('created_at' , 'desc')->paginate(20);
 
 

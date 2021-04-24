@@ -97,7 +97,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPages">
                         @if(Auth::user()->is_vip ==1)
-                            <a class="dropdown-item bg-danger" href="{{route('buy_vip')}}">Upgrade your membership</a>
+                            <a class="dropdown-item bg-warning" href="{{route('buy_vip')}}">Upgrade your membership</a>
                         @endif
                             <a class="dropdown-item" href="{{route('favorite_movie')}}">Your favorite</a>
                             <a class="dropdown-item" href="{{route('transaction_history')}}">Your transactions</a>

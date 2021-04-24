@@ -15,7 +15,9 @@ class Movie extends Model
     use HasFactory;
     use Sluggable;
     use SluggableScopeHelpers ;
-
+//    protected $appends = [
+//        'episodeCount'
+//    ];
     protected $table = "movie";
     public      $timestamps     =   false;
     protected $fillable = [
@@ -25,7 +27,7 @@ class Movie extends Model
         'created_at'
     ];
     public function scopeNewestMovie($query) {
-        return $query->select(['id','name' , 'is_free', 'en_name' , 'img' , 'bg_img' , 'published_at' , 'slug'])->orderByDesc('created_at');
+        return $query->select(['id','name' , 'is_free', 'en_name' ,'is_movie_series' , 'img' , 'bg_img' , 'published_at','total_episode' , 'slug'])->withCount('episodes')->orderByDesc('created_at');
     }
 
     public function sluggable(): array
@@ -60,5 +62,12 @@ class Movie extends Model
     public function favoriteMovies() {
         return $this->hasMany(Favorite::class, 'movie_id'  , 'id');
     }
+    public function movieRatings() {
+        return $this->hasMany(MovieRating::class, 'movie_id'  , 'id');
+    }
+
+//    public function getEpisodeCountAttribute()  {
+//        return $this->episodes()->count() ;
+//    }
 
 }

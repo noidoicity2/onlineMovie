@@ -48,7 +48,7 @@
                     <p class="detail-item">List episode {{$movie->episodes->count()}}:</p>
                    <div>
                      <p style="font-size: 2rem; color: #c69500 ;margin-bottom: 1.5px"> Ratings: </p>
-                       <span class="text-light font-weight-bolder" style="font-size: 3rem">{{$avg_rating}}</span>
+                       <span class="text-light font-weight-bolder" style="font-size: 3rem">{{$avg_rating}}  </span>
                         @for($i =1 ; $i <= 10 ; $i++)
                             @if($i <= $avg_rating)
                                 <i  class="rate_{{$i}} fa fa-star " alt="{{$i}}"   style="font-size: 2rem;color: #c69500 ; cursor: pointer ; " aria-hidden="true" ></i>
@@ -56,6 +56,8 @@
                                 <i  class="rate_{{$i}} fa fa-star " alt="{{$i}}"   style="font-size: 2rem;color: #4a5568 ; cursor: pointer ; " aria-hidden="true" ></i>
                             @endif
                        @endfor
+                       <p class="text-secondary">( {{$rating_count}} votes  )</p>
+{{--                       <span>/ {{$rating_count}} </span>--}}
 
 
 
