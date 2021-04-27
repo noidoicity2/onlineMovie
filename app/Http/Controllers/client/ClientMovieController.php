@@ -55,6 +55,9 @@ class ClientMovieController extends Controller
     public function GetMovieBySlug($slug =null , $id = null) {
 
         $movie  = $this->movieRepository->get($id);
+        if($movie->is_free == 0 && !Auth::check()) {
+            return view('Share.upgradeVip');
+        }
         $episodes = $movie->episodes;
         $comments = MovieComment::with('user')->where('movie_id', $movie->id)->orderBy('created_at' , 'desc')->take(5)->get();
 //       return $comments;
@@ -115,6 +118,7 @@ class ClientMovieController extends Controller
         ]);
     }
     public function Watch($slug =null , $id = null) {
+//        return "adsad";
         $movie = $this->movieRepository->get($id);
 //        $movie->source_url = URL::te
         Movie::find($id)->increment('view_count');
@@ -122,7 +126,14 @@ class ClientMovieController extends Controller
             'movie_id' => $id,
             'user_id' => Auth::id(),
         ]);
-//        return $movie->episodes;
+        if(!Auth::check() && $movie->is_free == 1) {
+            return view ('client.page.movie.watchFree' , [
+                'movie' => $movie ,
+                'categories'=>$this->categories,
+//            'countries'   => $this->countries,
+            ]);
+        }
+
 
         return view ('client.page.movie.watch' , [
            'movie' => $movie ,

@@ -45,26 +45,26 @@ class MembershipController extends Controller
         $memberships = $request->all();
 
 
-        $categories = $memberships['category'];
-        $insert_data= array();
+//        $categories = $memberships['category'];
+//        $insert_data= array();
 
 
-        DB::beginTransaction();
+//        DB::beginTransaction();
         try {
 
           $membership =  $this->membershipRepository->create($request->all());
-            for ($i =0 ; $i <count($categories) ;$i ++) {
-                array_push($insert_data , array('category_id' => $categories[$i] , 'membership_id'=>$membership->id) );
-            }
-             $this->membershipCategoryRepository->insert($insert_data);
+//            for ($i =0 ; $i <count($categories) ;$i ++) {
+//                array_push($insert_data , array('category_id' => $categories[$i] , 'membership_id'=>$membership->id) );
+//            }
+//             $this->membershipCategoryRepository->insert($insert_data);
 //            return $insert_data;
 
-            DB::commit();
+//            DB::commit();
             return back()->with(['message'=>"add membership successfully"]);
 
         }
         catch (Exception $e){
-            DB::rollBack();
+//            DB::rollBack();
             return back()->with(['error'=>"add membership fail"]);
 
         }

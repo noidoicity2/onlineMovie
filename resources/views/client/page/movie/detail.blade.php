@@ -79,6 +79,7 @@
                 </div>
             </div>
         </div>
+        @auth
         <div class="section-comment">
             <h2>Comments</h2>
             <div class="row">
@@ -103,6 +104,7 @@
 
             </div>
         </div>
+        @endauth
 
 
         <div class="section-related">
@@ -270,6 +272,7 @@
         });
 
 // rating
+        @auth
         $('i[class^="rate_"]').click(function () {
             console.log($(this).attr('alt'));
             // console.log("dasd");
@@ -325,5 +328,6 @@
             });
 
         });
+        @endauth
     </script>
 @endsection

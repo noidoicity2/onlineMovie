@@ -46,7 +46,8 @@ class MovieRepository extends BaseRepository implements MovieRepositoryInterface
 //            ->orderBy('created_at' , 'desc')->get();
         return $this->model
             ->where('is_movie_series' ,1)
-            ->select('name' , 'id' ,'en_name' , 'img' ,'is_movie_series' , 'is_free' ,'slug' , 'total_episode')->withCount('episodes')
+            ->select('name' , 'id' ,'en_name' , 'img' ,'is_movie_series' , 'is_free' ,'slug' , 'total_episode')
+            ->withCount('episodes')
             ->orderBy('created_at' , 'desc')->paginate(20);
 
 
@@ -127,7 +128,7 @@ class MovieRepository extends BaseRepository implements MovieRepositoryInterface
         // TODO: Implement getMovieByCountryId() method.
 //        return $this->model->
     }
-
+///dsadsdsdsđ sdadik
     public function where($array)
     {
         // TODO: Implement where() method.

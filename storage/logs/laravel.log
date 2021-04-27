@@ -1,0 +1,102 @@
+[2021-04-27 15:39:11] local.INFO: select * from `slider` order by `display_order` asc  
+[2021-04-27 15:39:11] local.INFO: array (
+)  
+[2021-04-27 15:39:11] local.INFO: 1.29  
+[2021-04-27 15:39:11] local.INFO: select * from `movie` where `movie`.`id` in (1, 2, 3, 4)  
+[2021-04-27 15:39:11] local.INFO: array (
+)  
+[2021-04-27 15:39:11] local.INFO: 1.46  
+[2021-04-27 15:39:11] local.INFO: select `id`, `name`, `is_free`, `en_name`, `is_movie_series`, `img`, `bg_img`, `published_at`, `total_episode`, `slug`, (select count(*) from `episode` where `movie`.`id` = `episode`.`movie_id`) as `episodes_count` from `movie` order by `created_at` desc limit 8  
+[2021-04-27 15:39:11] local.INFO: array (
+)  
+[2021-04-27 15:39:11] local.INFO: 0.97  
+[2021-04-27 15:39:11] local.INFO: select `name`, `movie_id` from `episode` where `episode`.`movie_id` in (42, 43, 44, 45, 46, 47, 48, 49)  
+[2021-04-27 15:39:11] local.INFO: array (
+)  
+[2021-04-27 15:39:11] local.INFO: 0.59  
+[2021-04-27 15:39:11] local.INFO: select * from `user` where `id` = ? limit 1  
+[2021-04-27 15:39:11] local.INFO: array (
+  0 => 1,
+)  
+[2021-04-27 15:39:11] local.INFO: 0.51  
+[2021-04-27 15:39:11] local.INFO: select * from category  where id in (select b.category_id from favorite as a INNER JOIN movie_category as b on a.movie_id = b.movie_id where a.user_id = ? )  
+[2021-04-27 15:39:11] local.INFO: array (
+  0 => 1,
+)  
+[2021-04-27 15:39:11] local.INFO: 0.71  
+[2021-04-27 15:39:11] local.INFO: select `id`, `name`, `is_movie_series`, `slug`, `img` from `movie` where exists (select * from `movie_category` where `movie`.`id` = `movie_category`.`movie_id` and 0 = 1) limit 8  
+[2021-04-27 15:39:11] local.INFO: array (
+)  
+[2021-04-27 15:39:11] local.INFO: 0.32  
+[2021-04-27 15:39:11] local.INFO: select * from `movie` order by `view_count` desc limit 10  
+[2021-04-27 15:39:11] local.INFO: array (
+)  
+[2021-04-27 15:39:11] local.INFO: 0.68  
+[2021-04-27 15:39:13] local.INFO: select * from `movie` where `movie`.`id` = ? limit 1  
+[2021-04-27 15:39:13] local.INFO: array (
+  0 => '43',
+)  
+[2021-04-27 15:39:13] local.INFO: 2.2  
+[2021-04-27 15:39:13] local.INFO: select * from `episode` where `episode`.`movie_id` = ? and `episode`.`movie_id` is not null  
+[2021-04-27 15:39:13] local.INFO: array (
+  0 => 43,
+)  
+[2021-04-27 15:39:13] local.INFO: 0.43  
+[2021-04-27 15:39:13] local.INFO: select * from `movie_comment` where `movie_id` = ? order by `created_at` desc limit 5  
+[2021-04-27 15:39:13] local.INFO: array (
+  0 => 43,
+)  
+[2021-04-27 15:39:13] local.INFO: 0.44  
+[2021-04-27 15:39:13] local.INFO: select * from `user` where `id` = ? limit 1  
+[2021-04-27 15:39:13] local.INFO: array (
+  0 => 1,
+)  
+[2021-04-27 15:39:13] local.INFO: 0.52  
+[2021-04-27 15:39:13] local.INFO: select * from `favorite` where (`movie_id` = ? and `user_id` = ?) limit 1  
+[2021-04-27 15:39:13] local.INFO: array (
+  0 => 43,
+  1 => 1,
+)  
+[2021-04-27 15:39:13] local.INFO: 0.69  
+[2021-04-27 15:39:13] local.INFO: select `rating_point` from `movie_rating` where (`user_id` = ? and `movie_id` = ?) limit 1  
+[2021-04-27 15:39:13] local.INFO: array (
+  0 => 1,
+  1 => 43,
+)  
+[2021-04-27 15:39:13] local.INFO: 0.59  
+[2021-04-27 15:39:13] local.INFO: select count(*) as aggregate from `movie_rating` where `movie_id` = ?  
+[2021-04-27 15:39:13] local.INFO: array (
+  0 => 43,
+)  
+[2021-04-27 15:39:13] local.INFO: 0.33  
+[2021-04-27 15:39:13] local.INFO: select avg(`rating_point`) as aggregate from `movie_rating` where (`movie_id` = ?)  
+[2021-04-27 15:39:13] local.INFO: array (
+  0 => 43,
+)  
+[2021-04-27 15:39:13] local.INFO: 0.35  
+[2021-04-27 15:39:15] local.INFO: select * from `movie` where `movie`.`id` = ? limit 1  
+[2021-04-27 15:39:15] local.INFO: array (
+  0 => '43',
+)  
+[2021-04-27 15:39:15] local.INFO: 13.29  
+[2021-04-27 15:39:15] local.INFO: select * from `movie` where `movie`.`id` = ? limit 1  
+[2021-04-27 15:39:15] local.INFO: array (
+  0 => '43',
+)  
+[2021-04-27 15:39:15] local.INFO: 0.59  
+[2021-04-27 15:39:15] local.INFO: update `movie` set `view_count` = `view_count` + 1 where `id` = ?  
+[2021-04-27 15:39:15] local.INFO: array (
+  0 => 43,
+)  
+[2021-04-27 15:39:15] local.INFO: 1.92  
+[2021-04-27 15:39:15] local.INFO: select * from `user` where `id` = ? limit 1  
+[2021-04-27 15:39:15] local.INFO: array (
+  0 => 1,
+)  
+[2021-04-27 15:39:15] local.INFO: 0.44  
+[2021-04-27 15:39:15] local.INFO: insert into `movie_view` (`movie_id`, `user_id`) values (?, ?)  
+[2021-04-27 15:39:15] local.INFO: array (
+  0 => '43',
+  1 => 1,
+)  
+[2021-04-27 15:39:15] local.INFO: 2.01  

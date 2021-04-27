@@ -100,11 +100,7 @@ class MovieController extends Controller
                 'message' =>  "Add Movie successfully",
                 'redirectUrl' => route('add_episode' , ['id' =>$created_movie->id]),
             ]);
-//            return view('admin.page.movie.addEpisode' ,[
-//                'movie'     => $created_movie,
-//
-//
-//            ]);
+
         }
 ;
 //        return back()->with([
@@ -112,11 +108,25 @@ class MovieController extends Controller
 //        ]);
         return json_encode([
             'message' =>  "Add Movie successfully",
+            'redirectUrl' => route('add_movie' )
         ]);
 
 
     }
     public function PostEditMovie() {
+
+    }
+    public function EditMovie($id) {
+        $countries = $this->countryRepository->getCountryForSelect()->get();
+        $movie = $this->movieRepository->get($id);
+        $categories = $this->categoryRepository->getCategoryForSelect()->get();
+        $directors = $this->directorRepository->all();
+        return view('admin.page.movie.editMovie', [
+            'movie'  => $movie,
+            'directors'     => $directors,
+            'countries' => $countries,
+            'categories'    => $categories,
+        ]);
 
     }
     public function Add($id =null) {

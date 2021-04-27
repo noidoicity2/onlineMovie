@@ -120,6 +120,7 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
     Route::prefix('movie')->group(function () {
 
         Route::get('/add',[MovieController::class , 'Add'])->name('add_movie');
+        Route::get('/edit/{id}',[MovieController::class , 'EditMovie'])->name('edit_movie');
         Route::get('{id}/addEpisode/',[MovieController::class , 'AddEpisode'])->name('add_episode');
         Route::get('paginate={paginate?}&orderBy={orderBy}' , [MovieController::class , 'ListMovie'])->name('movie_paginate');
         Route::get('/listMovie' , [MovieController::class , 'ListMovie'])->name('list_movie');
@@ -209,7 +210,7 @@ Route::prefix('movie')->group(function() {
     Route::get('category={slug}_{id}', [ClientMovieController::class , 'GetMovieByCategory'])->name('get_movie_by_category');
     Route::get('{slug}_{id}/episodes', [ClientMovieController::class , 'ListEpisode'])->name('list_episode');
 
-    Route::get('/{slug}_{id}', [ClientMovieController::class , 'GetMovieBySlug'])->middleware(testRestrict::class)->name('get_movie_by_slug');
+    Route::get('/{slug}_{id}', [ClientMovieController::class , 'GetMovieBySlug'])->name('get_movie_by_slug');
     Route::get('/watch/{slug}_{id}', [ClientMovieController::class , 'Watch'])->name('watch_movie');
     Route::get('/watchBackUp/{slug}_{id}', [ClientMovieController::class , 'Watch'])->name('watch_backup_movie');
     Route::get('episodes/watch/{slug}_{id}', [ClientMovieController::class , 'WatchEpisode'])->name('watch_episode');

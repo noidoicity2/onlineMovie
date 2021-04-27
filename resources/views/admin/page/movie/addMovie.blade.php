@@ -40,11 +40,11 @@
                             @csrf
                             <div class="form-group">
                                 <label for="name">Movie Name</label>
-                                <input type="text" class="form-control" value="{{old('name')}}" name="name" id="name" placeholder="Enter movie name">
+                                <input type="text" class="form-control" minlength="5" maxlength="50" required value="{{old('name')}}" name="name" id="name" placeholder="Enter movie name">
                             </div>
                             <div class="form-group">
                                 <label for="en_name">Real Name</label>
-                                <input type="text" class="form-control" name="en_name" id="en_name" placeholder="Enter real name">
+                                <input type="text" class="form-control" required name="en_name" id="en_name" placeholder="Enter real name">
                             </div>
                             <div class="form-group">
                                 <label for="duration">Duration(minutes)</label>
@@ -66,15 +66,15 @@
                             <div class="form-group row">
                                 <div class="form-group col-6">
                                     <label for="img">Choose image</label>
-                                    <input type="file" class="form-control-file" value="{{old('img')}}" name="img" id="img">
+                                    <input type="file"  accept="image/*" class="form-control-file" value="{{old('img')}}" name="img" id="img">
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="bg_img">Choose back ground image</label>
-                                    <input type="file" class="form-control-file" name="bg_img" id="bg_img">
+                                    <input type="file" accept="image/*" ma="" class="form-control-file" name="bg_img" id="bg_img">
                                 </div>
                                 <div class="form-group col-12">
                                     <label for="source_url">Choose video source</label>
-                                    <input type="file" class="form-control-file" name="source_url" id="source_url">
+                                    <input type="file"  accept="video/*" class="form-control-file" name="source_url" id="source_url">
 
                                 </div>
 
@@ -93,21 +93,18 @@
 
                                 </select>
                             </div>
-{{--                            <div class="form-group">--}}
-{{--                                <label for="country">Category</label>--}}
-{{--                                <select class="form-control" name="category_id" id="category_id">--}}
-{{--                                    @foreach($countries as $country)--}}
-{{--                                        <option value="{{$country->id}}">{{$country->name}}</option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
+
                             <div class="form-group">
                                 <label for="slug">Slug</label>
                                 <input type="text" class="form-control" name="slug" id="slug" placeholder="Enter slug for SEO">
                             </div>
                             <div class="form-group">
                                 <label for="imdb">IMDB</label>
-                                <input type="number" class="form-control" name="imdb" id="slug" placeholder="Enter IMDB">
+                                <input type="number" class="form-control" min="1" max="10" name="imdb" id="slug" placeholder="Enter IMDB">
+                            </div>
+                            <div class="form-group">
+                                <label for="intro_end">Intro end at</label>
+                                <input type="number" class="form-control" name="intro_end" id="intro_end" placeholder="Enter second for intro">
                             </div>
 
                             <div class="form-group">
@@ -115,7 +112,7 @@
                                 <textarea class="form-control" id="description" name="description" rows="3"></textarea>
 
                             </div>
-                            <div class="form-group row mx-auto " style="height: 500px ; overflow: scroll">
+                            <div class="form-group row mx-auto " style="height: 200px ; overflow: scroll">
                                 <label class="col-12 form-check-label mb-4" for="info">Category</label>
                                 @foreach($categories as $category)
                                     <div class="form-group col-2 p-4">

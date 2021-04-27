@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\Repositories\Interfaces\ActorRepositoryInterface;
+use Illuminate\Support\Collection;
 
 class ActorRepository implements ActorRepositoryInterface
 {
@@ -46,5 +47,13 @@ class ActorRepository implements ActorRepositoryInterface
     public function create($data)
     {
         // TODO: Implement create() method.
+    }
+
+    /**
+     * @return Collection
+     */
+    public function all(): Collection
+    {
+        // TODO: Implement all() method.
     }
 }

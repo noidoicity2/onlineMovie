@@ -81,11 +81,7 @@ class AddMovieRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         $errors = (new ValidationException($validator))->errors();
-//        return json_encode([
-//           'errors' => $errors,
-//            'success' => false,
-//        ]);
-//return $errors;
+
         throw new HttpResponseException(
             response()->json($errors, JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
         );
