@@ -100,6 +100,7 @@
                             <a class="dropdown-item bg-warning" href="{{route('buy_vip')}}">Upgrade your membership</a>
                         @endif
                             <a class="dropdown-item" href="{{route('favorite_movie')}}">Your favorite</a>
+                            <a class="dropdown-item" href="{{route('get_bookmark_movie')}}">Book-marked movie</a>
                             <a class="dropdown-item" href="{{route('transaction_history')}}">Your transactions</a>
                             <a class="dropdown-item" href="{{route('request_movie')}}">Request Movie</a>
                             <a class="dropdown-item" href="404.html">404</a>

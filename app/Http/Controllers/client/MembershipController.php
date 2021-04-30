@@ -172,7 +172,7 @@ class MembershipController extends Controller
             return $request;
         }
 //        session()->forget('url_prev');
-        Transaction::find($transaction_id)->update(['status' => "failed"]);
+        Transaction::find($transaction_id)->update(['status' => "unsuccessfully"]);
         session()->forget('transaction_id');
         session()->forget('membership_id');
         session()->forget('days');

@@ -264,7 +264,10 @@ class ClientMovieController extends Controller
 
     }
     public function GetBookMarkMovie() {
-        $bookmarks = BookMark::where('user_id' , Auth::id())->paginate(5);
+        $bookmarks = BookMark::where('user_id' , Auth::id())->paginate(8);
+        return view('client.page.movie.bookMarkedMovie' , [
+            'bookmarks' => $bookmarks
+        ]);
     }
 
     public function GetMovieByCountry($slug=null,$id=null) {

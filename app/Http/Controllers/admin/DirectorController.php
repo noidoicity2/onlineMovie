@@ -8,4 +8,11 @@ use Illuminate\Http\Request;
 class DirectorController extends Controller
 {
     //
+
+    public function AddDirector() {
+        return view('admin.page.director.addDirector');
+    }
+    public function PostAddDirector() {
+
+    }
 }

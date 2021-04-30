@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\DasboardController;
 use App\Http\Controllers\admin\DirectorController;
 use App\Http\Controllers\admin\MembershipController;
 use App\Http\Controllers\admin\SliderController;
+use App\Http\Controllers\admin\StatisticController;
 use App\Http\Controllers\client\CommentController;
 use App\Http\Controllers\client\MembershipController as ClientMembership;
 use App\Http\Controllers\admin\MovieController;
@@ -74,6 +75,7 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
     Route::get('/roles', function () {
         // Matches The "/admin/users" URL
     });
+
     Route::prefix('sliders')->group(function () {
         // Matches The "/admin/users" URL
         Route::get('/add', [SliderController::class , 'AddSlider'])->name("add_slider");
@@ -82,6 +84,9 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
     });
     Route::get('/dashboard', [DasboardController::class ,'Index'])->name("dashboard");
 
+    Route::prefix('statistic')->group(function () {
+        Route::get('transaction', [StatisticController::class, 'TransactionStatistic' ])->name('transaction_statistic');
+    });
 
     Route::prefix('category')->group(function () {
         Route::get('/add', function () {
@@ -171,6 +176,8 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
 Route::prefix('client')->group(function () {
 //    Route::get('/{slug}', [ClientMovieController::class, 'getMovie']);
     Route::get('favorite', [ClientMovieController::class , 'Favorite'])->name('favorite_movie');
+//    Route::get('bookmark', [ClientMovieController::class , 'GetBookMarkMovie'])->name('bookmark_movie');
+
     Route::Post('postAddToFavorite', [ClientMovieController::class , 'PostAddFavorite'])->name('add_to_favorite');
 
 
@@ -178,7 +185,7 @@ Route::prefix('client')->group(function () {
 //    Route::get('payment', [TransactionController::class , 'create']);
     Route::get('payment/return', [ClientMembership::class , 'return'])->name('return_payment');
 
-    Route::get('bookmark', [ClientMembership::class , 'GetBookMarkMovie'])->name('get_bookmark_movie');
+    Route::get('bookmark', [ClientMovieController::class , 'GetBookMarkMovie'])->name('get_bookmark_movie');
     Route::Post('postBookMark', [ClientMovieController::class , 'PostBookMark'])->name('add_to_bookmark');
 
     Route::get('search', [ClientMovieController::class, 'Filter'])->name('search');
