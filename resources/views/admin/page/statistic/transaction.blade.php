@@ -17,11 +17,11 @@
                        <form class="form-inline" action="">
                            <div class="form-group mb-2 mr-2">
                                <label for="start_date" class="">From</label>
-                               <input type="date" value="{{Request::get('from_date')}}" id="from_date" class="form-control" name="from_date" >
+                               <input type="date" value="{{$from_date->format('Y-m-d') ?? Request::get('from_date')}}" id="from_date" class="form-control" name="from_date" >
                            </div>
                            <div class="form-group mb-2">
                                <label for="start_date" class="">to</label>
-                               <input type="date" value="{{Request::get('to_date')}}" id="to_date" class="form-control" name="to_date" >
+                               <input type="date" value="{{$to_date->format('Y-m-d') ?? Request::get('to_date')}}" id="to_date" class="form-control" name="to_date" >
                            </div>
                            <button type="submit" class="btn btn-primary mb-2">Generate statistic</button>
                        </form>
@@ -162,6 +162,7 @@
 
     <script>
         var options = {
+            animationEnabled: true,
             title: {
                 text: "Order chart"
             },
@@ -183,6 +184,7 @@
         };
 
         var option2 = {
+            animationEnabled: true,
             title: {
                 text: "Order chart"
             },

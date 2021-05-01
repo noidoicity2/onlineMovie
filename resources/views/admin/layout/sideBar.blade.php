@@ -31,7 +31,7 @@
                 <div class="collapse" id="statistic" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="{{route('transaction_statistic')}}">Transaction statistic</a>
-                        <a class="nav-link" href="{{route('list_category')}}">Movie statistic</a>
+                        <a class="nav-link" href="{{route('movie_statistic')}}">Movie statistic</a>
                     </nav>
                 </div>
                 {{--                end category--}}
