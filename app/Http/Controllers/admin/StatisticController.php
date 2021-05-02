@@ -91,7 +91,9 @@ class StatisticController extends Controller
             ] );
         }
 //        return $movie_view;
-        $movie = Movie::withCount('favoriteMovies')->get();
+        $movie = Movie::withCount('favoriteMovies')
+            ->withCount('movieViews')
+            ->get();
 //        return $movie;
         return view('admin.page.statistic.movie',[
             'movies' => $movie,

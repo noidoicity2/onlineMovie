@@ -52,12 +52,17 @@
                             </div>
                             <div class="form-group">
                                 <label for="country">Director</label>
-                                <select class="form-control" name="director_id" id="director_id">
+                                <select class="single-select form-control choices__input"  data-trigger=""  name="director_id" id="director_id" placeholder="This is a search placeholder" hidden="" tabindex="-1" data-choice="active">
                                     @foreach($directors as $director)
-                                        <option value="{{$director->id}}">{{$director->name}}</option>
+                                        <option value="{{$director->id}}">{{$director->name}}
+                                        </option>
                                     @endforeach
+{{--                                <select class="form-control" name="director_id" id="director_id">--}}
+{{--                                    @foreach($directors as $director)--}}
+{{--                                        <option value="{{$director->id}}">{{$director->name}}</option>--}}
+{{--                                    @endforeach--}}
 
-                                </select>
+{{--                                </select>--}}
                             </div>
                             <div class="form-group">
                                 <label for="published_at">Publish at</label>
@@ -86,12 +91,12 @@
 
                             <div class="form-group">
                                 <label for="country">Country</label>
-                                <select class="form-control" name="country_id" id="country">
+                                <select class="single-select form-control choices__input"  data-trigger=""  name="country" id="country" placeholder="This is a search placeholder" hidden="" tabindex="-1" data-choice="active">
                                     @foreach($countries as $country)
-                                        <option value="{{$country->id}}">{{$country->name}}</option>
+                                        <option value="{{$country->id}}">{{$country->name}}
+                                        </option>
                                     @endforeach
 
-                                </select>
                             </div>
 
                             <div class="form-group">
@@ -112,16 +117,14 @@
                                 <textarea class="form-control" id="description" name="description" rows="3"></textarea>
 
                             </div>
-                            <div class="form-group row mx-auto " style="height: 200px ; overflow: scroll">
-                                <label class="col-12 form-check-label mb-4" for="info">Category</label>
-                                @foreach($categories as $category)
-                                    <div class="form-group col-2 p-4">
-                                        <input type="checkbox" class="form-check-input" value="{{$category->id}}" name="category[]{{$category->id}}" id="category_{{$category->id}}">
-                                        <label class="form-check-label text-primary" for="category_{{$category->id}}">{{$category->name}}</label>
-                                    </div>
-                                @endforeach
-                                    <input type="hidden" value="">
 
+                            <div class="form-group">
+                                <select id="choices-multiple-remove-button" name="category[]" placeholder="Select category" multiple>
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
+}
+                                </select>
                             </div>
 
                             <div class="form-group row">
@@ -151,6 +154,16 @@
 
                             </div>
 
+                            <div class="form-group">
+                                <select class="form-control choices__input" data-trigger="" name="choices-single-default" id="choices-single-default" placeholder="This is a search placeholder" hidden="" tabindex="-1" data-choice="active">
+                                    <option value="Choice 1">Choice 1</option>
+                                    <option value="Choice 1">Choice 2</option>
+                                    <option value="Choice 1">Choice 3</option>
+                                    <option value="Choice 1">Choice 4</option>
+                                    <option value="Choice 1">Choice 5</option>
+                                </select>
+                            </div>
+
                             <button type="submit" class="btn btn-primary px-lg-5 float-left">Save</button>
                         </form>
                     </div>
@@ -162,6 +175,7 @@
 
                 </div>
                 <div class="row">
+
 {{--                    <div class="progress col-12 mt-5">--}}
 {{--                        <div class="bar" ></div >--}}
 {{--                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>--}}
@@ -169,6 +183,12 @@
                 </div>
             </div>
         </main>
+
+        <div class="row d-flex justify-content-center mt-100">
+            <div class="col-md-6">
+
+            </div>
+        </div>
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid">
                 <div class="d-flex align-items-center justify-content-between small">
@@ -187,16 +207,26 @@
 @endsection
 
 @section('custom_js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.js"></script>
+
 
 
 
     <script>
+        var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+            removeItemButton: true,
+            maxItemCount:10,
+            searchResultLimit:-1,
+            renderChoiceLimit:-1
+        });
+        var singleDefault = new Choices('.single-select', {
+
+        });
+
+
 
         $('#description').summernote({
             toolbar: [
-                // [groupName, [list of button]]
-                // ['style', ['bold', 'italic', 'underline', 'clear']],
+
                 ['font', ['strikethrough', 'superscript', 'subscript']],
                 ['fontsize', ['fontsize']],
                 ['color', ['color']],
@@ -231,11 +261,6 @@
                     },
                     complete: function(data) {
 
-                            // console.log(data);
-
-
-                        // alert(data.message);
-                        // window.location.reload;
                     },
                     success: function (data) {
                        var dt = JSON.parse(data);
@@ -266,25 +291,6 @@
         });
 
 
-        // $("#token-field").tokenInput([
-        //     {id: 7, name: "Ruby"},
-        //     {id: 11, name: "Python"},
-        //     {id: 13, name: "JavaScript"},
-        //     {id: 17, name: "ActionScript"},
-        //     {id: 19, name: "Scheme"},
-        //     {id: 23, name: "Lisp"},
-        //     {id: 29, name: "C#"},
-        //     {id: 31, name: "Fortran"},
-        //     {id: 37, name: "Visual Basic"},
-        //     {id: 41, name: "C"},
-        //     {id: 43, name: "C++"},
-        //     {id: 47, name: "Java"}
-        // ]);
-
-
-        // $('#token-field').tokenfield('setTokens', [{ value: "blue", label: "Blau" }, { value: "red", label: "Rot" }]);
-
-        // $('#token-field').tokenfield();
 
         $('#is_movie_series').change(function () {
             if(this.checked) {

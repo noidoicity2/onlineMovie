@@ -16,7 +16,7 @@ class Director extends Model
     use SluggableScopeHelpers ;
     protected   $table          =   "director";
     public      $timestamps     =   false;
-    protected $fillable = ['name'	,'description'	];
+    protected $fillable = ['name' , 'img'	,'description' , 'slug'	];
 
     /**
      * @return array

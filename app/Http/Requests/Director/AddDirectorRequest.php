@@ -13,7 +13,7 @@ class AddDirectorRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,11 @@ class AddDirectorRequest extends FormRequest
     {
         return [
             //
+            'name'          =>    'required|max:50|min:2|unique:category',
+            'img'   => 'required',
+            'slug'        =>      'max:50',
+            'description'   =>      'max:1000|required'
+
         ];
     }
 }

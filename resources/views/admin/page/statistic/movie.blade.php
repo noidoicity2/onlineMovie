@@ -73,7 +73,7 @@
                                         <td>{{$movie->id}}</td>
                                         <td>{{$movie->name}} </td>
                                         <td><img src="{{$movie->img}}" style="height: 100px" alt=""> </td>
-                                        <td><a href="{{route('movie_statistic_detail' , ['id' => $movie->id])}}">{{$movie->view_count}}</a> </td>
+                                        <td><a href="{{route('movie_statistic_detail' , ['id' => $movie->id])}}">{{$movie->movie_views_count}}</a> </td>
                                         <td>{{$movie->favorite_movies_count}}</td>
 
                                     </tr>

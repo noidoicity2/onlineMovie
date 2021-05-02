@@ -11,7 +11,7 @@
     <title>Dashboard - SB Admin</title>
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('/css/tagsinput.css')}}">
@@ -53,6 +53,9 @@
 {{--<script src="{{asset('/js/plugins/jquery.tokeninput.js')}}"></script>--}}
 
 <script src="{{asset('/js/plugins/tagsinput.js')}}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
 <script src="{{asset('js/Category.js')}}"></script>
 @section('custom_js')
 @show

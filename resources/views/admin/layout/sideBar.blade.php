@@ -22,19 +22,48 @@
                 </div>
 {{--                end category--}}
 
+                {{--                <div class="sb-sidenav-menu-heading">Interface</div>--}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#director_nav" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                    Director
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                {{--                director--}}
+                <div class="collapse" id="director_nav" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{route('add_director')}}">Add new</a>
+                        <a class="nav-link" href="{{route('list_category')}}">All director</a>
+                    </nav>
+                </div>
+                {{--                end director--}}
+{{--actor--}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#actor_nav" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                    Actor
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+
+                <div class="collapse" id="actor_nav" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{route('add_category')}}">Add new</a>
+                        <a class="nav-link" href="{{route('list_category')}}">All director</a>
+                    </nav>
+                </div>
+                {{--                end actor--}}
+
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#statistic" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                     Statistic
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                {{--                category--}}
+                {{--                statistic--}}
                 <div class="collapse" id="statistic" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="{{route('transaction_statistic')}}">Transaction statistic</a>
                         <a class="nav-link" href="{{route('movie_statistic')}}">Movie statistic</a>
                     </nav>
                 </div>
-                {{--                end category--}}
+                {{--                end statistic--}}
 
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                     <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>

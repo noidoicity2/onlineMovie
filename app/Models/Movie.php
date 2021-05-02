@@ -65,6 +65,9 @@ class Movie extends Model
     public function movieRatings() {
         return $this->hasMany(MovieRating::class, 'movie_id'  , 'id');
     }
+    public function movieViews() {
+        return $this->hasMany(MovieView::class, 'movie_id'  , 'id');
+    }
 
 //    public function getEpisodeCountAttribute()  {
 //        return $this->episodes()->count() ;

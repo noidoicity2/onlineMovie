@@ -69,8 +69,11 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
     Route::get('/seasons', function () {
         // Matches The "/admin/users" URL
     });
-    Route::get('/actors', function () {
+    Route::prefix('director')->group(function () {
         // Matches The "/admin/users" URL
+        Route::get('/add', [DirectorController::class , 'AddDirector'])->name("add_director");
+        Route::post('postAddDirector', [DirectorController::class , 'PostAddDirector'])->name("post_add_director");
+
     });
     Route::get('/roles', function () {
         // Matches The "/admin/users" URL
@@ -157,18 +160,7 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
 
     });
 
-    Route::prefix('director')->group(function () {
-        Route::get('/add', function () {
-            return view("admin.page.Director.addDirector");
-        })->name('add_Director');
-        Route::get('listDirector' , [DirectorController::class , 'all'])->name('list_Director');
-        Route::get('/', [DirectorController::class , 'all']);
 
-        Route::post('postAdd' , [DirectorController::class, 'PostAddDirector'])->name('post_add_director');
-        Route::post('postDelete' , [DirectorController::class, 'PostDeleteDirector'])->name('post_delete_director');
-        Route::post('postEdit' , [DirectorController::class, 'PostEditDirector'])->name('post_edit_director');
-
-    });
 
 
 });

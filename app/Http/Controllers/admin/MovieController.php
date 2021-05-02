@@ -54,6 +54,7 @@ class MovieController extends Controller
     public function PostAddMovie(AddMovieRequest $request) {
 
         $movie = $request->all() ;
+//        return $movie;
         $slug = Str::slug($request->name);
         $imgPath    =   FIleUploadServices::UploadImage($request->file('img') ,$slug);
         $bgPath     =   FIleUploadServices::UploadImage($request->file('bg_img') , $slug);
@@ -73,7 +74,8 @@ class MovieController extends Controller
 
         $movie['description']   = htmlentities($request->description);
 
-        $categories = $movie['category'];
+        $categories = $movie['category'] ;
+//        return $categories;
         $insert_data =  array();
         $test = array();
         DB::beginTransaction();
