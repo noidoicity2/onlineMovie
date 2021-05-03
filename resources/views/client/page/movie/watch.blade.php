@@ -141,7 +141,7 @@
         // }
 
         $("#btn-bookmark").click(function () {
-             elapsed = player.getPosition();
+             elapsed = jwplayer().getPosition();
             console.log(elapsed);
         });
         $("#btn-skip-intro").click(function () {
@@ -154,7 +154,7 @@
         $('#btn-bookmark').click(function(e) {
             e.preventDefault();
             // $("#alert-msg").toggle(500)
-            elapsed = player.getPosition();
+            elapsed = jwplayer().getPosition();
             $.ajax({
                 url: '{{route('add_to_bookmark')}}',
                 type: 'POST',

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Movie\AddMovieRequest;
 use App\Jobs\HandleUploadEpisode;
 use App\Jobs\HandleVideoUpload;
+use App\Models\Actor;
+use App\Models\MovieActor;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\DirectorRepositoryInterface;
@@ -75,17 +77,23 @@ class MovieController extends Controller
         $movie['description']   = htmlentities($request->description);
 
         $categories = $movie['category'] ;
-//        return $categories;
-        $insert_data =  array();
+        $actors = $movie['actor'] ;
+
+        $insert_categories =  array();
+        $insert_actor = array();
         $test = array();
         DB::beginTransaction();
         try {
             $created_movie = $this->movieRepository->create($movie);
             for ($i =0 ; $i <count($categories) ;$i ++) {
-                array_push($insert_data , array('category_id' => $categories[$i] , 'movie_id'=>$created_movie->id) );
+                array_push($insert_categories , array('category_id' => $categories[$i] , 'movie_id'=>$created_movie->id) );
+            }
+            for ($i =0 ; $i <count($actors) ;$i ++) {
+                array_push($insert_actor , array('actor_id' => $actors[$i] , 'movie_id'=>$created_movie->id) );
             }
 
-            $this->movieCategoryRepository->insert($insert_data);
+            $this->movieCategoryRepository->insert($insert_categories);
+            MovieActor::insert($insert_actor);
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -136,11 +144,13 @@ class MovieController extends Controller
         $countries = $this->countryRepository->getCountryForSelect()->get();
         $categories = $this->categoryRepository->getCategoryForSelect()->get();
         $directors = $this->directorRepository->all();
+        $actor = Actor::all();
 
         return view('admin.page.movie.addMovie', [
             'countries'     => $countries,
             'categories'    => $categories,
             'directors'     => $directors,
+            'actors' => $actor,
 
 
         ]);

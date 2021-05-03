@@ -29,7 +29,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-12 col-md-12">
-                        <form method="post" action="{{route("post_add_director")}}" enctype="multipart/form-data">
+                        <form method="post" action="{{route("post_add_actor")}}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
                                 <div class="col-sm-6">
@@ -43,16 +43,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="">Image</label>
-                                <input type="file" id="img" name="img" class="form-control-file" accept="image/*">
+                                <label for=""Image></label>
+                                <input type="file" id="img" onchange="previewFile(this)" name="img" class="form-control-file">
+                                <img id="previewImg" src="" alt="">
                             </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label for="inputAddressLine1">Description</label>
-                                    <textarea name="description" id="description" class="form-control" id="description" placeholder="Enter Description">
-
-                                    </textarea>
-                                </div>
+                            <div class="form-group">
+                                <label for="info">Description</label>
+                                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
 
                             </div>
 
@@ -82,3 +79,38 @@
 
 @endsection
 
+@section('custom_js')
+    <script>
+        $('#description').summernote({
+            toolbar: [
+
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['insert' , ['picture' , 'link' , 'video' , 'table']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ] ,
+            lang: 'en',
+            onImageUpload: function(files, editor, welEditable) {
+                sendFile(files[0], editor, welEditable);
+            }
+
+        });
+
+        function previewFile(input){
+            var file = $("#img").get(0).files[0];
+
+            if(file){
+                var reader = new FileReader();
+
+                reader.onload = function(){
+                    $("#previewImg").attr("src", reader.result);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+@endsection

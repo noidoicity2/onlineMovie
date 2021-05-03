@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\ActorController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CountryController;
@@ -63,9 +64,7 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
     Route::get('/movies', function () {
         // Matches The "/admin/users" URL
     });
-    Route::get('/actors', function () {
-        // Matches The "/admin/users" URL
-    });
+
     Route::get('/seasons', function () {
         // Matches The "/admin/users" URL
     });
@@ -80,6 +79,19 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
         Route::get('listDirectors', [DirectorController::class , 'ListDirector'])->name("list_director");
 
     });
+
+    Route::prefix('actor')->group(function () {
+        // Matches The "/admin/users" URL
+        Route::get('/add', [ActorController::class , 'Add'])->name("add_actor");
+        Route::get('/edit/{id}', [ActorController::class , 'Edit'])->name("edit_actor");
+        Route::post('postAddActor', [ActorController::class , 'PostAddActor'])->name("post_add_actor");
+        Route::post('postDeleteActor', [ActorController::class , 'PostDelete'])->name("post_delete_actor");
+        Route::post('postEditActor', [ActorController::class , 'PostEditActor'])->name("post_edit_actor");
+
+        Route::get('listActors', [ActorController::class , 'ListActor'])->name("list_actor");
+
+    });
+
     Route::get('/roles', function () {
         // Matches The "/admin/users" URL
     });

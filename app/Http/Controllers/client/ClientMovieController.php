@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Actor;
 use App\Models\BookMark;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Episode;
 use App\Models\Favorite;
 use App\Models\Movie;
+use App\Models\MovieActor;
 use App\Models\MovieCategory;
 use App\Models\MovieComment;
 use App\Models\MovieRating;
@@ -57,6 +59,7 @@ class ClientMovieController extends Controller
 
         $movie  = $this->movieRepository->get($id);
         $categories = MovieCategory::with('category')->where('movie_id' , $id)->get();
+        $actors = MovieActor::with('actor')->where('movie_id' , $id)->get();
         if($movie->is_free == 0 && !Auth::check()) {
             return view('Share.upgradeVip');
         }
@@ -101,7 +104,7 @@ class ClientMovieController extends Controller
         return view('client.page.movie.detail' , [
             'movie'=>$movie,
             'episode' => $episodes,
-            'categories'=>$this->categories,
+//            'categories'=>$this->categories,
             'countries'   => $this->countries,
             'rating_point' => $rating_point,
             'avg_rating' => $avg_rating,
@@ -109,6 +112,7 @@ class ClientMovieController extends Controller
             'comments' => $comments,
             'rating_count' => $rating_count,
             'categories' => $categories,
+            'actors' => $actors
 
         ]);
     }

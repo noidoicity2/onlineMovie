@@ -72,6 +72,10 @@ class Movie extends Model
         return $this->belongsTo(Country::class , 'country_id' , 'id');
     }
 
+    public function director() {
+        return $this->belongsTo(Director::class , 'director_id' , 'id');
+    }
+
 //    public function getEpisodeCountAttribute()  {
 //        return $this->episodes()->count() ;
 //    }

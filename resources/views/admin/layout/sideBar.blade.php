@@ -45,8 +45,8 @@
 
                 <div class="collapse" id="actor_nav" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{route('add_category')}}">Add new</a>
-                        <a class="nav-link" href="{{route('list_category')}}">All director</a>
+                        <a class="nav-link" href="{{route('add_actor')}}">Add new</a>
+                        <a class="nav-link" href="{{route('list_actor')}}">All actor</a>
                     </nav>
                 </div>
                 {{--                end actor--}}

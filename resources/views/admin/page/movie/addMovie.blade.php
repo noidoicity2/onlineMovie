@@ -121,9 +121,19 @@
 
                             <div class="form-group">
                                 <label for="">Category</label>
-                                <select id="choices-multiple-remove-button" name="category[]" placeholder="Select category" multiple>
+                                <select id="" name="category[]" class="multi-tag" placeholder="Select category" multiple>
                                     @foreach($categories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
+
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Actor</label>
+                                <select id="" class="multi-tag" name="actor[]" placeholder="Select Actor" multiple>
+                                    @foreach($actors as $actor)
+                                        <option value="{{$actor->id}}">{{$actor->name}}</option>
                                     @endforeach
 
                                 </select>
@@ -214,11 +224,11 @@
 
 
     <script>
-        var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+        var multipleCancelButton = new Choices('.multi-tag', {
             removeItemButton: true,
-            maxItemCount:10,
-            searchResultLimit:-1,
-            renderChoiceLimit:-1
+            maxItemCount:-1,
+            searchResultLimit:5,
+            renderChoiceLimit:5
         });
         var singleDefault = new Choices('.single-select', {
 

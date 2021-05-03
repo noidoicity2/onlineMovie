@@ -36,14 +36,14 @@
                 <div class="col-12 col-sm-6 right-detail">
                     <h1 class="film-title">{{$movie->name}}</h1>
                     <h2 class="en-title">{{$movie->en_name}}</h2>
-                    <p class="detail-item">{{$movie->director_id}}</p>
+                    <p class="detail-item">Diretor: {{$movie->director->name ?? "unknown"}}</p>
                     <p class="detail-item">Quality: {{$movie->quality_label}}</p>
-                    <p class="detail-item">Actor :</p>
+                    <p class="detail-item">Actor : @foreach($actors as $actor) <a href="">{{$actor->actor->name}}</a> , @endforeach</p>
                     <p class="detail-item">Genre: @foreach($categories as $category) <a href="{{route('get_movie_by_category' ,['slug' => $category->category->slug , 'id' =>$category->category_id])}}">{{$category->category->name}}</a> , @endforeach</p>
                     <p class="detail-item">Duration: {{$movie->duration}} minutes</p>
                     <p class="detail-item">Nation: {{$movie->country->name ?? ""}}</p>
                     <p class="detail-item">Total view: {{$movie->view_count}}</p>
-                    <p class="detail-item">Publish date: {{$movie->created_at}}</p>
+                    <p class="detail-item">Publish date: {{date('d-m-Y', strtotime($movie->created_at))}}</p>
                     <p class="detail-item">Total Episode: {{$movie->total_episode}}</p>
                     <p class="detail-item">List episode {{$movie->episodes->count()}}:</p>
                    <div>
