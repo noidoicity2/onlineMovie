@@ -47,6 +47,7 @@ class AddMovieRequest extends FormRequest
 
 
             ],
+            'category' => 'required'
 
 
 

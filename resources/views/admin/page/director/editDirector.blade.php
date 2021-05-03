@@ -27,24 +27,30 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-12 col-md-12">
-                        <form method="post" action="{{route("post_add_category")}}">
+                        <form method="post" action="{{route("post_edit_director")}}" enctype="multipart/form-data">
                             @csrf
+                            <input type="hidden" name="id" value="{{$director->id}}">
                             <div class="form-group row">
                                 <div class="col-sm-6">
-                                    <label for="inputFirstname">Category name</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter category name">
+                                    <label for="inputFirstname">Director name</label>
+                                    <input type="text" class="form-control" value="{{$director->name}}" name="name" id="name" placeholder="Enter director name">
                                 </div>
+
                                 <div class="col-sm-6">
                                     <label for="inputLastname">Slug (seo)</label>
-                                    <input type="text" class="form-control" name="slug" id="slug" placeholder="Enter slug (optional)">
+                                    <input type="text" class="form-control" name="slug" value="{{$director->slug}}" id="slug" placeholder="Enter slug (optional)">
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label for=""Image></label>
+                                <input type="file" id="img" onchange="previewFile(this)" name="img" class="form-control-file">
+                                <img id="previewImg" src="{{$director->img}}" alt="">
+
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-12">
                                     <label for="inputAddressLine1">Description</label>
-                                    <textarea name="description" id="description" class="form-control" id="description" placeholder="Enter Description">
-
-                                    </textarea>
+                                    <textarea name="description" id="description"   class="form-control" id="description" placeholder="Enter Description">{{$director->description}}</textarea>
                                 </div>
 
                             </div>
@@ -75,3 +81,22 @@
 
 @endsection
 
+@section('custom_js')
+
+    <script>
+        // preview image
+        function previewFile(input){
+            var file = $("#img").get(0).files[0];
+
+            if(file){
+                var reader = new FileReader();
+
+                reader.onload = function(){
+                    $("#previewImg").attr("src", reader.result);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+@endsection

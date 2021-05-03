@@ -56,7 +56,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
-<script src="{{asset('js/Category.js')}}"></script>
+{{--<script src="{{asset('js/Category.js')}}"></script>--}}
 @section('custom_js')
 @show
 

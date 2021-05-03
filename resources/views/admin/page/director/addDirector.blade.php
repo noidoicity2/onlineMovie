@@ -44,7 +44,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Image</label>
-                                <input type="file" name="img" class="form-control-file" accept="image/*">
+                                <input type="file" id="img" name="img" class="form-control-file" accept="image/*">
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-12">

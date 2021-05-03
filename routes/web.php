@@ -71,8 +71,13 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
     });
     Route::prefix('director')->group(function () {
         // Matches The "/admin/users" URL
-        Route::get('/add', [DirectorController::class , 'AddDirector'])->name("add_director");
+        Route::get('/add', [DirectorController::class , 'Add'])->name("add_director");
+        Route::get('/edit/{id}', [DirectorController::class , 'Edit'])->name("edit_director");
         Route::post('postAddDirector', [DirectorController::class , 'PostAddDirector'])->name("post_add_director");
+        Route::post('postDeleteDirector', [DirectorController::class , 'PostDelete'])->name("post_delete_director");
+        Route::post('postEditDirector', [DirectorController::class , 'PostEditDirector'])->name("post_edit_director");
+
+        Route::get('listDirectors', [DirectorController::class , 'ListDirector'])->name("list_director");
 
     });
     Route::get('/roles', function () {

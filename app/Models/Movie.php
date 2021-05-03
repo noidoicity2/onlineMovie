@@ -21,7 +21,7 @@ class Movie extends Model
     protected $table = "movie";
     public      $timestamps     =   false;
     protected $fillable = [
-        'name',	'en_name'	,'img', 'intro_end'	,'bg_img'	,'description'	,'country_id', 'intro_end' ,
+        'name',	'en_name', 'quality_label'	,'img', 'intro_end'	,'bg_img'	,'description'	,'country_id', 'intro_end' ,
         'duration',	'view_count'	,'category_id'	,'slug'	,'imdb',	'is_movie18', 'director_id',
         'is_finished'	,'is_movie_series'	,'published_at',	'is_on_cinema',	'is_free' , 'source_url','hls_url', 'low_hls_url',
         'created_at'
@@ -67,6 +67,9 @@ class Movie extends Model
     }
     public function movieViews() {
         return $this->hasMany(MovieView::class, 'movie_id'  , 'id');
+    }
+    public function  country () {
+        return $this->belongsTo(Country::class , 'country_id' , 'id');
     }
 
 //    public function getEpisodeCountAttribute()  {

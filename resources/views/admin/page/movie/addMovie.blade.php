@@ -62,7 +62,7 @@
 {{--                                        <option value="{{$director->id}}">{{$director->name}}</option>--}}
 {{--                                    @endforeach--}}
 
-{{--                                </select>--}}
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="published_at">Publish at</label>
@@ -89,27 +89,28 @@
                                 <input name="is_free" id="is_free" type="checkbox">
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group ">
                                 <label for="country">Country</label>
                                 <select class="single-select form-control choices__input"  data-trigger=""  name="country" id="country" placeholder="This is a search placeholder" hidden="" tabindex="-1" data-choice="active">
                                     @foreach($countries as $country)
                                         <option value="{{$country->id}}">{{$country->name}}
                                         </option>
                                     @endforeach
+                                </select>
 
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group ">
                                 <label for="slug">Slug</label>
                                 <input type="text" class="form-control" name="slug" id="slug" placeholder="Enter slug for SEO">
                             </div>
                             <div class="form-group">
                                 <label for="imdb">IMDB</label>
-                                <input type="number" class="form-control" min="1" max="10" name="imdb" id="slug" placeholder="Enter IMDB">
+                                <input type="number" class="form-control" min="1" max="10" name="imdb" value="5" id="imdb" placeholder="Enter IMDB">
                             </div>
                             <div class="form-group">
                                 <label for="intro_end">Intro end at</label>
-                                <input type="number" class="form-control" name="intro_end" id="intro_end" placeholder="Enter second for intro">
+                                <input type="number" class="form-control" name="intro_end" value="120" id="intro_end" placeholder="Enter second for intro">
                             </div>
 
                             <div class="form-group">
@@ -119,11 +120,12 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="">Category</label>
                                 <select id="choices-multiple-remove-button" name="category[]" placeholder="Select category" multiple>
                                     @foreach($categories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach
-}
+
                                 </select>
                             </div>
 

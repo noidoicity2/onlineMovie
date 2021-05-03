@@ -9,6 +9,7 @@ use App\Models\Country;
 use App\Models\Episode;
 use App\Models\Favorite;
 use App\Models\Movie;
+use App\Models\MovieCategory;
 use App\Models\MovieComment;
 use App\Models\MovieRating;
 use App\Models\RequestMovie;
@@ -55,6 +56,7 @@ class ClientMovieController extends Controller
     public function GetMovieBySlug($slug =null , $id = null) {
 
         $movie  = $this->movieRepository->get($id);
+        $categories = MovieCategory::with('category')->where('movie_id' , $id)->get();
         if($movie->is_free == 0 && !Auth::check()) {
             return view('Share.upgradeVip');
         }
@@ -105,7 +107,8 @@ class ClientMovieController extends Controller
             'avg_rating' => $avg_rating,
             'is_liked'  => $is_liked,
             'comments' => $comments,
-            'rating_count' => $rating_count
+            'rating_count' => $rating_count,
+            'categories' => $categories,
 
         ]);
     }

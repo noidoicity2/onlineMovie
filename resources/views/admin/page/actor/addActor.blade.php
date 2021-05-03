@@ -29,17 +29,22 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-12 col-md-12">
-                        <form method="post" action="{{route("post_add_category")}}">
+                        <form method="post" action="{{route("post_add_director")}}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
                                 <div class="col-sm-6">
-                                    <label for="inputFirstname">Category name</label>
+                                    <label for="inputFirstname">Actor name</label>
                                     <input type="text" class="form-control" name="name" id="name" placeholder="Enter category name">
                                 </div>
+
                                 <div class="col-sm-6">
                                     <label for="inputLastname">Slug (seo)</label>
                                     <input type="text" class="form-control" name="slug" id="slug" placeholder="Enter slug (optional)">
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Image</label>
+                                <input type="file" id="img" name="img" class="form-control-file" accept="image/*">
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-12">
@@ -76,3 +81,4 @@
 
 
 @endsection
+

@@ -144,6 +144,22 @@ a.film-item  {
 
     /*background-color: #4e555b;*/
 }
+.playing {
+    position: absolute;
+    color: #ffffff;
+    background-color: #C52020!important;
+    /*top: 50px;*/
+    bottom: 65px;
+    left: 0px;
+    height: 15px;
+    /*border-radius: 5px;*/
+    padding: 4px;
+    /*text-align: center;*/
+    /*text-transform: uppercase;*/
+
+    /*height: 15px; background-color: #c69500*/
+}
+
 a.film-item:hover  {
     outline: 10px solid #fff601;
     /*position: absolute;*/
@@ -300,6 +316,9 @@ a.film-item:hover  {
     display: block;
     width: 100%;
 }
+
+
+
 @media screen and (max-width: 1308px) {
     .nav-link{
         /*font-size: 15px;*/

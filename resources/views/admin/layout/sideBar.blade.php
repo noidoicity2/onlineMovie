@@ -32,7 +32,7 @@
                 <div class="collapse" id="director_nav" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="{{route('add_director')}}">Add new</a>
-                        <a class="nav-link" href="{{route('list_category')}}">All director</a>
+                        <a class="nav-link" href="{{route('list_director')}}">All director</a>
                     </nav>
                 </div>
                 {{--                end director--}}

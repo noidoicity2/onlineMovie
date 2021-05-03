@@ -7,21 +7,19 @@ use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MovieCategory extends Model
+class MovieActor extends Model
 {
     use HasFactory;
 
-
-
-    protected $table = "movie_category";
+    protected   $table          =   "movie_actor";
     public      $timestamps     =   false;
-    protected $fillable= ['category_id' , 'movie_id'];
-    public function movie() {
-        return $this->belongsTo(Movie::class , 'movie_id' ,'id');
-    }
-    public function category() {
-        return $this->belongsTo(Category::class , 'category_id' ,'id');
-    }
+    protected $fillable = ['movie_id' , 'actor_id'	];
 
+    public function movie() {
+        return $this->belongsTo(Movie::class , 'movie_id' , 'id');
+    }
+    public function actor() {
+        return $this->belongsTo(Actor::class , 'actor_id' , 'id');
+    }
 
 }
