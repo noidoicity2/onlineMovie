@@ -27,7 +27,7 @@ class Movie extends Model
         'created_at'
     ];
     public function scopeNewestMovie($query) {
-        return $query->select(['id','name' , 'is_free', 'en_name' ,'is_movie_series' , 'img' , 'bg_img' , 'published_at','total_episode' , 'slug'])->withCount('episodes')->orderByDesc('created_at');
+        return $query->select(['id','name' , 'is_free', 'quality_label',  'en_name' ,'is_movie_series' , 'img' , 'bg_img' , 'published_at','total_episode' , 'slug'])->withCount('episodes')->orderByDesc('created_at');
     }
 
     public function sluggable(): array
@@ -64,6 +64,9 @@ class Movie extends Model
     }
     public function movieRatings() {
         return $this->hasMany(MovieRating::class, 'movie_id'  , 'id');
+    }
+    public function movieActors() {
+        return $this->hasMany(MovieActor::class, 'movie_id'  , 'id');
     }
     public function movieViews() {
         return $this->hasMany(MovieView::class, 'movie_id'  , 'id');

@@ -244,6 +244,13 @@ Route::prefix('countries')->group(function() {
 
 });
 
+Route::prefix('actors')->group(function() {
+//    Route::get('/' , [ClientMovieController::class, 'GetAllContries'])->name('get_all_country)');
+    Route::get('/{slug}_{id}' , [ClientMovieController::class, 'GetMovieByActor'])->name('get_movie_by_actor');
+
+
+});
+
 Route::get('/storage/image/{slug}/{img}')->middleware(testRestrict::class);
 DB::listen(function($sql) {
     Log::info($sql->sql);

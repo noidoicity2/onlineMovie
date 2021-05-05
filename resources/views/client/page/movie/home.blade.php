@@ -59,9 +59,11 @@
                         </a>
                     </div>
                 </div>
-                <h2>Newest Movie</h2>
+
                 <div class="row" >
-                    @foreach($new_movies as $movie )
+                    <h2 class="col-12"><a class="text-warning" href="">Latest movie</a></h2>
+
+                @foreach($new_movies as $movie )
                         <div class="col-md-4 col-lg-3  col-sm-6">
 
                             <a href="{{route('get_movie_by_slug',['slug' => $movie->slug , 'id' => $movie->id])}}" class="film-item    @unless($movie->is_free) film-vip-item @endunless ">
@@ -69,7 +71,7 @@
                                 @if($movie->is_movie_series == 1)
                                     <div class="total-episode">{{$movie->episodes_count}}/ {{$movie->total_episode}} episodes</div>
                                 @else
-                                    <div class="ribbon">full HD</div>
+                                    <div class="ribbon">{{$movie->quality_label ?? "Full HD"}}</div>
                                 @endif
 
                             @if($movie->is_free)
@@ -90,14 +92,15 @@
 
 
                 </div>
-                <h2>Recommend for  you</h2>
+
                 <div class="row" >
+                    <h2 class="col-12"><a class="text-warning" href="">Recommended for  you</a></h2>
                     @foreach($recommendedMovies as $recommended )
                         <div class="col-md-4 col-lg-3  col-sm-6">
 
                             <a href="{{route('get_movie_by_slug',['slug' => $recommended->slug , 'id' => $recommended->id])}}" class="film-item">
                                 @if($recommended->is_movie_series == 1)
-                                    <div class="ribbon">{{$recommended->episodes_count}}</div>
+                                    <div class="total-episode">{{$movie->episodes_count}}/ {{$movie->total_episode}} episodes</div>
                                 @else
                                     <div class="ribbon">full HD</div>
                                 @endif
@@ -112,7 +115,7 @@
                                 <img loading="lazy" src="{{$recommended->img}}" alt="">
 
                                 <p>{{$recommended->name}}</p>
-                                {{--                                <p>free {{$movie->is_free}}</p>--}}
+                                                                <p>free {{$movie->is_free}}</p>
                                 <span>{{$recommended->en_name}}</span>
                             </a>
                         </div>
@@ -122,6 +125,25 @@
 
 
                 </div>
+                <div class="row mb-5">
+                    <h2 class="col-12"><a class="text-warning" href="">Featured actor</a></h2>
+                    <div class="owl-carousel owl-theme " >
+
+                        @foreach($featured_actors as $actor )
+                            <div class="actor">
+                                <a href="{{route('get_movie_by_actor' , ['slug' => $actor->slug, 'id' => $actor->id])}}" class="actor-link">
+                                    <img src="{{$actor->img}}" class="actor-img  img-fluid" alt="">
+                                    <p class="text-center text-warning">{{$actor->name}}</p>
+                                </a>
+
+
+                            </div>
+                        @endforeach
+                    </div>
+
+                </div>
+
+
 
             </div>
 
@@ -137,7 +159,7 @@
                                     <li>
 
                                         <a class="img-link"  href="{{route('get_movie_by_slug',['slug' => $mostViewMovie->slug , 'id' => $mostViewMovie->id])}}">
-                                            <img loading="lazy" class="small-img" src="{{$mostViewMovie->img}}" alt="">
+                                            <img loading="lazy" class="owl-lazy small-img" src="{{$mostViewMovie->img}}" alt="">
                                             <div class="name-rating">
                                                 <div class="big-name">{{$mostViewMovie->name}}</div>
                                                 <div class="small-name">
@@ -165,4 +187,46 @@
         </div>
 
 
+@endsection
+
+@section('custom_js')
+            <script>
+                $(document).ready(function(){
+                    var owl = $('.owl-carousel');
+
+                    owl.owlCarousel({
+                        items:4,
+                        lazyLoad: true,
+                        loop:true,
+                        margin:40,
+                        autoplay:true,
+                        // autoWidth: true,
+                        // autoHeight:true,
+                        autoplayTimeout:800,
+                        autoplayHoverPause:true,
+                        nav: true,
+                        navText:[`<div class='nav-btn prev-slide'><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+                        </div>`,`<div class='nav-btn next-slide'><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>`],
+                        responsiveClass:true,
+                        responsive:{
+                            0:{
+                                items:2,
+                                nav:true
+                            },
+                            600:{
+                                items:3,
+                                nav:false
+                            },
+                            1000:{
+                                items:5,
+                                nav:true,
+                                loop:true,
+                                navText:[`<div class='nav-btn prev-slide'><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+                        </div>`,`<div class='nav-btn next-slide'><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>`],
+                            }
+                        }
+                    });
+
+                });
+            </script>
 @endsection

@@ -57,10 +57,6 @@
                                         <option value="{{$director->id}}">{{$director->name}}
                                         </option>
                                     @endforeach
-{{--                                <select class="form-control" name="director_id" id="director_id">--}}
-{{--                                    @foreach($directors as $director)--}}
-{{--                                        <option value="{{$director->id}}">{{$director->name}}</option>--}}
-{{--                                    @endforeach--}}
 
                                 </select>
                             </div>
@@ -71,15 +67,20 @@
                             <div class="form-group row">
                                 <div class="form-group col-6">
                                     <label for="img">Choose image</label>
-                                    <input type="file"  accept="image/*" class="form-control-file" value="{{old('img')}}" name="img" id="img">
+                                    <input type="file" onchange="previewImg(this)"  accept="image/*" class="form-control-file" value="{{old('img')}}" name="img" id="img">
+                                    <img style="max-height: 500px" src="" id="preview-img" alt="">
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="bg_img">Choose back ground image</label>
-                                    <input type="file" accept="image/*" ma="" class="form-control-file" name="bg_img" id="bg_img">
+                                    <input type="file" accept="image/*" onchange="previewBg(this)"  class="form-control-file" name="bg_img" id="bg_img">
+                                    <img style="max-height: 500px" src="" id="preview-bg" alt="">
                                 </div>
                                 <div class="form-group col-12">
                                     <label for="source_url">Choose video source</label>
-                                    <input type="file"  accept="video/*" class="form-control-file" name="source_url" id="source_url">
+                                    <input type="file" onchange=""  accept="video/*" class="form-control-file" name="source_url" id="source_url">
+
+{{--                                    <video style="max-height: 200px" id="film-preview" src=""></video>--}}
+
 
                                 </div>
 
@@ -224,6 +225,33 @@
 
 
     <script>
+        function previewImg(input){
+            var file = $("#img").get(0).files[0];
+
+            if(file){
+                var reader = new FileReader();
+
+                reader.onload = function(){
+                    $("#preview-img").attr("src", reader.result);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        }
+        function previewBg(input){
+            var file = $("#bg_img").get(0).files[0];
+
+            if(file){
+                var reader = new FileReader();
+
+                reader.onload = function(){
+                    $("#preview-bg").attr("src", reader.result);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        }
+
         var multipleCancelButton = new Choices('.multi-tag', {
             removeItemButton: true,
             maxItemCount:-1,
@@ -233,6 +261,8 @@
         var singleDefault = new Choices('.single-select', {
 
         });
+
+
 
 
 

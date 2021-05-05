@@ -18,7 +18,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" />
 {{--    <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">--}}
 {{--    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />--}}
+    <link rel="stylesheet" href="{{asset('/vendor/owl/assets/owl.carousel.css')}}">
 
+    <link rel="stylesheet" href="{{asset('/vendor/owl/assets/owl.carousel.min.css')}}">
     <!-- Custom styles for this template -->
     <link href="/css/app.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('/css/movie.detail.css')}}">
@@ -65,6 +67,8 @@
 
 {{--<script src="https://cdn.jwplayer.com/libraries/0mpSUyh4.js"></script>--}}
 <script src="https://cdn.jwplayer.com/libraries/KVxscqKF.js"></script>
+<script src="{{asset('/vendor/owl/owl.carousel.min.js')}}"></script>
+<script src="{{asset('/vendor/owl/assets/owl.theme.default.min.css')}}"></script>
 
 
 @section('custom_js')

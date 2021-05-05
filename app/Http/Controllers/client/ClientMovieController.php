@@ -129,6 +129,11 @@ class ClientMovieController extends Controller
         $movie = $this->movieRepository->get($id);
 //        $movie->source_url = URL::te
         Movie::find($id)->increment('view_count');
+        $bookmark = BookMark::where('movie_id' , $id)
+            ->where('user_id' , Auth::id())->first();
+//        return $bookmark;
+//        if($bookmark->count() ==0) $bookmark=
+
         $this->movieViewRepository->create([
             'movie_id' => $id,
             'user_id' => Auth::id(),
@@ -137,15 +142,17 @@ class ClientMovieController extends Controller
             return view ('client.page.movie.watchFree' , [
                 'movie' => $movie ,
                 'categories'=>$this->categories,
-//            'countries'   => $this->countries,
+
+
             ]);
         }
 
 
         return view ('client.page.movie.watch' , [
-           'movie' => $movie ,
+            'movie' => $movie ,
             'categories'=>$this->categories,
-//            'countries'   => $this->countries,
+            'bookmark' => $bookmark
+
         ]);
 
     }
@@ -208,7 +215,7 @@ class ClientMovieController extends Controller
     }
     public  function Favorite() {
 //        return "đá";
-        $favorite_movie = Favorite::where('user_id' , Auth::id())->with('movie' )->withCount('episodes')->paginate(8);
+        $favorite_movie = Favorite::where('user_id' , Auth::id())->with('movie' )->withCount('episodes')->latest()->paginate(8);
 //        return $favorite_movie;
 //        $favorite_movie  = Cache::remember('favorite')
 //     return $favorite_movie;
@@ -347,6 +354,18 @@ class ClientMovieController extends Controller
             'movies' => $movies,
         ]);
 
+    }
+    public function GetMovieByActor($slug = null , $id =null) {
+        $movies = Movie::whereHas('movieActors' , function ( $query) use ($id) {
+           $query->where('actor_id' , $id);
+
+        })->paginate(8);
+        $actor= Actor::find($id);
+//        return  $actor;
+        return view('client.page.movie.getMovieByActor' , [
+            'movies' => $movies,
+            'actor' => $actor
+        ]);
     }
     public function RequestMovie () {
 //        $movie =

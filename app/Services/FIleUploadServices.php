@@ -34,14 +34,14 @@ namespace App\Services;
      public static function UploadVideo($file , $name  ) {
          $extension = $file->extension();
 //       return $file->storeAs('uploads', $img_name, 'public');
-         return $file->storeAs('videos/'.$name, $name.'.'.$extension , 'public');
+         return $file->storeAs('videos/'.$name, "video".'.'.$extension , 'public');
 
      }
 
      public static function UploadEpisode($file , $name ,$episodeName ) {
          $extension = $file->extension();
 //       return $file->storeAs('uploads', $img_name, 'public');
-         return $file->storeAs('videos/'.$name.'/'.$episodeName, $episodeName.'.'.$extension , 'public');
+         return $file->storeAs('videos/'.$name.'/'.$episodeName, "video".'.'.$extension , 'public');
 
      }
 

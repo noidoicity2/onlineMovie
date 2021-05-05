@@ -52,9 +52,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="country">Director</label>
-                                <select class="form-control" name="director_id" id="director_id">
+                                <select class="single-select form-control choices__input"  data-trigger=""  name="director_id" id="director_id" placeholder="This is a search placeholder" hidden="" tabindex="-1" data-choice="active">
                                     @foreach($directors as $director)
-                                        <option @if($movie->$director == $director->id) selected @endif value="{{$director->id}}">{{$director->name}}</option>
+                                        <option @if($movie->director_id == $director->id) selected @endif value="{{$director->id}}">{{$director->name}}
+                                        </option>
                                     @endforeach
 
                                 </select>
@@ -66,15 +67,17 @@
                             <div class="form-group row">
                                 <div class="form-group col-6">
                                     <label for="img">Choose image</label>
-                                    <input type="file" class="form-control-file" value="{{old('img')}}" name="img" id="img">
+                                    <input type="file" class="form-control-file" value="{{old('img')}}" onchange="previewImg(this)" name="img" id="img">
+                                    <img style="height: 500px" id="preview-img" src="{{$movie->img}}" alt="">
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="bg_img">Choose back ground image</label>
-                                    <input type="file" class="form-control-file" name="bg_img" id="bg_img">
+                                    <input type="file" onchange="previewBg(this)" class="form-control-file" name="bg_img" id="bg_img">
+                                    <img style="height: 500px" id="preview-bg" src="{{$movie->bg_img}}" alt="">
                                 </div>
                                 <div class="form-group col-12">
                                     <label for="source_url">Choose video source</label>
-                                    <input type="file" class="form-control-file" name="source_url" id="source_url">
+                                    <input  type="file" class="form-control-file" name="source_url" id="source_url">
 
                                 </div>
 
@@ -93,15 +96,7 @@
 
                                 </select>
                             </div>
-                            {{--                            <div class="form-group">--}}
-                            {{--                                <label for="country">Category</label>--}}
-                            {{--                                <label for="country">Category</label>--}}
-                            {{--                                <select class="form-control" name="category_id" id="category_id">--}}
-                            {{--                                    @foreach($countries as $country)--}}
-                            {{--                                        <option value="{{$country->id}}">{{$country->name}}</option>--}}
-                            {{--                                    @endforeach--}}
-                            {{--                                </select>--}}
-                            {{--                            </div>--}}
+
                             <div class="form-group">
                                 <label for="slug">Slug</label>
                                 <input type="text" class="form-control" name="slug" id="slug" placeholder="Enter slug for SEO">
@@ -116,16 +111,16 @@
                                 <textarea class="form-control" id="description" name="description" rows="3"></textarea>
 
                             </div>
-                            <div class="form-group row mx-auto " style="height: 100px ; overflow: scroll">
-                                <label class="col-12 form-check-label mb-4" for="info">Category</label>
-                                @foreach($categories as $category)
-                                    <div class="form-group col-2 p-4">
-                                        <input type="checkbox" class="form-check-input" value="{{$category->id}}" name="category[]{{$category->id}}" id="category_{{$category->id}}">
-                                        <label class="form-check-label text-primary" for="category_{{$category->id}}">{{$category->name}}</label>
-                                    </div>
-                                @endforeach
-                                <input type="hidden" value="">
+                            <div class="form-group">
+                                <label for="">Category</label>
+                                <select id="" name="category[]" class="multi-tag-category form-control" placeholder="Select category" multiple>
+                                </select>
+                            </div>
 
+                            <div class="form-group">
+                                <label for="">Actor</label>
+                                <select id="" class="multi-tag-actor" name="actor[]" placeholder="Select Actor" multiple>
+                                </select>
                             </div>
 
                             <div class="form-group row">
@@ -215,6 +210,56 @@
             }
 
         });
+
+        var multipleCategory = new Choices('.multi-tag-category', {
+            choices: @json($selected_categories),
+            removeItemButton: true,
+            maxItemCount:-1,
+            searchResultLimit:5,
+            renderChoiceLimit:5
+        });
+        var multipleActors= new Choices('.multi-tag-actor', {
+            choices: @json($selected_actors),
+            removeItemButton: true,
+            maxItemCount:-1,
+            searchResultLimit:5,
+            renderChoiceLimit:5
+        });
+        var singleDefault = new Choices('.single-select', {
+
+        });
+
+        function previewImg(input){
+            var file = $("#img").get(0).files[0];
+
+            if(file){
+                var reader = new FileReader();
+
+                reader.onload = function(){
+                    $("#preview-img").attr("src", reader.result);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        }
+        function previewBg(input){
+            var file = $("#bg_img").get(0).files[0];
+
+            if(file){
+                var reader = new FileReader();
+
+                reader.onload = function(){
+                    $("#preview-bg").attr("src", reader.result);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // var singleDefault = new Choices('.single-select', {
+        //
+        // });
+
 
         var SITEURL = "/";
         $(function() {

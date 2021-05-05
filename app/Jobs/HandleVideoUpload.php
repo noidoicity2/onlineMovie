@@ -18,18 +18,18 @@ class HandleVideoUpload implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 protected $video;
 protected $slug;
-protected $fileName;
+protected $extension;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($video , $slug , $fileName)
+    public function __construct($video , $slug , $fileExtension)
     {
         //
         $this->video = $video;
         $this->slug = $slug;
-        $this->fileName =$fileName;
+        $this->extension =$fileExtension;
     }
 
     /**
@@ -43,6 +43,11 @@ protected $fileName;
         $lowBitrate->setKiloBitrate(200);
 
         $highRate =  (new X264('aac', 'libx264' ))->setKiloBitrate(1200);
+
+//        $lowBitrate = (new X264)->setKiloBitrate(200);
+////        $midBitrate = (new X264)->setKiloBitrate(500);
+//        $highBitrate = (new X264)->setKiloBitrate(1200);
+
 //
 //        $midBitrate = (new X264)->setKiloBitrate(500);
 //        $highBitrate = (new X264)->setKiloBitrate(1000);
@@ -52,14 +57,14 @@ protected $fileName;
         Storage::disk('public' )->put('videos/'.$this->slug.'/'.'secret.key' , $encryptionKey);
 
         $media = FFMpeg::fromDisk('public')
-            ->open('videos/'.$this->slug.'/'.$this->slug.'.'.$this->fileName)
+            ->open('videos/'.$this->slug.'/'."video".'.'.$this->extension)
             ->exportForHLS()
             ->withEncryptionKey($encryptionKey)
             ->setSegmentLength(60*2)
             ->addFormat($lowBitrate)
             ->addFormat($highRate)
             ->toDisk('public')
-            ->save('videos/'.$this->slug.'/'.$this->slug.'.m3u8');
+            ->save('videos/'.$this->slug.'/'."video".'.m3u8');
         FFMpeg::cleanupTemporaryFiles();
         info("ok");
 

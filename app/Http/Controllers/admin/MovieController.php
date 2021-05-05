@@ -8,6 +8,7 @@ use App\Jobs\HandleUploadEpisode;
 use App\Jobs\HandleVideoUpload;
 use App\Models\Actor;
 use App\Models\MovieActor;
+use App\Models\MovieCategory;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\DirectorRepositoryInterface;
@@ -68,8 +69,8 @@ class MovieController extends Controller
 
             $videoPath  =   FIleUploadServices::UploadVideo($request->file('source_url') , $slug);
             $movie['source_url']    =   Storage::url($videoPath);
-            $movie['hls_url']       = '/storage/videos/'.$slug.'/'.$slug.'.m3u8';
-            $movie['low_hls_url']   = '/storage/videos/'.$slug.'/'.$slug.'_0_200'.'.m3u8';
+            $movie['hls_url']       = '/storage/videos/'.$slug.'/'."video".'.m3u8';
+            $movie['low_hls_url']   = '/storage/videos/'.$slug.'/'."video".'_0_200'.'.m3u8';
             $this->dispatch(new HandleVideoUpload($videoPath,$slug , $request->file('source_url')->extension()));
         }
 
@@ -129,13 +130,27 @@ class MovieController extends Controller
     public function EditMovie($id) {
         $countries = $this->countryRepository->getCountryForSelect()->get();
         $movie = $this->movieRepository->get($id);
-        $categories = $this->categoryRepository->getCategoryForSelect()->get();
         $directors = $this->directorRepository->all();
+
+        $categories = $this->categoryRepository->getCategoryForSelect()->get();
+        $selectedCategories = MovieCategory::select('category_id')->where('movie_id' ,$id)->pluck('category_id')->toArray();
+
+        $selectCats= $this->toChoiceJsArray($selectedCategories, $categories);
+
+        $actors = Actor::all();
+        $selectedActors = MovieActor::select('actor_id')->where('movie_id' ,$id)->pluck('actor_id')->toArray();
+
+        $selectedActData = $this->toChoiceJsArray($selectedActors , $actors);
+
+//        return  $selectedCategories;
         return view('admin.page.movie.editMovie', [
             'movie'  => $movie,
             'directors'     => $directors,
             'countries' => $countries,
             'categories'    => $categories,
+            'selected_categories' => $selectCats,
+            'selected_actors' => $selectedActData
+
         ]);
 
     }
@@ -151,6 +166,7 @@ class MovieController extends Controller
             'categories'    => $categories,
             'directors'     => $directors,
             'actors' => $actor,
+
 
 
         ]);
@@ -229,8 +245,8 @@ class MovieController extends Controller
             $filePath =  FIleUploadServices::UploadEpisode($files[$i]['url'], $movie->slug ,$name);
 
             $episode['source_url']    =   Storage::url($filePath);
-            $episode['hls_url']       = '/storage/videos/'.$movie->slug.'/'.$name.'/'.$name.'.m3u8';
-            $episode['low_hls_url']   = '/storage/videos/'.$movie->slug.'/'.$name.'/'.$name.'_0_200'.'.m3u8';
+            $episode['hls_url']       = '/storage/videos/'.$movie->slug.'/'.$name.'/'."video".'.m3u8';
+            $episode['low_hls_url']   = '/storage/videos/'.$movie->slug.'/'.$name.'/'."video".'_0_200'.'.m3u8';
 
             $this->episodeRepository->create([
                'name' => $names[$i]['name'],
@@ -246,6 +262,19 @@ class MovieController extends Controller
         return "success";
 
 
+    }
+    private  function toChoiceJsArray($selectArray , $collection) {
+        $data= [];
+        foreach ($collection as $cat) {
+            if(in_array($cat->id , $selectArray)) {
+                array_push($data, ['value' => $cat->id , 'label' => $cat->name , 'selected' => true]);
+            }
+            else {
+                array_push($data, ['value' => $cat->id , 'label' => $cat->name , 'selected' => false]);
+            }
+
+        }
+        return $data;
     }
 
 

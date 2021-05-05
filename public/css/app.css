@@ -130,6 +130,18 @@ button.navbar-toggler {
 .col-md-4 {
     /*margin-top: 20px;*/
 }
+.owl-dots{
+    display: flex;
+    justify-content: center;
+}
+.owl-dot {
+    /*width: 20px;*/
+    /*height: 20px;*/
+    /*border-radius: 50%;*/
+    /*padding: 5px!important;*/
+    margin: 10px!important;
+    /*background-color: #3c763d!important;*/
+}
 a.film-item  {
 
     position: relative;
@@ -144,6 +156,38 @@ a.film-item  {
 
     /*background-color: #4e555b;*/
 }
+.nav-btn {
+    /*width: 20px;*/
+    /*height: 20px;*/
+    font-size: 20px;
+    /*background-color: #C52020!important;*/
+    margin: 10px;
+}
+.owl-nav {
+    display: flex;
+    justify-content: center;
+
+}
+.actor {
+    /*height: 150px;*/
+    /*width: 200px;*/
+}
+.actor-img {
+    height: 250px;
+    /*width: 300px;*/
+}
+.actor:hover {
+    border: 5px solid #fff601;
+    box-sizing: border-box;
+
+}
+.toast {
+    position: absolute;
+    top: 100px;
+    right: 10px ;
+    z-index: 9999;
+}
+
 .playing {
     position: absolute;
     color: #ffffff;
