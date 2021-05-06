@@ -29,18 +29,37 @@
 
                  <button id="btn-bookmark" class="btn btn-danger mr-2 mt-2"><i class="fa fa-bookmark" aria-hidden="true"></i> Book Mark</button>
                  <button id="btn-skip-intro" class="btn btn-primary mr-2  mt-2"><i class="fa fa-forward" aria-hidden="true"></i> Skip intro</button>
-                 <button id="btn-go-bookmark" class="btn btn-secondary mr-2  mt-2"><i class="fa fa-forward" aria-hidden="true"></i> Good to bookmark </button>
+{{--                 <button id="btn-go-bookmark" class="btn btn-secondary mr-2  mt-2"><i class="fa fa-forward" aria-hidden="true"></i> Good to bookmark </button>--}}
                  <button id="btn-next-episode" class="btn btn-success mr-2  mt-2">Next Episode</button>
              </div>
 
          </div>
          <div class="row">
-{{--             <div class="col-3 mt-2 d-flex justify-content-center">--}}
-{{--                 <img class="" src="{{$movie->img}}" style="max-width:100%" alt="">--}}
-{{--                 br--}}
-{{--                 <p class="text-light h-5 font-weight-bolder" style="color: #8a6d3b!important; font-size: 2.5rem">{{$movie->name}}</p>--}}
+{{--             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">--}}
+{{--                 Launch demo modal--}}
+{{--             </button>--}}
 
-{{--             </div>--}}
+             <!-- Modal -->
+             <div class="modal fade" id="modal-bookmark" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                 <div class="modal-dialog modal-dialog-centered" role="document">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                             </button>
+                         </div>
+                         <div class="modal-body">
+                             You are watching this movie at  {{$bookmark->position ?? 0}} seconds
+                         </div>
+                         <div class="modal-footer">
+{{--                             data-dismiss="modal"--}}
+                             <button type="button" id="start-over" class="btn btn-secondary" >Start over</button>
+                             <button type="button" id="btn-go-bookmark"  class="btn btn-primary">Continue</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>
              <div class="col-12">
                  <p class="text-light h-5 font-weight-bolder" style=" color: #c69500!important; font-size: 2.5rem">{{$movie->name}}</p>
 {{--                 <p> {!!html_entity_decode($movie->description) !!}</p>--}}
@@ -130,7 +149,7 @@
                 },
 
                 ],
-                "autostart": "true",
+                // "autostart": "true",
                 "displaytitle" : true,
                 "playbackRateControls": true,
                 "playbackRates ":[0.25, 0.75, 1, 1.25],
@@ -148,11 +167,11 @@
         });
 
 
-        $("#btn-bookmark").click(function () {
-             elapsed = jwplayer().getPosition();
-            console.log(elapsed);
-        });
+
+
+
         $("#btn-go-bookmark").click(function () {
+            $('#modal-bookmark').modal('hide');
            var pos = {{$bookmark->position?? 0}} ;
             console.log('go to' + pos);
 
@@ -170,6 +189,20 @@
 
             console.log("seeking" );
         });
+
+        $(document).ready(function () {
+            var bm = {{$bookmark->position ?? 0}} ;
+            if(bm > 10) {
+                $('#modal-bookmark').modal('show');
+            }
+            $('#start-over').click(function () {
+                jwplayer().seek(0);
+                $("#modal-bookmark").modal('hide');
+            })
+
+        })
+
+
 
         $('#btn-bookmark').click(function(e) {
             e.preventDefault();

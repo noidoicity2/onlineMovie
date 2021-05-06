@@ -7,9 +7,7 @@
         <main>
             <div class="container-fluid">
                 <h1 class="mt-4">Add Movie</h1>
-                {{--                <ol class="breadcrumb mb-4">--}}
-                {{--                    <li class="breadcrumb-item active">Add new category</li>--}}
-                {{--                </ol>--}}
+
                 <div class="col-xl-12 col-md-12">
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -36,8 +34,10 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-12 col-md-12">
-                        <form id="AddMovieForm" action="{{route('post_edit_movie')}}" method="post" enctype="multipart/form-data">
+                        <form id="EditMovieForm" action="{{route('post_edit_movie')}}" method="post" enctype="multipart/form-data">
                             @csrf
+
+                            <input type="hidden" name="id" value="{{$movie->id}}">
                             <div class="form-group">
                                 <label for="name" >Movie Name</label>
                                 <input type="text" class="form-control" required value="{{$movie->name}}" name="name" id="name" placeholder="Enter movie name">
@@ -84,14 +84,25 @@
                             </div>
                             <div class="form-group">
                                 <label for="is_free">For free user</label>
-                                <input name="is_free" id="is_free" type="checkbox">
+                                <input @if($movie->is_free ==1) checked @endif name="is_free" id="is_free" type="checkbox">
                             </div>
 
                             <div class="form-group">
                                 <label for="country">Country</label>
-                                <select class="form-control" name="country_id" id="country">
+{{--                                <select class="form-control" name="country_id" id="country">--}}
+{{--                                    @foreach($countries as $country)--}}
+{{--                                        <option value="{{$country->id}}">{{$country->name}}</option>--}}
+{{--                                    @endforeach--}}
+
+{{--                                </select>--}}
+                                <select class="single-select form-control choices__input"  data-trigger=""  name="country_id" id="country" placeholder="This is a search placeholder" hidden="" tabindex="-1" data-choice="active">
                                     @foreach($countries as $country)
-                                        <option value="{{$country->id}}">{{$country->name}}</option>
+                                        @if($country->id == $movie->country_id)
+                                            <option selected value="{{$country->id}}">{{$country->name}}</option>
+                                        @else
+                                            <option  value="{{$country->id}}">{{$country->name}}</option>
+                                        @endif
+
                                     @endforeach
 
                                 </select>
@@ -99,16 +110,16 @@
 
                             <div class="form-group">
                                 <label for="slug">Slug</label>
-                                <input type="text" class="form-control" name="slug" id="slug" placeholder="Enter slug for SEO">
+                                <input type="text" class="form-control" name="slug" value="{{$movie->slug}}" id="slug" placeholder="Enter slug for SEO">
                             </div>
                             <div class="form-group">
                                 <label for="imdb">IMDB</label>
-                                <input type="number" class="form-control" name="imdb" id="slug" placeholder="Enter IMDB">
+                                <input type="number" class="form-control" value="{{$movie->imdb}}" name="imdb" id="slug" placeholder="Enter IMDB">
                             </div>
 
                             <div class="form-group">
                                 <label for="info">Description</label>
-                                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                <textarea class="form-control" id="description" name="description" rows="3">{!! $movie->description !!}</textarea>
 
                             </div>
                             <div class="form-group">
@@ -125,17 +136,17 @@
 
                             <div class="form-group row">
                                 <div class="form-group col-md-3">
-                                    <input type="checkbox" class="form-check-input" name="is_movie18" id="is_movie18">
-                                    <label class="form-check-label text-danger" for="is_movie18">Is 18+</label>
+                                    <input type="checkbox" class="form-check-input" name="is_movie18" id="is_movie18"  @if($movie->is_movie18 == 1) checked @endif >
+                                    <label class="form-check-labeltext-danger" for="is_movie18">Is 18+</label>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <input type="checkbox" class="form-check-input" name="is_finished" id="is_finished">
+                                    <input type="checkbox" class="form-check-input"  @if($movie->is_finished == 1) checked @endif  name="is_finished" id="is_finished">
                                     <label class="form-check-label text-danger" for="is_finished">Is finished+</label>
                                 </div>
 
 
                                 <div class="form-group col-md-3">
-                                    <input type="checkbox" class="form-check-input" id="is_on_cinema" name="is_on_cinema">
+                                    <input type="checkbox" class="form-check-input" @if($movie->is_on_cinema == 1) checked @endif   id="is_on_cinema" name="is_on_cinema">
                                     <label class="form-check-label text-danger" for="is_on_cinema">Being shown on cinema</label>
                                 </div>
 
@@ -144,7 +155,7 @@
                             </div>
                             <div class="form-group row ">
                                 <div class="form-group col-3">
-                                    <input type="checkbox" class="form-check-input" name="is_movie_series" id="is_movie_series">
+                                    <input type="checkbox" class="form-check-input"  @if($movie->is_movie_series == 1) checked @endif  name="is_movie_series" id="is_movie_series">
                                     <label class="form-check-label text-secondary" for="is_movie_series">Movie series</label>
                                 </div>
 
@@ -158,6 +169,8 @@
                         <div class="bar" style="height: 50px" ></div >
                         <div class="percent progess-bar" style="font-size: 10px ; line-height: 10px">0%</div >
                     </div>
+                    <div id="uploadStatus"></div>
+
 
                 </div>
                 <div class="row">
@@ -192,6 +205,8 @@
 
     <script>
 
+
+
         $('#description').summernote({
             toolbar: [
                 // [groupName, [list of button]]
@@ -209,6 +224,15 @@
                 sendFile(files[0], editor, welEditable);
             }
 
+        });
+        //slug name
+        function slugify(content) {
+            return content.toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
+        }
+        $('#name').on('keypress' , function () {
+            console.log("changing");
+            // var slugStr = slugify($("#name").val())
+            $('#slug').val("");
         });
 
         var multipleCategory = new Choices('.multi-tag-category', {
@@ -261,13 +285,14 @@
         // });
 
 
-        var SITEURL = "/";
+
         $(function() {
             $(document).ready(function()
             {
                 var bar = $('.bar');
                 var percent = $('.percent');
-                $('#AddMovieForm').ajaxForm({
+                $('#EditMovieForm').ajaxForm({
+                    dataType:'json' ,
                     beforeSend: function() {
                         var percentVal = '0%';
                         bar.width(percentVal)
@@ -287,13 +312,13 @@
                         // window.location.reload;
                     },
                     success: function (data) {
-                        var dt = JSON.parse(data);
-                        console.log(data);
+                        // var dt = JSON.parse(data);
+                        // console.log(data);
 
-                        alert(dt.message);
-                        console.log(dt.redirectUrl);
-                        if(dt.redirectUrl != "") {
-                            window.location.href  = dt.redirectUrl;
+                        alert(data.message);
+                        console.log(data.redirectUrl);
+                        if(data.redirectUrl != "") {
+                            window.location.href  = data.redirectUrl;
                         }
                     },
                     error : function (data) {
@@ -315,31 +340,22 @@
         });
 
 
-        // $("#token-field").tokenInput([
-        //     {id: 7, name: "Ruby"},
-        //     {id: 11, name: "Python"},
-        //     {id: 13, name: "JavaScript"},
-        //     {id: 17, name: "ActionScript"},
-        //     {id: 19, name: "Scheme"},
-        //     {id: 23, name: "Lisp"},
-        //     {id: 29, name: "C#"},
-        //     {id: 31, name: "Fortran"},
-        //     {id: 37, name: "Visual Basic"},
-        //     {id: 41, name: "C"},
-        //     {id: 43, name: "C++"},
-        //     {id: 47, name: "Java"}
-        // ]);
-
-
-        // $('#token-field').tokenfield('setTokens', [{ value: "blue", label: "Blau" }, { value: "red", label: "Rot" }]);
-
-        // $('#token-field').tokenfield();
-
         $('#is_movie_series').change(function () {
             if(this.checked) {
-
+                $('#source_url').val("");
             }
         });
+
+        $('#source_url').on('change' , function (){
+            console.log($('#is_movie_series').checked );
+            var is_series  =document.getElementById('is_movie_series');
+            if(is_series.checked == true )  {
+                $(this).val("");
+                alert("Please uncheck movie series")
+            }
+
+
+        })
 
 
     </script>

@@ -56,4 +56,8 @@ class Category extends Model
         return $this->hasMany(MovieCategory::class, 'category_id' , 'id');
     }
 
+    public function membershipCategories() {
+        return $this->hasMany(MembershipCategory::class, 'category_id' , 'id');
+    }
+
 }

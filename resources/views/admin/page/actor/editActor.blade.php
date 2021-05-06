@@ -44,7 +44,7 @@
                             <div class="form-group">
                                 <label for=""Image></label>
                                 <input type="file" id="img" onchange="previewFile(this)" name="img" class="form-control-file">
-                                <img id="previewImg" src="{{$actor->img}}" alt="">
+                                <img style="max-height: 500px" id="previewImg" src="{{$actor->img}}" alt="">
 
                             </div>
                             <div class="form-group row">
@@ -100,6 +100,14 @@
                 sendFile(files[0], editor, welEditable);
             }
 
+        });
+        function slugify(content) {
+            return content.toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
+        }
+        $('#name').on('keypress' , function () {
+            console.log("changing");
+            var slugStr = slugify($("#name").val())
+                $('#slug').val(slugStr);
         });
 
         // preview image

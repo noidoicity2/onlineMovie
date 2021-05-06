@@ -145,10 +145,10 @@
             console.log(elapsed);
         });
         $("#btn-skip-intro").click(function () {
-            elapsed = player.getPosition();
+            elapsed =    jwplayer().getPosition();
             jwplayer().seek({{$movie->intro_end}});
 
-            console.log("seeking" );
+            console.log("seeking {{$movie->intro_end}}" );
         });
 
         $('#btn-bookmark').click(function(e) {

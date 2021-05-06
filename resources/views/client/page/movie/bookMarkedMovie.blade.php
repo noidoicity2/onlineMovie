@@ -24,7 +24,7 @@
                         <p>{{$item->movie->name}}</p>
                         {{--                                <p>free {{$item->movie->is_free}}</p>--}}
                         <span>{{$item->movie->en_name}}</span>
-                        <div class="playing" id="" style="width: {{$item->position/($item->movie->duration*60)}}%;  "></div>
+                        <div class="playing" id="" style="width:{{$item->position/($item->movie->duration)}}%; max-width: 100%"></div>
 
                     </a>
                 </div>

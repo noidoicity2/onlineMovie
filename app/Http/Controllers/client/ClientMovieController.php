@@ -9,12 +9,15 @@ use App\Models\Category;
 use App\Models\Country;
 use App\Models\Episode;
 use App\Models\Favorite;
+use App\Models\Membership;
+use App\Models\MembershipCategory;
 use App\Models\Movie;
 use App\Models\MovieActor;
 use App\Models\MovieCategory;
 use App\Models\MovieComment;
 use App\Models\MovieRating;
 use App\Models\RequestMovie;
+use App\Models\UserMembership;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\EpisodeRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
@@ -125,9 +128,25 @@ class ClientMovieController extends Controller
         ]);
     }
     public function Watch($slug =null , $id = null) {
-//        return "adsad";
         $movie = $this->movieRepository->get($id);
-//        $movie->source_url = URL::te
+        if(!Auth::check() && $movie->is_free == 1) {
+            return view ('client.page.movie.watchFree' , [
+                'movie' => $movie ,
+                'categories'=>$this->categories,
+
+
+            ]);
+        }
+
+        $movie_cates = MovieCategory::where('movie_id' , $movie->id)->pluck('category_id')->toArray();
+        $listMemberships = UserMembership::where('expired_date' , '>' , now())->distinct()->pluck('membership_id')->toArray();
+//        return $listMemberships;
+        $membership_cats = MembershipCategory::whereIn('membership_id' , $listMemberships)->pluck('category_id')->toArray();
+
+        if(count($membership_cats) < 1){
+            return view ('Share.upgradeVip');
+        }
+
         Movie::find($id)->increment('view_count');
         $bookmark = BookMark::where('movie_id' , $id)
             ->where('user_id' , Auth::id())->first();
@@ -138,14 +157,7 @@ class ClientMovieController extends Controller
             'movie_id' => $id,
             'user_id' => Auth::id(),
         ]);
-        if(!Auth::check() && $movie->is_free == 1) {
-            return view ('client.page.movie.watchFree' , [
-                'movie' => $movie ,
-                'categories'=>$this->categories,
 
-
-            ]);
-        }
 
 
         return view ('client.page.movie.watch' , [

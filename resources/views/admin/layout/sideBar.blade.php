@@ -63,12 +63,7 @@
                         <a class="nav-link" href="{{route('movie_statistic')}}">Movie statistic</a>
                     </nav>
                 </div>
-                {{--                end statistic--}}
 
-
-{{--                <div class="sb-sidenav-menu-heading">Addons</div>--}}
-
-                {{--                Movie--}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#movie-menu" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                     Movie
@@ -108,29 +103,15 @@
                 <div class="collapse" id="slider-menu" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="{{route('add_slider')}}">Add new slider</a>
-                        <a class="nav-link" href="{{route('list_category')}}">All movie</a>
+{{--                        <a class="nav-link" href="{{route('N')}}">All movie</a>--}}
                     </nav>
                 </div>
                 {{--                end slider--}}
 
 
-                {{--                Payment method--}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#payment-menu" aria-expanded="false" aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
-                    Payment
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="payment-menu" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{route('add_payment_method')}}">Add new method</a>
-                        <a class="nav-link" href="{{route('list_payment_method')}}">All payment methods</a>
-                    </nav>
-                </div>
-                {{--              Payment method--}}
-
                 {{--                membership--}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#membership-menu" aria-expanded="false" aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
                     Membership
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>

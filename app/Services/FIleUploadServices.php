@@ -31,10 +31,10 @@ namespace App\Services;
 
      }
 
-     public static function UploadVideo($file , $name  ) {
-         $extension = $file->extension();
+     public static function UploadVideo($file , $slug  ) {
+         $extension = $file->getClientOriginalExtension();
 //       return $file->storeAs('uploads', $img_name, 'public');
-         return $file->storeAs('videos/'.$name, "video".'.'.$extension , 'public');
+         return $file->storeAs('videos/'.$slug, "video".'.'.$extension , 'public');
 
      }
 

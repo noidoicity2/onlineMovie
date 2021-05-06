@@ -82,3 +82,15 @@
 
 @endsection
 
+@section('custom_js')
+    <script>
+        function slugify(content) {
+            return content.toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
+        }
+        $('#name').on('keypress' , function () {
+            console.log("changing");
+            var slugStr = slugify($("#name").val())
+            $('#slug').val(slugStr);
+        });
+    </script>
+@endsection

@@ -25,8 +25,9 @@ class MembershipController extends Controller
     }
 
     public function Add() {
+        $categories = Category::all();
         return view('admin.page.membership.addMembership',[
-            'categories' => Category::select(['id','name'])->get(),
+            'categories' => $categories
         ]);
 
     }
@@ -45,26 +46,25 @@ class MembershipController extends Controller
         $memberships = $request->all();
 
 
-//        $categories = $memberships['category'];
-//        $insert_data= array();
+        $categories = $memberships['category'];
+        $insert_data= array();
+//        return $memberships;
 
 
-//        DB::beginTransaction();
         try {
 
           $membership =  $this->membershipRepository->create($request->all());
-//            for ($i =0 ; $i <count($categories) ;$i ++) {
-//                array_push($insert_data , array('category_id' => $categories[$i] , 'membership_id'=>$membership->id) );
-//            }
-//             $this->membershipCategoryRepository->insert($insert_data);
-//            return $insert_data;
+            for ($i =0 ; $i <count($categories) ;$i ++) {
+                array_push($insert_data , array('category_id' => $categories[$i] , 'membership_id'=>$membership->id) );
+            }
+             $this->membershipCategoryRepository->insert($insert_data);
 
-//            DB::commit();
             return back()->with(['message'=>"add membership successfully"]);
+
 
         }
         catch (Exception $e){
-//            DB::rollBack();
+
             return back()->with(['error'=>"add membership fail"]);
 
         }

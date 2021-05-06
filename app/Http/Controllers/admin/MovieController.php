@@ -4,9 +4,11 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Movie\AddMovieRequest;
+use App\Http\Requests\Movie\EditMovieRequest;
 use App\Jobs\HandleUploadEpisode;
 use App\Jobs\HandleVideoUpload;
 use App\Models\Actor;
+use App\Models\Movie;
 use App\Models\MovieActor;
 use App\Models\MovieCategory;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
@@ -15,6 +17,7 @@ use App\Repositories\Interfaces\DirectorRepositoryInterface;
 use App\Repositories\Interfaces\EpisodeRepositoryInterface;
 use App\Repositories\Interfaces\MovieCategoryRepositoryInterface;
 use App\Repositories\Interfaces\MovieRepositoryInterface;
+use App\Services\FileUntil;
 use App\Services\FIleUploadServices;
 use Exception;
 use FFMpeg\Format\Video\X264;
@@ -124,7 +127,71 @@ class MovieController extends Controller
 
 
     }
-    public function PostEditMovie() {
+    public function PostEditMovie(EditMovieRequest $request) {
+        $movie = $request->except('id') ;
+        $old_movie = Movie::find($request->id);
+        $slug = Str::slug($request->name);
+        if($movie['slug']=="") $movie['slug'] = $slug;
+        $movie = array_filter($movie, function ($value) {
+            return $value != null;
+        } );
+
+//return $movie;
+
+        if($request->file('img')!="") {
+//            return "adsa";
+            $imgPath    =   FIleUploadServices::UploadImage($request->file('img') ,$slug);
+//            FileUntil::DeleteFileFromUrl($old_movie->img);
+            $movie['img']           =   Storage::url($imgPath);
+        }
+        if($request->file('bg_img')!="") {
+            $bgPath     =   FIleUploadServices::UploadImage($request->file('bg_img') , 'bg_'.$slug);
+
+            $movie['bg_img']        =   Storage::url($bgPath);
+        }
+
+        if($request->file('source_url')!="") {
+
+            FileUntil::DeleteAllVideoFromSlug($old_movie->slug);
+            $videoPath  =   FIleUploadServices::UploadVideo($request->file('source_url') , $slug);
+            $movie['source_url']    =   Storage::url($videoPath);
+            $movie['hls_url']       = '/storage/videos/'.$slug.'/'."video".'.m3u8';
+            $movie['low_hls_url']   = '/storage/videos/'.$slug.'/'."video".'_0_200'.'.m3u8';
+            $this->dispatch(new HandleVideoUpload($videoPath,$slug , $request->file('source_url')->extension()));
+        }
+
+
+        $movie['description']   = htmlentities($request->description);
+
+
+        $categories = $movie['category'] ;
+        $actors = $movie['actor'] ;
+
+        $insert_categories =  array();
+        $insert_actor = array();
+//        $test = array();
+
+            $affected_rows = $this->movieRepository->update($request->id,$movie);
+            for ($i =0 ; $i <count($categories) ;$i ++) {
+                array_push($insert_categories , array('category_id' => $categories[$i] , 'movie_id'=>$request->id) );
+            }
+            for ($i =0 ; $i <count($actors) ;$i ++) {
+                array_push($insert_actor , array('actor_id' => $actors[$i] , 'movie_id'=>$request->id) );
+            }
+
+            MovieCategory::where('movie_id' , $request->id)->delete();
+            MovieActor::where('movie_id' , $request->id)->delete();
+
+            $this->movieCategoryRepository->insert($insert_categories);
+            MovieActor::insert($insert_actor);
+
+
+
+        return json_encode([
+            'message' =>  "Update Movie successfully",
+            'redirectUrl' => route('list_movie' )
+        ]);
+
 
     }
     public function EditMovie($id) {
@@ -141,6 +208,7 @@ class MovieController extends Controller
         $selectedActors = MovieActor::select('actor_id')->where('movie_id' ,$id)->pluck('actor_id')->toArray();
 
         $selectedActData = $this->toChoiceJsArray($selectedActors , $actors);
+//        return $movie;
 
 //        return  $selectedCategories;
         return view('admin.page.movie.editMovie', [

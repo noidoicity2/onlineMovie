@@ -15,14 +15,14 @@
                                 Watch</a>
                         @endif
 
-
+                            @auth
                             <a id="like-btn" type="button" style="line-height: 50px ; font-size: 20px" class="btn bg-danger text-light  m-1 w-25 "><i class="bi bi-heart"></i>
                                 @if($is_liked == 0)
                                 <span id="like-text">like</span></a>
                                 @else
                              <span id="like-text">Unlike</span></a>
                                  @endif
-
+                            @endauth
 
 
                         @if($movie->is_movie_series == 1)

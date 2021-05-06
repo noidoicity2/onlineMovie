@@ -57,7 +57,7 @@ class MembershipController extends Controller
     public function createPaymentUrl(Request $request)
     {
         $membership = $this->membershipRepository->get($request->membership_id);
-//create transaction
+
       $transation = Transaction::create([
           'user_id' => Auth::id(),
           'membership_id' => $membership->id,

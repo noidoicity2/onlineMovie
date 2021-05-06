@@ -32,7 +32,7 @@ class DirectorController extends Controller
         $old_img = $director->img;
 
         if($request->img != null) {
-            FileUntil::DeleteFileFromUrl($old_img);
+            FileUntil::DeleteImageFromSlug($old_img);
             $img_path = FIleUploadServices::UploadImage($request->img , Str::slug($request->name));
             $updateData['img'] = Storage::url($img_path);
         }

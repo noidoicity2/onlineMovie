@@ -29,8 +29,9 @@ class ActorController extends Controller
         $updateData = $request->except('id');
         $old_img = $actor->img;
 
-        if($request->img != null) {
-            FileUntil::DeleteFileFromUrl($old_img);
+        if($request->img != "") {
+            FileUntil::DeleteImageFromSlug($actor->slug);
+//            return "dasd";
             $img_path = FIleUploadServices::UploadImage($request->img , Str::slug($request->name));
             $updateData['img'] = Storage::url($img_path);
         }

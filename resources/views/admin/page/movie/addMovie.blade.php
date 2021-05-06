@@ -92,7 +92,7 @@
 
                             <div class="form-group ">
                                 <label for="country">Country</label>
-                                <select class="single-select form-control choices__input"  data-trigger=""  name="country" id="country" placeholder="This is a search placeholder" hidden="" tabindex="-1" data-choice="active">
+                                <select class="single-select form-control choices__input" id="name"  data-trigger=""  name="country" id="country" placeholder="This is a search placeholder" hidden="" tabindex="-1" data-choice="active">
                                     @foreach($countries as $country)
                                         <option value="{{$country->id}}">{{$country->name}}
                                         </option>
@@ -262,7 +262,15 @@
 
         });
 
-
+        //slug name
+        // function slugify(content) {
+        //     return content.toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
+        // }
+        // $('#name').on('keypress' , function () {
+        //     console.log("changing");
+        //     var slugStr = slugify($("#name").val())
+        //     $('#slug').val(slugStr);
+        // });
 
 
 
