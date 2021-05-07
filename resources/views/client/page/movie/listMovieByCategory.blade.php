@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h2 class="" style="margin-top: 50px">List movie by Category </h2>
+        <h2 class="" style="margin-top: 50px">{{$cat->name ?? "category name"}}</h2>
         <div class="row">
 
             @foreach($movies as $movie )

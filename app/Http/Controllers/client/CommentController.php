@@ -12,6 +12,7 @@ class CommentController extends Controller
 {
     //
     public function PostAddComment(Request  $request) {
+//        return $request->all();
         if($request->comment == "") {
             return json_encode([
                 'success' =>true ,

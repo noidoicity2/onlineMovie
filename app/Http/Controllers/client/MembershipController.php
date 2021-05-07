@@ -150,9 +150,19 @@ class MembershipController extends Controller
             $user_membership = UserMembership::where('user_id' , Auth::id())->where('membership_id' , $membership_id)->first();
 //            return $user_membership;
             if($user_membership!= null) {
-                UserMembership::find($user_membership->id)->update([
-                    'expired_date' =>       Carbon::parse($user_membership->expired_date)->addDays($days)
-                ]);
+//                $user_mem =
+                    if( $user_membership->exprired_date< now() ) {
+                        UserMembership::find($user_membership->id)->update([
+                            'expired_date' =>       now()->addDays($days)
+                        ]);
+                    }
+                    else {
+                        UserMembership::find($user_membership->id)->update([
+                            'expired_date' =>       Carbon::parse($user_membership->expired_date)->addDays($days)
+                        ]);
+                    }
+
+
             }
             else {
                 UserMembership::create([
@@ -170,13 +180,13 @@ class MembershipController extends Controller
             session()->forget('transaction_id');
             session()->forget('membership_id');
             session()->forget('days');
-            return $request;
+            return view('Share.SuccessPurchase');
         }
 //        session()->forget('url_prev');
         Transaction::find($transaction_id)->update(['status' => "unsuccessfully"]);
         session()->forget('transaction_id');
         session()->forget('membership_id');
         session()->forget('days');
-        return "ERROR";
+        return view('Share.errorTransaction');
     }
 }

@@ -40,6 +40,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('get_movie_series')}}">Movie series</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('top_rate_movie')}}">Top Rating</a>
+                </li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -49,11 +52,7 @@
                         @foreach($navCategories as $category)
                             <a class="dropdown-item" href="{{route('get_movie_by_category' , ['slug'=>$category->slug, 'id' => $category->id])}}">{{$category->name}}</a>
                         @endforeach
-{{--                        <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>--}}
-{{--                        <a class="dropdown-item" href="portfolio-2-col.html">2 Column Portfolio</a>--}}
-{{--                        <a class="dropdown-item" href="portfolio-3-col.html">3 Column Portfolio</a>--}}
-{{--                        <a class="dropdown-item" href="portfolio-4-col.html">4 Column Portfolio</a>--}}
-{{--                        <a class="dropdown-item" href="portfolio-item.html">Single Portfolio Item</a>--}}
+
                     </div>
                 </li>
 {{--                <li class="nav-item dropdown">--}}
@@ -103,8 +102,8 @@
                             <a class="dropdown-item" href="{{route('favorite_movie')}}">Your favorite</a>
                             <a class="dropdown-item" href="{{route('get_bookmark_movie')}}">Book-marked movie</a>
                             <a class="dropdown-item" href="{{route('transaction_history')}}">Your transactions</a>
-                            <a class="dropdown-item" href="{{route('request_movie')}}">Request Movie</a>
-                            <a class="dropdown-item" href="404.html">404</a>
+{{--                            <a class="dropdown-item" href="{{route('request_movie')}}">Request Movie</a>--}}
+{{--                            <a class="dropdown-item" href="404.html">404</a>--}}
                             <a class="dropdown-item" href="{{route('logout')}}">Log out</a>
                     </div>
                 </li>

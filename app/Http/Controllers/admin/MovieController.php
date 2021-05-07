@@ -8,6 +8,8 @@ use App\Http\Requests\Movie\EditMovieRequest;
 use App\Jobs\HandleUploadEpisode;
 use App\Jobs\HandleVideoUpload;
 use App\Models\Actor;
+use App\Models\Country;
+use App\Models\Director;
 use App\Models\Movie;
 use App\Models\MovieActor;
 use App\Models\MovieCategory;
@@ -21,6 +23,7 @@ use App\Services\FileUntil;
 use App\Services\FIleUploadServices;
 use Exception;
 use FFMpeg\Format\Video\X264;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -127,6 +130,21 @@ class MovieController extends Controller
 
 
     }
+    public function PostDeleteMovie(Request $request) {
+        try{
+            Movie::destroy($request->id);
+            return json_encode([
+                'success' => true ,
+                'message' => "delete movie successfully",
+            ]);
+        }
+        catch (Exception $exception) {
+            return json_encode([
+                'success' => true ,
+                'message' => "cannot delete movie",
+            ]);
+        }
+    }
     public function PostEditMovie(EditMovieRequest $request) {
         $movie = $request->except('id') ;
         $old_movie = Movie::find($request->id);
@@ -135,6 +153,7 @@ class MovieController extends Controller
         $movie = array_filter($movie, function ($value) {
             return $value != null;
         } );
+
 
 //return $movie;
 
@@ -240,16 +259,66 @@ class MovieController extends Controller
         ]);
     }
 
-    public function ListMovie($paginate = 0 , $orderBy = 'desc')  {
-//        $paginate ? 0 == $paginate : 10 ;
+    public function ListMovie(Request $request)  {
+        $whereArray = [
+//            'published_at' =>  $request->published_at ,
+            'country_id'        => $request->country_id,
+            'is_on_cinema' => $request->is_on_cinema,
+            'is_free' => $request->is_free,
+            'is_movie_series' => $request->is_movie_series,
 
-        $orderArr = array('asc' , 'desc');
-        if(!in_array($orderBy , $orderArr)) $orderBy = 'desc';
-        $movies = $this->movieRepository->listMovie($paginate, $orderBy);
+        ];
+        $search = $request->keyword;
+        $filterWhere = array_filter($whereArray , function ($value) {
+            return $value != ""&&$value !=null;
+        });
+//        return $filterWhere;
+
+        if($request->category_id == "") {
+            $movies  =  Movie::with('episodes')
+                ->where('name', 'like' , "%$search%")
+                ->where($filterWhere)
+                ->latest()
+                ->paginate(20);
+        }
+        else{
+            $movies  =  Movie::with('episodes')
+                ->where('name', 'like' , "%$search%")
+                ->where($filterWhere)
+                ->whereHas('categories' , function ( Builder $query) use ($request) {
+                    $query->where('category_id' ,$request->category_id );
+                })
+                ->whereHas('movieActors' , function ( Builder $query) use ($request) {
+                    $query->where('actor_id' ,$request->actor_id );
+                })
+                ->latest()
+                ->paginate(20);
+        }
+
+        $selectCategories = $this->categoryRepository->all();
+        $selectCountries =Country::all();
+        $selectActors = Actor::all();
+        $selectDirector = Director::all();
+
+
+
+//        if($search != "") {
+//            $movies =   Movie::with('episodes')
+//                ->where('name', 'like' , "%$search%")
+//                ->latest()->paginate(20);
+//        }
+//        else {
+//            $movies = Movie::with('episodes')->latest()->paginate(20);
+//        }
+
 //return $movies;
        return  view('admin.page.movie.listMovies' , [
            'movies'  => $movies,
-           'title'  => "list Movies"
+           'title'  => "list Movies",
+           'selectCategories' => $selectCategories ,
+           'selectCountries' => $selectCountries ,
+           'selectActors' => $selectActors,
+           'selectDirectors' => $selectDirector,
        ]);
 
     }
@@ -334,6 +403,7 @@ class MovieController extends Controller
 
 
     }
+
     private  function toChoiceJsArray($selectArray , $collection) {
         $data= [];
         foreach ($collection as $cat) {

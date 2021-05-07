@@ -10,12 +10,7 @@
                     <input name="name" type="text" class="form-control">
                 </div>
                 <div class="form-inline col-12">
-                    <select class="mt-1 mr-2 form-control form-control-sm bg-dark text-light" name="order_by" aria-label="Default select example">
-                        <option >order by</option>
-                        <option value="name">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+
                     <select class="mt-1 mr-2 form-control  form-control-sm bg-dark text-light" name="category_id" aria-label="Default select example">
                         <option value="">Category</option>
                         @foreach($selectCategories as $category)
@@ -46,14 +41,14 @@
                         <option value="0">No</option>
 
                     </select>
-                    <select class="mt-1 mr-2 form-control form-control-sm    bg-dark text-light" name="published_at" aria-label="Default select example">
-                        <option value="" selected>Published year</option>
-                        @for($i= 1990 ; $i < 2021 ; $i++)
-                            <option value="{{$i}}">{{$i}}</option>
-                        @endfor
+{{--                    <select class="mt-1 mr-2 form-control form-control-sm    bg-dark text-light" name="published_at" aria-label="Default select example">--}}
+{{--                        <option value="" selected>Published year</option>--}}
+{{--                        @for($i= 1990 ; $i < 2021 ; $i++)--}}
+{{--                            <option value="{{$i}}">{{$i}}</option>--}}
+{{--                        @endfor--}}
 
 
-                    </select>
+{{--                    </select>--}}
 
                     <button class="mt-1 btn btn-success ">Filter Result</button>
 

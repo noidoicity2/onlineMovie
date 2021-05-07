@@ -17,6 +17,7 @@ use App\Models\MovieCategory;
 use App\Models\MovieComment;
 use App\Models\MovieRating;
 use App\Models\RequestMovie;
+use App\Models\User;
 use App\Models\UserMembership;
 use App\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Repositories\Interfaces\EpisodeRepositoryInterface;
@@ -63,12 +64,17 @@ class ClientMovieController extends Controller
 
         $movie  = $this->movieRepository->get($id);
         $categories = MovieCategory::with('category')->where('movie_id' , $id)->get();
+        $relateCategory = $categories->pluck('category_id')->toArray();
+
+        $relatedMovies = Movie::where('id' , '!=' , $id)->whereHas("categories" , function (Builder $query) use ($relateCategory) {
+            $query->whereIn('category_id' , $relateCategory);
+        })->take(6)->get();
         $actors = MovieActor::with('actor')->where('movie_id' , $id)->get();
         if($movie->is_free == 0 && !Auth::check()) {
             return view('Share.upgradeVip');
         }
         $episodes = $movie->episodes;
-        $comments = MovieComment::with('user')->where('movie_id', $movie->id)->orderBy('created_at' , 'desc')->take(5)->get();
+        $comments = MovieComment::with('user')->where('movie_id', $movie->id)->latest()->get();
 //       return $comments;
 //        dd($comments);
 //        $comments = MovieComment::where('')
@@ -116,7 +122,8 @@ class ClientMovieController extends Controller
             'comments' => $comments,
             'rating_count' => $rating_count,
             'categories' => $categories,
-            'actors' => $actors
+            'actors' => $actors,
+            'related_movies' =>$relatedMovies,
 
         ]);
     }
@@ -141,7 +148,9 @@ class ClientMovieController extends Controller
         }
 
         $movie_cates = MovieCategory::where('movie_id' , $movie->id)->pluck('category_id')->toArray();
-        $listMemberships = UserMembership::where('expired_date' , '>' , now())->distinct()->pluck('membership_id')->toArray();
+        $listMemberships = UserMembership::where('expired_date' , '>' , now())
+            ->where('user_id' , Auth::id())
+            ->distinct()->pluck('membership_id')->toArray();
 //        return $listMemberships;
         $membership_cats = MembershipCategory::whereIn('membership_id' , $listMemberships)->pluck('category_id')->toArray();
 
@@ -193,10 +202,12 @@ class ClientMovieController extends Controller
         $movies = Movie::whereHas('categories' , function ( Builder $query) use ($id) {
             $query->where('category_id' , $id );
         })->paginate(8);
+        $cat = Category::find($id);
 //        $movies = Movie::with('categories')->get();
 //        return $movies;
         return view('client.page.movie.listMovieByCategory' , [
             'movies' => $movies,
+            'cat' => $cat
         ]);
     }
     public function WatchEpisode($slug = null , $id = null) {
@@ -347,7 +358,7 @@ class ClientMovieController extends Controller
 
     }
     public function GetBookMarkMovie() {
-        $bookmarks = BookMark::where('user_id' , Auth::id())->paginate(8);
+        $bookmarks = BookMark::with('episode')->where('user_id' , Auth::id())->paginate(8);
         return view('client.page.movie.bookMarkedMovie' , [
             'bookmarks' => $bookmarks
         ]);
@@ -472,6 +483,14 @@ class ClientMovieController extends Controller
         } )->paginate(8);
         return view('client.page.movie.recommended' , [
             'movies' => $mvs,
+        ]);
+    }
+
+    public function TopRateMovie() {
+
+            $movies = Movie::withCount('movieRatings')->get()->SortByDesc('rating');
+        return view('client.page.movie.topRate' , [
+            'movies' => $movies,
         ]);
     }
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\UserMembership;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +18,7 @@ class AuthController extends Controller
     public function __construct(UserRepositoryInterface  $userRepository)
     {
         $this->userRepository = $userRepository;
+
     }
 
     public function PostLogin(Request $request) {
@@ -23,7 +26,14 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            if(Auth::user()->role_id == 1) return redirect(route('add_movie'));
+            if(Auth::user()->role_id == 1) return redirect(route('dashboard'));
+            $listMemberships = UserMembership::where('user_id' , Auth::id())->where('expired_date' , '>=' , now())->get();
+            if($listMemberships->count() ==0)  {
+                User::find(Auth::id())->update(['is_vip' => 0]);
+            }
+            else {
+                User::find(Auth::id())->update(['is_vip' => 1]);
+            }
             return redirect(route('home_customer'));
         }else return back()->withErrors([ 'Invalid email or password']);
 
@@ -48,7 +58,7 @@ class AuthController extends Controller
     public function Logout() {
         Auth::logout();
 
-        return redirect()->route('login');
+        return redirect()->route('home_customer');
 
     }
 }

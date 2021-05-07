@@ -20,6 +20,7 @@ use App\Http\Controllers\client\TransactionController as ClientTransaction;
 use App\Http\Controllers\client\ClientMovieController;
 use App\Http\Controllers\client\HomeController;
 
+use App\Http\Middleware\AllowAdmin;
 use App\Http\Middleware\CheckLogin;
 use App\Http\Middleware\testRestrict;
 use App\Models\PaymentMethod;
@@ -56,7 +57,7 @@ Route::prefix('auth')->group(function () {
 //start admin route
 
 
-Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
+Route::prefix('admin')->middleware(AllowAdmin::class)->group(function () {
     Route::get('/hls',[MovieController::class , 'testHls']);
     Route::get('/users', function () {
         // Matches The "/admin/users" URL
@@ -128,10 +129,10 @@ Route::prefix('admin')->middleware(CheckLogin::class)->group(function () {
         Route::get('/', [MembershipController::class , 'ListMembership'])->name("list_membership");
 
         Route::get('/add', [MembershipController::class , 'Add'])->name("add_membership");
-        Route::get('/edit/{id}', [MembershipController::class , 'Edit'])->name("edit_payment_method");
+        Route::get('/edit/{id}', [MembershipController::class , 'Edit'])->name("edit_membership");
         Route::post('/postEdit', [MembershipController::class , 'PostEditMembership'])->name("post_edit_membership");
         Route::post('/postAdd', [MembershipController::class , 'PostAddMembership'])->name("post_add_membership");
-        Route::post('/postDelete', [MembershipController::class , 'PostDeleteMembership'])->name("post_delete_membership");
+        Route::post('/postDelete', [MembershipController::class , 'PostDelete'])->name("post_delete_membership");
     });
 
 
@@ -225,6 +226,8 @@ Route::prefix('client')->group(function () {
 Route::prefix('movie')->group(function() {
     Route::get('latestMovie' , [ClientMovieController::class , 'LastestMovie'])->name('latest_movie');
     Route::get('recommended' , [ClientMovieController::class , 'RecommendedMovie'])->name('recommended_movie');
+    Route::get('topRate' , [ClientMovieController::class , 'TopRateMovie'])->name('top_rate_movie');
+
 
     Route::get('requestMovie' , [ClientMovieController::class , 'RequestMovie'])->name('request_movie');
     Route::get('postRequestMovie' , [ClientMovieController::class , 'PostRequestMovie'])->name('post_request_movie');

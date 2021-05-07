@@ -164,7 +164,7 @@
         var options = {
             animationEnabled: true,
             title: {
-                text: "Order chart"
+                text: "All transaction"
             },
             data: [{
                 type: "pie",
@@ -186,7 +186,7 @@
         var option2 = {
             animationEnabled: true,
             title: {
-                text: "Order chart"
+                text: "successful purchased membership"
             },
             data: [{
                 type: "pie",

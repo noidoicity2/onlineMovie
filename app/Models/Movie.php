@@ -18,6 +18,9 @@ class Movie extends Model
 //    protected $appends = [
 //        'episodeCount'
 //    ];
+    protected $appends = ['rating'];
+//    protected $rating = null;
+
     protected $table = "movie";
     public      $timestamps     =   false;
     protected $fillable = [
@@ -26,6 +29,17 @@ class Movie extends Model
         'is_finished'	,'is_movie_series'	,'published_at',	'is_on_cinema',	'is_free' , 'source_url','hls_url', 'low_hls_url',
         'created_at'
     ];
+    public function getRatingAttribute()
+    {
+//        if (! is_null($this->rating)) {
+            return $this->hasMany(MovieRating::class)->avg('rating_point');
+//        }
+//        return $this->rating = $this->hasMany(MovieRating::class)->avg('rating_point');
+
+//        return $this->hasMany(MovieRating::class)->avg('rating_point');
+
+        /// return $this->reviews()->avg('rating'); // this also doesn't work
+    }
     public function scopeNewestMovie($query) {
         return $query->select(['id','name' , 'is_free', 'quality_label',  'en_name' ,'is_movie_series' , 'img' , 'bg_img' , 'published_at','total_episode' , 'slug'])->withCount('episodes')->orderByDesc('created_at');
     }
@@ -71,6 +85,7 @@ class Movie extends Model
     public function movieViews() {
         return $this->hasMany(MovieView::class, 'movie_id'  , 'id');
     }
+
     public function  country () {
         return $this->belongsTo(Country::class , 'country_id' , 'id');
     }

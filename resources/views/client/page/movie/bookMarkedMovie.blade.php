@@ -11,7 +11,7 @@
                     <a href="{{route('get_movie_by_slug',['slug' => $item->movie->slug , 'id' => $item->movie->id])}}" class="film-item">
 
                         @if($item->movie->is_movie_series == 1)
-                            <div class="total-episode">{{$item->episodes_count}}/ {{$item->movie->total_episode}} episodes</div>
+                            <div class="total-episode">{{$item->episode->name ?? "Episode"}} </div>
                         @else
                             <div class="ribbon">full HD</div>
                         @endif

@@ -15,11 +15,11 @@ class MovieRating extends Model
     protected $fillable = ['movie_id'	,'user_id',	'rating_point' , 'created_at'	];
 
     public function movie() {
-        $this->belongsTo(Movie::class , 'movie_id' , 'id');
+       return  $this->belongsTo(Movie::class , 'movie_id' , 'id');
     }
 
     public function user() {
-        $this->belongsTo(User::class , 'user_id' , 'id');
+        return $this->belongsTo(User::class , 'user_id' , 'id');
 
     }
 

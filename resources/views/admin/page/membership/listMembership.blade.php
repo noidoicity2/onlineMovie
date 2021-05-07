@@ -64,7 +64,7 @@
 
                                             <td style="text-align: center">
                                                 <button class="btn btn-danger rounded-circle delete-btn" ><i class="fa fa-trash"></i></button>
-                                                <a href="{{route("post_edit_membership", ['id'=> $membership->id])}}" class="btn btn-info rounded-circle update-btn" ><i class="fa fa-pen"></i></a>
+                                                <a href="{{route("edit_membership", ['id'=> $membership->id])}}" class="btn btn-info rounded-circle update-btn" ><i class="fa fa-pen"></i></a>
                                                 <button class="btn btn-primary rounded-circle" ><i class="fa fa-eye"></i></button>
                                                 <button class="btn btn-info rounded-circle" ><i class="fa fa-pen"></i></button>
                                             </td>
@@ -97,4 +97,44 @@
             </div>
         </footer>
     </div>
+@endsection
+
+
+@section('custom_js')
+    <script>
+        $(".delete-btn").click(function () {
+            if(!confirm("are you sure")) return false;
+            var id = $(this).parent().parent().children().eq(0).text();
+            var csrf =  $('#csrf_field').val();
+
+            // console.log(csrf);
+
+            $.ajax({
+                method: "POST",
+                url: "{{route('post_delete_membership')}}",
+                dataType: "json",
+                // contentType: 'application/json',
+                data: {
+                    'id': id,
+                    '_token': csrf,
+
+                },
+                success: function (data) {
+                    // console.log(data);
+
+                    if(data.success) {
+                        alert("delete membership #"+id+" successfully");
+                        location.reload();
+                    }
+                    else alert("Something went wrong ! Cannot delete membership")
+
+
+                },
+                error: function(xhr, status, error){
+                    let errorMessage = xhr.status + ': ' + xhr.statusText
+                    alert('Error - ' + errorMessage);
+                }
+            });
+        });
+    </script>
 @endsection

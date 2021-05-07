@@ -92,8 +92,26 @@
 
 
                 </div>
+            @auth
+                    @if(Auth::user()->is_vip==1)
+                        <div class="row mb-5">
+                            <h2 class="col-12"><a class="text-warning" href="">Featured actor</a></h2>
+                            <div class="owl-carousel owl-theme " >
 
-                <div class="row" >
+                                @foreach($featured_actors as $actor )
+                                    <div class="actor">
+                                        <a href="{{route('get_movie_by_actor' , ['slug' => $actor->slug, 'id' => $actor->id])}}" class="actor-link">
+                                            <img src="{{$actor->img}}" class="actor-img  img-fluid" alt="">
+                                            <p class="text-center text-warning">{{$actor->name}}</p>
+                                        </a>
+
+
+                                    </div>
+                                @endforeach
+                            </div>
+
+                        </div>
+                    <div class="row" >
                     <h2 class="col-12"><a class="text-warning" href="{{route('recommended_movie')}}">Recommended for  you</a></h2>
                     @foreach($recommendedMovies as $recommended )
                         <div class="col-md-4 col-lg-3  col-sm-6">
@@ -125,25 +143,10 @@
 
 
                 </div>
-                <div class="row mb-5">
-                    <h2 class="col-12"><a class="text-warning" href="">Featured actor</a></h2>
-                    <div class="owl-carousel owl-theme " >
-
-                        @foreach($featured_actors as $actor )
-                            <div class="actor">
-                                <a href="{{route('get_movie_by_actor' , ['slug' => $actor->slug, 'id' => $actor->id])}}" class="actor-link">
-                                    <img src="{{$actor->img}}" class="actor-img  img-fluid" alt="">
-                                    <p class="text-center text-warning">{{$actor->name}}</p>
-                                </a>
 
 
-                            </div>
-                        @endforeach
-                    </div>
-
-                </div>
-
-
+                @endif
+                @endauth
 
             </div>
 
