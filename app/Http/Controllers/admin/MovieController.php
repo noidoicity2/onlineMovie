@@ -266,6 +266,7 @@ class MovieController extends Controller
             'is_on_cinema' => $request->is_on_cinema,
             'is_free' => $request->is_free,
             'is_movie_series' => $request->is_movie_series,
+            'director_id' => $request->director_id
 
         ];
         $search = $request->keyword;

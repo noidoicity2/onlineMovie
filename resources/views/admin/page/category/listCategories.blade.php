@@ -61,8 +61,8 @@
                                             <td style="text-align: center">
                                                 <button class="btn btn-danger rounded-circle delete-btn" ><i class="fa fa-trash"></i></button>
                                                 <a href="{{route("edit_category", ['id'=> $category->id])}}" class="btn btn-info rounded-circle update-btn" ><i class="fa fa-pen"></i></a>
-                                                <button class="btn btn-primary rounded-circle" ><i class="fa fa-eye"></i></button>
-                                                <button class="btn btn-info rounded-circle" ><i class="fa fa-pen"></i></button>
+{{--                                                <button class="btn btn-primary rounded-circle" ><i class="fa fa-eye"></i></button>--}}
+{{--                                                <button class="btn btn-info rounded-circle" ><i class="fa fa-pen"></i></button>--}}
                                             </td>
 
                                         </tr>

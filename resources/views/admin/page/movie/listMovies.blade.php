@@ -135,6 +135,7 @@
                                             <td style="text-align: center; max-width: 100px">
                                                 <button class="btn btn-danger rounded-circle delete-btn" ><i class="fa fa-trash"></i></button>
                                                 <a href="{{route('edit_movie' , ['id' => $movie->id])}}" class="btn btn-info rounded-circle update-btn" ><i class="fa fa-pen"></i></a>
+                                                <a href="{{route('get_movie_by_slug' , ['slug' =>$movie->slug,'id' => $movie->id])}}" class="btn btn-info rounded-circle update-btn" ><i class="fa fa-eye"></i></a>
                                                 @if($movie->is_movie_series == 1)
                                                 <a title="Add episode" class="btn btn-primary"   href="{{route('add_episode' ,['id'=> $movie->id])}}"><i class="fa fa-plus"></i>Add episode</a>
                                                     @endif

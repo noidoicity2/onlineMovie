@@ -30,9 +30,14 @@ class EditMovieRequest extends FormRequest
         return [
             //
             'name'          =>    'required|max:50|min:2|unique:category',
+            'en_name' => 'required|max:50|',
             'slug'        =>      'max:50',
             'description'   =>      'required',
-            'category' => 'required'
+//            'img' =>'image|required',
+            'category' => 'required',
+//            'country' => 'required',
+            'actor' => 'required',
+            'duration' => 'required|numeric'
 
 
 

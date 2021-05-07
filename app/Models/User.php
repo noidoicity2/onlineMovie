@@ -52,4 +52,7 @@ class User extends Authenticatable
     public function scopeLockedUser($query) {
         return $query->where('is_locked' ,1);
     }
+    public function role() {
+        return $this->belongsTo(Role::class, 'role_id' , 'id');
+    }
 }

@@ -92,6 +92,38 @@
 
 
                 </div>
+                <div class="row" >
+                    <h2 class="col-12"><a class="text-warning" href="{{route('latest_movie')}}">FreeMovie</a></h2>
+
+                    @foreach($free_movies as $movie )
+                        <div class="col-md-4 col-lg-3  col-sm-6">
+
+                            <a href="{{route('get_movie_by_slug',['slug' => $movie->slug , 'id' => $movie->id])}}" class="film-item    @unless($movie->is_free) film-vip-item @endunless ">
+
+                                @if($movie->is_movie_series == 1)
+                                    <div class="total-episode">{{$movie->episodes_count}}/ {{$movie->total_episode}} episodes</div>
+                                @else
+                                    <div class="ribbon">{{$movie->quality_label ?? "Full HD"}}</div>
+                                @endif
+
+                                @if($movie->is_free)
+                                    <div class="is-free">Free</div>
+                                @else
+                                    <div class="is-premium"><i class="fa fa-usd" aria-hidden="true"></i> Vip</div>
+                                @endif
+                                <img class="movie-img" loading="lazy" src="{{$movie->img}}" alt="">
+
+                                <p>{{$movie->name}}</p>
+                                {{--                                <p>free {{$movie->is_free}}</p>--}}
+                                <span>{{$movie->en_name}}</span>
+                            </a>
+                        </div>
+                    @endforeach
+
+
+
+
+                </div>
             @auth
                     @if(Auth::user()->is_vip==1)
                         <div class="row mb-5">

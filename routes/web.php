@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\DirectorController;
 use App\Http\Controllers\admin\MembershipController;
 use App\Http\Controllers\admin\SliderController;
 use App\Http\Controllers\admin\StatisticController;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\client\CommentController;
 use App\Http\Controllers\client\MembershipController as ClientMembership;
 use App\Http\Controllers\admin\MovieController;
@@ -59,8 +60,15 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('admin')->middleware(AllowAdmin::class)->group(function () {
     Route::get('/hls',[MovieController::class , 'testHls']);
-    Route::get('/users', function () {
-        // Matches The "/admin/users" URL
+    Route::prefix('users')->group(function () {
+        Route::get('/add', [UserController::class , 'Add'])->name("add_user");
+        Route::get('/edit/{id}', [UserController::class , 'Edit'])->name("edit_user");
+        Route::post('postAdd', [UserController::class , 'PostAdd'])->name("post_add_user");
+        Route::post('postDelete', [UserController::class , 'PostDelete'])->name("post_delete_user");
+        Route::post('postEdit', [UserController::class , 'PostEdit'])->name("post_edit_user");
+
+        Route::get('listUsers', [UserController::class , 'ListUser'])->name("list_user");
+
     });
     Route::get('/movies', function () {
         // Matches The "/admin/users" URL
@@ -101,6 +109,10 @@ Route::prefix('admin')->middleware(AllowAdmin::class)->group(function () {
         // Matches The "/admin/users" URL
         Route::get('/add', [SliderController::class , 'AddSlider'])->name("add_slider");
         Route::post('postAddSlider', [SliderController::class , 'PostAddSlider'])->name("post_add_slider");
+
+        Route::post('postDeleteSlider', [SliderController::class , 'PostDelete'])->name("post_delete_slider");
+        Route::post('postEditSlider', [ActorController::class , 'PostEdit'])->name("post_edit_slider");
+        Route::get('listSlider', [ActorController::class , 'ListSlider'])->name("list_actor");
 
     });
     Route::get('/dashboard', [DasboardController::class ,'Index'])->name("dashboard");

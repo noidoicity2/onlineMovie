@@ -113,6 +113,10 @@
                                 <label for="intro_end">Intro end at</label>
                                 <input type="number" class="form-control" name="intro_end" value="120" id="intro_end" placeholder="Enter second for intro">
                             </div>
+                            <div class="form-group">
+                                <label for="intro_end">Total Episode</label>
+                                <input type="number"  class="form-control" name="total_episode" value="10" id="total_episode" placeholder="Enter total episode">
+                            </div>
 
                             <div class="form-group">
                                 <label for="info">Description</label>

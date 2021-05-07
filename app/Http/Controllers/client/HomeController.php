@@ -43,6 +43,7 @@ class HomeController extends Controller
 
         $sliders = Slider::with('movie')->orderBy('display_order', 'asc')->get();
         $new_movies = Movie::NewestMovie()->limit(8)->with('episodes:name,movie_id')->get();
+        $free_movies = Movie::where('is_free' ,1)->get();
 
         $recommendMovies = DB::select('select * from category  where id in (select b.category_id from favorite as a INNER JOIN movie_category as b on a.movie_id = b.movie_id where a.user_id = ? )', [Auth::id()] );
         $recommendMovies = array_column($recommendMovies, 'id');
@@ -64,7 +65,8 @@ class HomeController extends Controller
             'new_movies'  => $new_movies,
             'sliders'   => $sliders,
             'recommendedMovies' => $mvs,
-            'featured_actors' => $featuredActors
+            'featured_actors' => $featuredActors,
+            'free_movies' => $free_movies
 
         ] );
     }
