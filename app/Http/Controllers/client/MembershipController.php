@@ -27,7 +27,8 @@ class MembershipController extends Controller
 
     }
     public function ListMemberShip() {
-        $memberships = $this->membershipRepository->all();
+        $memberships = Membership::with('categories')->get();
+//        return $memberships;
 
         return view('client.page.membership.ListMembership' , [
             'memberships' => $memberships,
@@ -35,8 +36,8 @@ class MembershipController extends Controller
 
     }
     public function GetUserMembership() {
-        $memberships =  Membership::where('user_id' , Auth::id())->get();
-
+        $memberships =  UserMembership::with('categories' , 'membership')->where('user_id' , Auth::id())->get();
+//        return $memberships;
         return view('client.page.membership.yourMembership' , [
            'memberships' => $memberships
         ]);

@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="row" >
-                    <h2 class="col-12"><a class="text-warning" href="">Latest movie</a></h2>
+                    <h2 class="col-12"><a class="text-warning" href="{{route('latest_movie')}}">Latest movie</a></h2>
 
                 @foreach($new_movies as $movie )
                         <div class="col-md-4 col-lg-3  col-sm-6">
@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="row" >
-                    <h2 class="col-12"><a class="text-warning" href="">Recommended for  you</a></h2>
+                    <h2 class="col-12"><a class="text-warning" href="{{route('recommended_movie')}}">Recommended for  you</a></h2>
                     @foreach($recommendedMovies as $recommended )
                         <div class="col-md-4 col-lg-3  col-sm-6">
 

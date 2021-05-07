@@ -30,11 +30,24 @@ class StatisticController extends Controller
         $successTrans=$transactions->where('status' , '=','success')->groupBy('membership.name' )->map(function ($item) {
                 return $item->sum('total_amount');
         })->toArray();
+
+
+
+//        return  $successTrans;
         foreach ($successTrans as $key => $value) {
+            if($key == "" ) {
+                array_push($data ,[
+                    'label' => "Deleted membership",
+                    'y' => $value,
+                ] );
+            }
+            else {
                 array_push($data ,[
                     'label' => $key,
                     'y' => $value,
                 ] );
+            }
+
         }
 
         $success_count = $transactions->where('status' , '=','success')->count();
@@ -76,6 +89,7 @@ class StatisticController extends Controller
 
             $tmp_date->addDay();
         }
+
 //        return $fromDate;
 //        return $all_dates;
 //        return $all_dates;
@@ -84,12 +98,21 @@ class StatisticController extends Controller
         $group = $movie_view;
 //        return  $movie_view;
         $chart_data = [];
+        $all_data = $this->DatesToChartData($all_dates);
+//        foreach ($all_dates as $values ) {
+//            array_push($all_data ,[
+//                'label' => $values,
+//                'y' => 0,
+//            ] );
+//        }
+//        return  $all_data;
         foreach ($movie_view as $item) {
             array_push($chart_data ,[
                 'label' => $item->created_at,
                 'y' => $item->view_count,
             ] );
         }
+        $all_chart_data = array_merge($all_data , $chart_data);
 //        return $movie_view;
         $movie = Movie::withCount('favoriteMovies')
             ->withCount('movieViews')
@@ -99,7 +122,7 @@ class StatisticController extends Controller
             'movies' => $movie,
             'from_date' => $fromDate,
             'to_date' => $toDate,
-            'chart_data' => $chart_data,
+            'chart_data' => $all_chart_data,
             'total_view' => $total_view,
         ]);
     }
@@ -124,6 +147,7 @@ class StatisticController extends Controller
             $tmp_date->addDay();
         }
 //        return $all_dates;
+        $all_chart_data = $this->DatesToChartData($all_dates);
 
         $movie_view = MovieView::select(DB::raw('count(*) as view_count , created_at'))
             ->whereIn('created_at' , $all_dates)->groupBy('created_at')
@@ -138,6 +162,7 @@ class StatisticController extends Controller
                 'y' => $item->view_count,
             ] );
         }
+        $chart_data = array_merge($all_chart_data, $chart_data);
 
 //
 //        $movie = Movie::withCount('favoriteMovies')->get();
@@ -150,6 +175,17 @@ class StatisticController extends Controller
             'movie' => $movie
         ]);
 
+    }
+
+    private  function DatesToChartData ($date) {
+        $all_data = [];
+        foreach ($date as $values ) {
+            array_push($all_data ,[
+                'label' => $values,
+                'y' => 0,
+            ] );
+        }
+        return $all_data;
     }
 
 }

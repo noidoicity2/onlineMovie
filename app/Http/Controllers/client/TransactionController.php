@@ -11,8 +11,8 @@ class TransactionController extends Controller
 {
     //
     public function History() {
-        $transactions = Transaction::where('user_id' , Auth::id())->paginate(5);
-
+        $transactions = Transaction::with('membership')->where('user_id' , Auth::id())->paginate(5);
+//        return $transactions;
         return view('client.page.transaction.transactionHistory' , [
             "transactions" => $transactions,
         ]);

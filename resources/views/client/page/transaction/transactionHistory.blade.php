@@ -3,21 +3,21 @@
 @section('content')
     <div id="layoutSidenav_content">
         <main>
-            <div class="container-fluid">
+            <div class="container">
                 <h2 class="mt-5">Transaction history</h2>
 {{--                <ol class="breadcrumb mb-4">--}}
 {{--                    <li class="breadcrumb-item"><a href="index.html">Transaction History</a></li>--}}
 {{--                    <li class="breadcrumb-item active">Tables</li>--}}
 {{--                </ol>--}}
 
-                <div class="bg-dark mb-4">
+                <div class="card mb-4">
                     <div class="card-header font-weight-bold text-light">
                         <i class="fas fa-table mr-1"></i>
                        Transaction history
                     </div>
 
 
-                            <table class="table table-bordered table-dark" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
@@ -34,7 +34,7 @@
                                     @foreach($transactions as $transaction)
                                         <tr>
                                             <td>{{$transaction->id}}</td>
-                                            <td>{{$transaction->membership->name}}</td>
+                                            <td>{{$transaction->membership->name??"Not Found"}}</td>
                                             <td>{{$transaction->created_at}}</td>
                                             @if($transaction->status == "unsuccessfully")
                                             <td class="bg-danger">{{$transaction->status}}</td>

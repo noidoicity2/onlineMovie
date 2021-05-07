@@ -12,8 +12,11 @@ class Membership extends Model
     protected $table = "membership";
     protected $fillable = ['name' , 'description' , 'price' , 'number_of_day' , 'created_at' ] ;
 
+    public function membershipCategories() {
+       return $this->hasMany(MembershipCategory::class , 'membership_id' , 'id');
+    }
     public function categories() {
-        $this->hasMany(MembershipCategory::class , 'membership_id' , 'id');
+        return $this->belongsToMany(Category::class , MembershipCategory::class);
     }
 
 

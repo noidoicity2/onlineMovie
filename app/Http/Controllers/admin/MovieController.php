@@ -327,7 +327,10 @@ class MovieController extends Controller
 
             $this->dispatch(new HandleUploadEpisode($filePath, $movie->slug ,$extension ,$name));
         }
-        return "success";
+        return back()->with([
+            'success' => true ,
+            'message' => "Add episode successfully",
+        ]);
 
 
     }

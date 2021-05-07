@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 
 
@@ -129,6 +130,7 @@ class ClientMovieController extends Controller
     }
     public function Watch($slug =null , $id = null) {
         $movie = $this->movieRepository->get($id);
+
         if(!Auth::check() && $movie->is_free == 1) {
             return view ('client.page.movie.watchFree' , [
                 'movie' => $movie ,
@@ -143,7 +145,9 @@ class ClientMovieController extends Controller
 //        return $listMemberships;
         $membership_cats = MembershipCategory::whereIn('membership_id' , $listMemberships)->pluck('category_id')->toArray();
 
-        if(count($membership_cats) < 1){
+        $sameValue = array_intersect($movie_cates , $membership_cats);
+
+        if(count($sameValue) < 1){
             return view ('Share.upgradeVip');
         }
 
@@ -197,9 +201,53 @@ class ClientMovieController extends Controller
     }
     public function WatchEpisode($slug = null , $id = null) {
         $episode = Episode::find($id);
+        $movie = $this->movieRepository->get($episode->movie_id);
+
+
+        if(!Auth::check() && $movie->is_free == 1) {
+            return view ('client.page.movie.watchFree' , [
+                'movie' => $movie ,
+                'categories'=>$this->categories,
+
+
+            ]);
+        }
+
+        $movie_cates = MovieCategory::where('movie_id' , $movie->id)->pluck('category_id')->toArray();
+        $listMemberships = UserMembership::where('user_id' , Auth::id())
+            ->where('expired_date' , '>' , now())
+            ->distinct()
+            ->pluck('membership_id')
+            ->toArray();
+        $membership_cats = MembershipCategory::whereIn('membership_id' , $listMemberships)->pluck('category_id')->toArray();
+
+        $sameValue = array_intersect($movie_cates , $membership_cats);
+
+
+        if(count($sameValue) < 1){
+            return view ('Share.upgradeVip');
+        }
+        $episode = Episode::find($id);
+        $episodes = Episode::where('movie_id' , $episode->movie_id)->get();
+
+        $epi_ids = $episodes->pluck('id')->toArray();
+        $next_pos = array_search($episode->id, $epi_ids) + 1;
+        if($next_pos >= count($epi_ids)) $next_pos =0 ;
+        $nextMovie = $episodes->find($epi_ids[$next_pos]);
+
+        $bookmark = BookMark::where('movie_id' , $episode->movie_id)
+            ->where('user_id' , Auth::id())
+            ->where('episode_id' , $episode->id)->first();
+//        return $bookmark;
+//        return $bookmark;
+//        return $nextMovie;
+
 
         return view('client.page.movie.watchEpisode' ,[
             'episode' => $episode,
+            'episodes' => $episodes,
+            'next_episode' => $nextMovie,
+            'bookmark' => $bookmark
         ]);
     }
     public function testJw() {
@@ -262,10 +310,19 @@ class ClientMovieController extends Controller
     }
 
     public function PostBookMark(Request $request) {
-        $bookMark = BookMark::where(['user_id' => Auth::id() , 'movie_id' =>$request->movie_id  ])->first();
+
+        if($request->episode_id != null) {
+            $bookMark = BookMark::where(['user_id' => Auth::id() , 'movie_id' =>$request->movie_id , 'episode_id' =>$request->episode_id  ])->first();
+
+        }else {
+            $bookMark = BookMark::where(['user_id' => Auth::id() , 'movie_id' =>$request->movie_id  ])->first();
+
+        }
 //        dd($bookMark);
 //        return  compact($bookMark);
-        if($bookMark ==null) {
+//        return $request->all();
+        if($bookMark == null) {
+//            return "dasdas";
             BookMark::create([
                 'user_id' => Auth::id(),
                 'movie_id'=> $request->movie_id,
@@ -278,7 +335,7 @@ class ClientMovieController extends Controller
 
             ]);
         }
-
+//return $bookMark;
         BookMark::find($bookMark->id)->update(['position' => $request->position]);
         return json_encode([
             "success" => true,
@@ -396,6 +453,25 @@ class ClientMovieController extends Controller
         ]);
         return back()->with([
             'message' => "Thanks for your request"
+        ]);
+    }
+
+    public function LastestMovie() {
+        $movies = Movie::latest()->paginate(8);
+//        return $movies;
+        return view('client.page.movie.latest' , [
+            'movies' => $movies,
+        ]);
+    }
+
+    public function RecommendedMovie() {
+        $recommendMovies = DB::select('select * from category  where id in (select b.category_id from favorite as a INNER JOIN movie_category as b on a.movie_id = b.movie_id where a.user_id = ? )', [Auth::id()] );
+        $recommendMovies = array_column($recommendMovies, 'id');
+        $mvs = Movie::select('id' , 'name','en_name', 'quality_label' , 'is_movie_series', 'slug' , 'img')->whereHas('categories', function (Builder $query) use($recommendMovies) {
+            $query->whereIn('category_id', $recommendMovies);
+        } )->paginate(8);
+        return view('client.page.movie.recommended' , [
+            'movies' => $mvs,
         ]);
     }
 

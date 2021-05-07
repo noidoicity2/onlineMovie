@@ -72,8 +72,8 @@
                                                     <tr>
                                                         <td>{{$transaction->id}}</td>
                                                         <td>{{$transaction->user->name}} #{{$transaction->user->id}}</td>
-                                                        <td>{{$transaction->membership->name}}</td>
-                                                        <td>{{$transaction->membership->number_of_day}}</td>
+                                                        <td>{{$transaction->membership->name ?? "Not found"}}</td>
+                                                        <td>{{$transaction->membership->number_of_day ?? "Not found"}}</td>
                                                         <td>{{$transaction->total_amount}}</td>
                                                         @switch($transaction->status)
 

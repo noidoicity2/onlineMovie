@@ -215,10 +215,16 @@ Route::prefix('client')->group(function () {
     Route::Post('createPayment', [ClientMembership::class , 'createPaymentUrl'])->name('create_payment');
     Route::get('previewPurchase/{id}&&day={day}', [ClientMembership::class , 'PreviewPurchase'])->name('preview_purchase');
 
+
+        Route::get('yourMembership', [ClientMembership::class , 'GetUserMembership'])->name('your_membership');
+
+
 });
 
 //end Client route
 Route::prefix('movie')->group(function() {
+    Route::get('latestMovie' , [ClientMovieController::class , 'LastestMovie'])->name('latest_movie');
+    Route::get('recommended' , [ClientMovieController::class , 'RecommendedMovie'])->name('recommended_movie');
 
     Route::get('requestMovie' , [ClientMovieController::class , 'RequestMovie'])->name('request_movie');
     Route::get('postRequestMovie' , [ClientMovieController::class , 'PostRequestMovie'])->name('post_request_movie');

@@ -38,7 +38,7 @@
                     <h2 class="en-title">{{$movie->en_name}}</h2>
                     <p class="detail-item">Diretor: {{$movie->director->name ?? "unknown"}}</p>
                     <p class="detail-item">Quality: {{$movie->quality_label}}</p>
-                    <p class="detail-item">Actor : @foreach($actors as $actor) <a href="">{{$actor->actor->name}}</a> , @endforeach</p>
+                    <p class="detail-item">Actor :  @foreach($actors as $actor) <a href="">{{$actor->actor->name ?? ""}}</a> , @endforeach </p>
                     <p class="detail-item">Genre: @foreach($categories as $category) <a href="{{route('get_movie_by_category' ,['slug' => $category->category->slug , 'id' =>$category->category_id])}}">{{$category->category->name}}</a> , @endforeach</p>
                     <p class="detail-item">Duration: {{$movie->duration}} minutes</p>
                     <p class="detail-item">Nation: {{$movie->country->name ?? ""}}</p>

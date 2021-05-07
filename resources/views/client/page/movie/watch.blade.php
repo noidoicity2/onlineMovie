@@ -30,7 +30,7 @@
                  <button id="btn-bookmark" class="btn btn-danger mr-2 mt-2"><i class="fa fa-bookmark" aria-hidden="true"></i> Book Mark</button>
                  <button id="btn-skip-intro" class="btn btn-primary mr-2  mt-2"><i class="fa fa-forward" aria-hidden="true"></i> Skip intro</button>
 {{--                 <button id="btn-go-bookmark" class="btn btn-secondary mr-2  mt-2"><i class="fa fa-forward" aria-hidden="true"></i> Good to bookmark </button>--}}
-                 <button id="btn-next-episode" class="btn btn-success mr-2  mt-2">Next Episode</button>
+{{--                 <button id="btn-next-episode" class="btn btn-success mr-2  mt-2">Next Episode</button>--}}
              </div>
 
          </div>

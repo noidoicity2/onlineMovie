@@ -11,7 +11,7 @@
 
         </div>
     </div>
-{{--    {{$episodes->links('vendor.pagination.bootstrap-4')}}--}}
+
 
 
 @endsection
