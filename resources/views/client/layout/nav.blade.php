@@ -22,7 +22,7 @@
                     <div class="dropdown-menu dropdown-menu-right" style="overflow: auto ; max-height: 500px" aria-labelledby="navbarDropdownPortfolio">
                         <a class="dropdown-item text-success"  style="" href="{{route('get_all_country)')}}">All Countries</a>
                         @foreach($navCountries as $country)
-                            <a class="dropdown-item" href="portfolio-1-col.html">{{$country->name}}</a>
+                            <a class="dropdown-item" href="{{route('get_movie_by_country' , ['slug' => $country->slug , 'id' => $country->id])}}">{{$country->name}}</a>
                         @endforeach
                         {{--                        <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>--}}
                         {{--                        <a class="dropdown-item" href="portfolio-2-col.html">2 Column Portfolio</a>--}}

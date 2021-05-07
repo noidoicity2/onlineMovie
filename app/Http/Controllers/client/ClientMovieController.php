@@ -355,14 +355,14 @@ class ClientMovieController extends Controller
 
     public function GetMovieByCountry($slug=null,$id=null) {
 //        $movie =  $this->movieRepository->where(['country_id' , $id])->get();
-        $movie = Movie::where('country_id',$id)->paginate(10);
+        $movie = Movie::where('country_id',$id)->paginate(8);
 //        return $movie;
-        $mostViewedMovies = $this->movieRepository->getMostViewedMovie()->take(3)->get();
+//        $mostViewedMovies = $this->movieRepository->getMostViewedMovie()->take(3)->get();
 
         return view('client.page.movie.listMovieByCountry', [
 //            'categories'  => $this->categories,
 //            'countries'   => $this->countries,
-            'mostViewedMovies'=> $mostViewedMovies,
+//            'mostViewedMovies'=> $mostViewedMovies,
 
             'movies'  => $movie,
 
