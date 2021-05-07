@@ -163,6 +163,7 @@
     <script>
         var options = {
             animationEnabled: true,
+            zoomEnabled: true,
             title: {
                 text: "All transaction"
             },

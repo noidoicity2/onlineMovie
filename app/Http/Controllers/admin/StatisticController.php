@@ -9,6 +9,7 @@ use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Collection;
 
 class StatisticController extends Controller
 {
@@ -65,6 +66,57 @@ class StatisticController extends Controller
                 'unsuccessful_count' => $unsuccessful_count,
                 'successTrans' => $data
             ]);
+        }
+
+        public function RevenueStatistic(Request  $request) {
+            if(isset($request->from_date) && isset($request->to_date)) {
+                $fromDate = Carbon::createFromFormat('Y-m-d', $request->from_date);
+                $toDate =  Carbon::createFromFormat('Y-m-d', $request->to_date);
+            }
+            else{
+                $fromDate = now()->subDays(30);
+                $toDate =  now();
+            }
+            $tmp_date = clone $fromDate;
+
+            $all_dates = array();
+            while ($tmp_date->lte($toDate)){
+                $all_dates[] = $tmp_date->toDateString();
+
+                $tmp_date->addDay();
+            }
+            $all_chart_data = $this->DatesToChartData($all_dates);
+
+
+            $chart_data = [];
+            $successTrans = Transaction::select(DB::raw('SUM(total_amount) as sum'))
+                ->addSelect('transaction.created_at')
+            ->where('status' , 'success')
+            ->whereBetween('created_at' , [$fromDate , $toDate])
+                ->groupByRaw('Date(created_at)')->get();
+
+            $total_revenue = Transaction::where('status' , 'success')->sum('total_amount');
+
+
+
+
+            foreach ($successTrans as $item) {
+                array_push($chart_data ,[
+                    'label' => $item->created_at,
+                    'y' => $item->sum,
+                ] );
+            }
+            $all_chart_data = array_merge($all_chart_data , $chart_data);
+
+            return view('admin.page.statistic.revenue',[
+//                'movies' => $movie,
+                'from_date' => $fromDate,
+                'to_date' => $toDate,
+                'chart_data' => $all_chart_data,
+                'total_revenue' => $total_revenue,
+            ]);
+
+
         }
 
 

@@ -15,7 +15,7 @@
                             <p style="font-size: 20px" class="text-light font-weight-bolder mt-3 ml-3">{{number_format($totalRevenue)}}  <span>VND</span></p>
                             <div class="card-body font-weight-bolder" style="font-size: 30px ">Total revenue</div>
                             <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
+{{--                                <a class="small text-white stretched-link" href="#">View Details</a>--}}
                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                             <p style="font-size: 20px" class="text-light font-weight-bolder mt-3 ml-3">{{$totalMovie}}  <span>Movies</span></p>
                             <div class="card-body font-weight-bolder" style="font-size: 30px ">Total Movie</div>
                             <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
+{{--                                <a class="small text-white stretched-link" href="#">View Details</a>--}}
                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                             <p style="font-size: 20px" class="text-light font-weight-bolder mt-3 ml-3">{{$totalUser}}  <span>Users</span></p>
                             <div class="card-body font-weight-bolder" style="font-size: 30px ">Total User</div>
                             <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
+{{--                                <a class="small text-white stretched-link" href="#">View Details</a>--}}
                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                             <p style="font-size: 20px" class="text-light font-weight-bolder mt-3 ml-3">{{$totalCategory}}  <span>Categories</span></p>
                             <div class="card-body font-weight-bolder" style="font-size: 30px ">Total Category</div>
                             <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
+{{--                                <a class="small text-white stretched-link" href="#">View Details</a>--}}
                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                             </div>
                         </div>

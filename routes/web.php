@@ -119,6 +119,8 @@ Route::prefix('admin')->middleware(AllowAdmin::class)->group(function () {
 
     Route::prefix('statistic')->group(function () {
         Route::get('transaction', [StatisticController::class, 'TransactionStatistic' ])->name('transaction_statistic');
+        Route::get('revenue', [StatisticController::class, 'RevenueStatistic' ])->name('revenue_statistic');
+
         Route::get('movie', [StatisticController::class, 'MovieStatistic' ])->name('movie_statistic');
         Route::get('movieDetail/{id}', [StatisticController::class, 'MovieStatisticDetail' ])->name('movie_statistic_detail');
 

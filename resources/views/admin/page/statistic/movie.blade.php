@@ -136,6 +136,7 @@
 
         var options = {
             animationEnabled: true,
+            zoomEnabled: true,
             title:{
                 text: "Total views"
             },

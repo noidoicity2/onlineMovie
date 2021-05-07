@@ -61,6 +61,8 @@
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="{{route('transaction_statistic')}}">Transaction statistic</a>
                         <a class="nav-link" href="{{route('movie_statistic')}}">Movie statistic</a>
+                        <a class="nav-link" href="{{route('revenue_statistic')}}">Revenue statistic</a>
+
                     </nav>
                 </div>
 

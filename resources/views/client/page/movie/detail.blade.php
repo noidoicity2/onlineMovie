@@ -110,6 +110,7 @@
         <div class="section-related">
 
 <div class="row">
+    <div class="col-12">Related Movie</div>
             @foreach($related_movies as $related )
 
 
