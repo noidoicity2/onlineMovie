@@ -7,6 +7,7 @@ use App\Models\Actor;
 use App\Models\BookMark;
 use App\Models\Category;
 use App\Models\Country;
+use App\Models\Director;
 use App\Models\Episode;
 use App\Models\Favorite;
 use App\Models\Membership;
@@ -382,6 +383,8 @@ class ClientMovieController extends Controller
     public function Filter(Request $request) {
         $selectCategories = Category::CategoryForSelect()->get();
         $selectCountries = Country::CountryForSelect()->get();
+        $selectDirectors = Director::all();
+//        return $selectDirectors;
 
         $whereArray = [
             'published_at' =>  $request->published_at ,
@@ -389,6 +392,7 @@ class ClientMovieController extends Controller
             'is_on_cinema' => $request->is_on_cinema,
             'is_free' => $request->is_free,
             'is_movie_series' => $request->is_movie_series,
+            'director_id' =>$request->director_id,
         ];
         $filterWhere = array_filter($whereArray , function ($value) {
             return $value != ""&&$value !=null;
@@ -416,6 +420,7 @@ class ClientMovieController extends Controller
             'selectCategories' => $selectCategories,
             'selectCountries' => $selectCountries,
             'keyword'   => $request->name,
+            'selectDirectors' => $selectDirectors,
 
         ]);
 

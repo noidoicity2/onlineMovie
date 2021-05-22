@@ -174,7 +174,7 @@ class StatisticController extends Controller
             'movies' => $movie,
             'from_date' => $fromDate,
             'to_date' => $toDate,
-            'chart_data' => $all_chart_data,
+            'chart_data' => $chart_data,
             'total_view' => $total_view,
         ]);
     }
@@ -214,7 +214,7 @@ class StatisticController extends Controller
                 'y' => $item->view_count,
             ] );
         }
-        $chart_data = array_merge($all_chart_data, $chart_data);
+//        $chart_data = array_merge($all_chart_data, $chart_data);
 
 //
 //        $movie = Movie::withCount('favoriteMovies')->get();

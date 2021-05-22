@@ -23,6 +23,14 @@
                             <option value="{{$country->id}}">{{substr($country->name , 0 , 10)}}</option>
                         @endforeach
                     </select>
+                    <select class="mt-1 mr-2 form-control  form-control-sm bg-dark text-light" name="director_id" aria-label="Default select example">
+                        @foreach($selectDirectors as $director)
+                            <option value="{{$director->id}}">{{$director->name}}</option>
+                        @endforeach
+
+
+
+                    </select>
                     <select class="mt-1 mr-2 form-control  form-control-sm bg-dark text-light" name="is_on_cinema" aria-label="Default select example">
                         <option value="" >On cinema now</option>
                         <option value="1">Yes</option>

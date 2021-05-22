@@ -112,7 +112,7 @@ Route::prefix('admin')->middleware(AllowAdmin::class)->group(function () {
 
         Route::post('postDeleteSlider', [SliderController::class , 'PostDelete'])->name("post_delete_slider");
         Route::post('postEditSlider', [ActorController::class , 'PostEdit'])->name("post_edit_slider");
-        Route::get('listSlider', [ActorController::class , 'ListSlider'])->name("list_actor");
+        Route::get('listSlider', [ActorController::class , 'ListSlider'])->name("list_slider");
 
     });
     Route::get('/dashboard', [DasboardController::class ,'Index'])->name("dashboard");
