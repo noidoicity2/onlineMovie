@@ -21,6 +21,7 @@ class ActorController extends Controller
         $ads = "dasda";
 //        dasdas feature 2
 //        featur 3
+//        featur e4
         return view('admin.page.actor.editActor', [
             'actor' => $actor
         ]);
