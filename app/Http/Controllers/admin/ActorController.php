@@ -23,6 +23,7 @@ class ActorController extends Controller
 //        featur 3
 //        featur e4
 //        f5
+//        f6
         return view('admin.page.actor.editActor', [
             'actor' => $actor
         ]);
