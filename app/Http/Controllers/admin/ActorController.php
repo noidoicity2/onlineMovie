@@ -19,6 +19,7 @@ class ActorController extends Controller
     public function Edit($id = null) {
         $actor = Actor::find($id);
         $ads = "dasda";
+//        dasdas feature 2
         return view('admin.page.actor.editActor', [
             'actor' => $actor
         ]);
